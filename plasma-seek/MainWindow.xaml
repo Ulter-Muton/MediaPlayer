@@ -1,0 +1,69 @@
+﻿<Window x:Class="plasma_seek.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:plasma_seek"
+        mc:Ignorable="d"
+        Height="450" Width="800"
+        WindowStyle="ToolWindow"
+        ResizeMode="CanResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40"/>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="180"/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            
+            <!--分区-->
+            <StackPanel>
+                <Button HorizontalAlignment="Center" VerticalAlignment="Center">本地</Button>
+            </StackPanel>
+            
+            
+            <!--内容区-->
+            <Grid Grid.Column="1" x:Name="contentShow">
+
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                        <Button x:Name="findMusic" Content="FInd"  Click="FindSongOnClick"/>
+                    </StackPanel>
+
+                    <ListView x:Name="songList" >
+                        <ListView.View>
+                            <GridView >
+                                <GridView.Columns>
+                                    <GridViewColumn Header="歌曲" 
+                                                    DisplayMemberBinding="{Binding Path=Title}" 
+                                                    Width="400"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Artist}"
+                                                    Header="歌手" Width="100"/>
+                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Album}" 
+                                                    Header="专辑" Width="100"/>
+                                </GridView.Columns>
+                            </GridView>
+                        </ListView.View>
+                    </ListView>
+                </DockPanel>
+            </Grid>
+        </Grid>
+        <!--底部控制区-->
+        <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <Button Content="prev" x:Name="previous"/>
+            <Button Content="star/stop" x:Name="startAndPause"/>
+            <Button Content="next" x:Name="next"/>
+            
+            <TextBlock x:Name="currentPosition"/>
+            <Slider x:Name="timeLineSplier" Width="100"/>
+            <TextBlock x:Name="totalTime"/>
+
+            <Slider x:Name="volum" MinHeight="0" Maximum="1" Value="0.5" Width="100"/>
+            <ToggleButton Content="love" x:Name="loveMusic"/>
+        </StackPanel> 
+    </Grid>
+</Window>

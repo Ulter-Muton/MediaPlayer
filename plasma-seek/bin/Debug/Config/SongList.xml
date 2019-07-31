@@ -1,0 +1,51 @@
+<?xml version="1.0"?>
+<ArrayOfMediaInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <MediaInfo>
+    <Title>岚の夜には</Title>
+    <Artist>AKB48</Artist>
+    <Album>チームB 5th Stage“シアターの女神” ~studio recordings コレクション~�</Album>
+    <Path>E:\CloudMusic\AKB48 - 岚の夜には.mp3</Path>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>願いごとの持ち腐れ</Title>
+    <Artist>AKB48</Artist>
+    <Album>願いごとの持ち腐れ(Type A)�</Album>
+    <Path>E:\CloudMusic\AKB48 - 願いごとの持ち腐れ.mp3</Path>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>風は吹いている</Title>
+    <Artist>AKB48</Artist>
+    <Album>風は吹いている [TYPE B]�</Album>
+    <Path>E:\CloudMusic\AKB48 - 風は吹いている.mp3</Path>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>たいようの哀悼歌</Title>
+    <Artist>FLOWER</Artist>
+    <Album>たいようの哀悼歌</Album>
+    <Path>E:\CloudMusic\FLOWER - たいようの哀悼歌.mp3</Path>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>Green Flash</Title>
+    <Path>E:\CloudMusic\Green Flash.mp3</Path>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>クモ</Title>
+    <Artist>TOKIO</Artist>
+    <Album>クモ (初回限定盤)�</Album>
+    <Path>E:\CloudMusic\TOKIO - クモ.mp3</Path>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>一生所爱</Title>
+    <Album />
+    <Path>E:\CloudMusic\卢冠廷 - 一生所爱.mp3</Path>
+  </MediaInfo>
+  <MediaInfo>
+    <Title />
+    <Path>E:\CloudMusic\横山由依 + 栗本柚希 - Chandelier (AKB48Goup 第七回村内红白) - 1.1(Av18583306,P1).Mp3</Path>
+  </MediaInfo>
+  <MediaInfo>
+    <Title />
+    <Album>赵小然</Album>
+    <Path>E:\CloudMusic\赵焕然 - 广东爱情故事（Cover 广东雨神）.mp3</Path>
+  </MediaInfo>
+</ArrayOfMediaInfo>

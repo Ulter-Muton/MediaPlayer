@@ -1,0 +1,28 @@
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29123.88
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "plasma-seek", "plasma-seek.csproj", "{28F04DA0-C4B8-44A2-B7CD-EFEAC56B634D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{28F04DA0-C4B8-44A2-B7CD-EFEAC56B634D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{28F04DA0-C4B8-44A2-B7CD-EFEAC56B634D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{28F04DA0-C4B8-44A2-B7CD-EFEAC56B634D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{28F04DA0-C4B8-44A2-B7CD-EFEAC56B634D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2614677E-036F-49F4-A474-435AA7B82BF1}
+	EndGlobalSection
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
+EndGlobal
