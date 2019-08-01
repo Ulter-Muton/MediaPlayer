@@ -43,5 +43,18 @@ namespace plasma_seek {
                 xml.Serialize(stream, this);
             }
         }
+        /// <summary>
+        /// 查找列表中是否含有相同对象
+        /// </summary>
+        /// <param name="info">被检测对象</param>
+        /// <returns></returns>
+        public bool HaveItem(MediaInfo info) {
+            foreach (var item in this) {
+                if (item.Equals(info)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 }

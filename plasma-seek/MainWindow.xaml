@@ -33,7 +33,7 @@
                 <WrapPanel x:Name="songCurrentPanel" Grid.Row="2">
                     <!--<localMyControl:DrawImagePanel x:Name="songFace" Width="50" Height="50"/>-->
                     <Image x:Name="currentSongImage" Source="Images/DiskImage.png" Width="80" Height="80" HorizontalAlignment="Left"/>
-                    <StackPanel Width="100">
+                    <StackPanel Name="panel" Width="100">
                         <StackPanel Orientation="Horizontal">
                             <Label  Content="歌手:"/>
                             <TextBlock x:Name="currentSongArtist" />
@@ -60,9 +60,9 @@
                     </StackPanel>
 
                     <ListView x:Name="songList" SelectionChanged="SongSelectionChange" 
-                              MouseDoubleClick="SongListItem_DoubleClick">
+                              MouseDoubleClick="SongListItem_DoubleClick" ScrollViewer.VerticalScrollBarVisibility="Auto">
                         <ListView.View>
-                            <GridView >
+                            <GridView>
                                 <GridView.Columns>
                                     <GridViewColumn Header="歌曲" 
                                                     DisplayMemberBinding="{Binding Path=Title}" 

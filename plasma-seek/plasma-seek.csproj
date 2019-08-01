@@ -63,7 +63,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="SongListSaveLode.cs" />
     <Compile Include="MyControl\DrawImagePanel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -90,6 +89,10 @@
   <ItemGroup>
     <Compile Include="MediaInfo.cs" />
     <Compile Include="MediaInfos.cs" />
+    <Compile Include="PersionalClass\BaseLoadAsve.cs" />
+    <Compile Include="PersionalClass\MusicPlayer.cs" />
+    <Compile Include="PersionalClass\SongFolderRecoder.cs" />
+    <Compile Include="PersionalClass\SongFolderRecoders.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -118,6 +121,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\DiskImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="lib\ID3.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

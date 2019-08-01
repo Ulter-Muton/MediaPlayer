@@ -68,6 +68,14 @@ namespace plasma_seek {
             //路径
             Path = _id3Frames.FilePath;
         }
+        /// <summary>
+        /// 定义对比
+        /// </summary>
+        /// <param name="info">被比较对象</param>
+        /// <returns></returns>
+        public bool Equals(MediaInfo info) {
+            return this.Path == info.Path;
+        }
 
 
         //=================================
@@ -76,18 +84,27 @@ namespace plasma_seek {
         /// </summary>
         /// <returns></returns>
         public BitmapImage GetImage() {
-            AttachedPictureFrame[] frames;
+            AttachedPictureFrame[] frames=null;
             //======================================================
             //生成歌曲信息实例
             if (_id3Frames != null) {
                 frames = _id3Frames.ID3v2Info.AttachedPictureFrames.Items;
             } else {
-                ID3Info songInfo = new ID3Info(this.Path, true);
-                frames = songInfo.ID3v2Info.AttachedPictureFrames.Items;
+                try {
+                    ID3Info songInfo = new ID3Info(this.Path, true);
+                    frames = songInfo.ID3v2Info.AttachedPictureFrames.Items;
+                } catch (Exception) {
+                    frames = null;
+                }
+                
             }
             //======================================================
-            if (frames.Length == 0) {
-                return null;
+            if (frames==null || frames.Length == 0) {
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.UriSource = new Uri("pack://application:,,,/Images/DiskImage.png");
+                bitmap.EndInit();
+                return bitmap;
             } else {
                 var item = frames[0];
 

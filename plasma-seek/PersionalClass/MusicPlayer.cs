@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace plasma_seek {
-    class SongListSaveLode {
+namespace plasma_seek.PersionalClass {
+    class MusicPlayer {
     }
 }
