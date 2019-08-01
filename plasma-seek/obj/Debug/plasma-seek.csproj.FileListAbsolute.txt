@@ -15,11 +15,9 @@ E:\Project\MediaPlayer\plasma-seek\obj\Debug\plasma-seek.exe
 E:\Project\MediaPlayer\plasma-seek\obj\Debug\plasma-seek.pdb
 E:\Project\MediaPlayer\plasma-seek\obj\Debug\Style\Resource.ControlTemplate.baml
 E:\Project\MediaPlayer\plasma-seek\obj\Debug\Style\test.baml
-E:\Project\MediaPlayer\plasma-seek\obj\Debug\GeneratedInternalTypeHelper.g.cs
 E:\Project\MediaPlayer\plasma-seek\bin\Debug\JetBrains.Annotations.dll
 E:\Project\MediaPlayer\plasma-seek\bin\Debug\JetBrains.Annotations.xml
 E:\Project\MediaPlayer\plasma-seek\obj\Debug\plasma-seek.csproj.CopyComplete
-E:\Project\MediaPlayer\plasma-seek\bin\Debug\TestResource\media.mp3
-E:\Project\MediaPlayer\plasma-seek\obj\Debug\plasma-seek_Content.g.cs
 E:\Project\MediaPlayer\plasma-seek\bin\Debug\ID3.dll
 E:\Project\MediaPlayer\plasma-seek\bin\Debug\ID3.pdb
+E:\Project\MediaPlayer\plasma-seek\obj\Debug\GeneratedInternalTypeHelper.g.cs

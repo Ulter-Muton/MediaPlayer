@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:plasma_seek"
+        xmlns:localMyControl="clr-namespace:plasma_seek.MyControl"
         mc:Ignorable="d"
         Height="450" Width="800"
         WindowStyle="ToolWindow"
@@ -14,18 +15,42 @@
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
+
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
-            
+
             <!--分区-->
-            <StackPanel>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 <Button HorizontalAlignment="Center" VerticalAlignment="Center">本地</Button>
-            </StackPanel>
-            
-            
+                <WrapPanel x:Name="songCurrentPanel" Grid.Row="2">
+                    <!--<localMyControl:DrawImagePanel x:Name="songFace" Width="50" Height="50"/>-->
+                    <Image x:Name="currentSongImage" Source="Images/DiskImage.png" Width="80" Height="80" HorizontalAlignment="Left"/>
+                    <StackPanel Width="100">
+                        <StackPanel Orientation="Horizontal">
+                            <Label  Content="歌手:"/>
+                            <TextBlock x:Name="currentSongArtist" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="专辑:"/>
+                            <TextBlock x:Name="currentSongAlbum" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="时间:"/>
+                            <TextBlock x:Name="currentSongTime" />
+                        </StackPanel>
+                    </StackPanel>
+                    <TextBlock Text="歌曲:"/>
+                    <TextBlock Name="currentSongTitle"/>
+                </WrapPanel>
+            </Grid>
             <!--内容区-->
             <Grid Grid.Column="1" x:Name="contentShow">
 
@@ -34,7 +59,8 @@
                         <Button x:Name="findMusic" Content="FInd"  Click="FindSongOnClick"/>
                     </StackPanel>
 
-                    <ListView x:Name="songList" >
+                    <ListView x:Name="songList" SelectionChanged="SongSelectionChange" 
+                              MouseDoubleClick="SongListItem_DoubleClick">
                         <ListView.View>
                             <GridView >
                                 <GridView.Columns>
@@ -49,7 +75,7 @@
                             </GridView>
                         </ListView.View>
                     </ListView>
-                    
+
                 </DockPanel>
             </Grid>
         </Grid>
@@ -58,13 +84,13 @@
             <Button Content="prev" x:Name="previous"/>
             <Button Content="star/stop" x:Name="startAndPause"/>
             <Button Content="next" x:Name="next"/>
-            
+
             <TextBlock x:Name="currentPosition"/>
             <Slider x:Name="timeLineSplier" Width="100"/>
             <TextBlock x:Name="totalTime"/>
 
             <Slider x:Name="volum" MinHeight="0" Maximum="1" Value="0.5" Width="100"/>
             <ToggleButton Content="love" x:Name="loveMusic"/>
-        </StackPanel> 
+        </StackPanel>
     </Grid>
 </Window>

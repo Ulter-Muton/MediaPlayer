@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ID3;
 using ID3.ID3v2Frames.BinaryFrames;
@@ -27,6 +28,8 @@ namespace plasma_seek {
             Album = "未知";
             Artist = "未知";
             Path = "";
+            Time = "未知";
+            //_id3Frames.ID3v1Info.
         }
         public MediaInfo(ID3Info info) {
 
@@ -56,6 +59,12 @@ namespace plasma_seek {
                     Album = album;
                 }
             }
+            //专辑名称
+            string time = _id3Frames.ID3v2Info.GetTextFrame("TIME");//获取歌手名字,使用第三方的库
+            if (time != "") {
+                Time=time;
+            }
+
             //路径
             Path = _id3Frames.FilePath;
         }
@@ -66,19 +75,38 @@ namespace plasma_seek {
         /// 用于获取mp3歌曲文件的封面
         /// </summary>
         /// <returns></returns>
-        public Image GetImage() {
-            var frame = _id3Frames.ID3v2Info.AttachedPictureFrames;
-            if (frame.Items.Length == 0) {
+        public BitmapImage GetImage() {
+            AttachedPictureFrame[] frames;
+            //======================================================
+            //生成歌曲信息实例
+            if (_id3Frames != null) {
+                frames = _id3Frames.ID3v2Info.AttachedPictureFrames.Items;
+            } else {
+                ID3Info songInfo = new ID3Info(this.Path, true);
+                frames = songInfo.ID3v2Info.AttachedPictureFrames.Items;
+            }
+            //======================================================
+            if (frames.Length == 0) {
                 return null;
             } else {
-                var item = frame.Items[0];
-                return Image.FromStream(item.Data);
+                var item = frames[0];
+
+                //将实例保存的stream保存到bitmap中
+                var bitmap = new BitmapImage();
+                bitmap.BeginInit();
+                bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                bitmap.StreamSource = item.Data;
+                bitmap.EndInit();
+                item.Data.Dispose();
+                return bitmap;
             }
         }
-        //======================================
+        #region 属性
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Album { get; set; }
         public string Path { get; set; }
+        public string Time { get; set; }
+        #endregion
     }
 }

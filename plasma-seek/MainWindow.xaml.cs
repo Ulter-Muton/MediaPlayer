@@ -24,7 +24,7 @@ namespace plasma_seek {
     /// 
     public partial class MainWindow : Window {
 
-        MediaInfos mediaInfos;//歌曲信息列表S
+        
         public MainWindow() {
 
             InitializeComponent();
@@ -46,7 +46,7 @@ namespace plasma_seek {
             songList.ItemsSource = mediaInfos;
 
             //====================
-
+            _currentSongInfo = null;
         }
 
         //==============================================================
@@ -55,6 +55,8 @@ namespace plasma_seek {
         private string _configPath;//各种设置信息路径
         private string _SongListXmlPath;//歌曲列表文件路径
 
+        MediaInfos mediaInfos;//歌曲信息列表S
+        private ID3Info _currentSongInfo;//当前歌曲信息
         //==============================================================
 
         //属性
@@ -100,6 +102,25 @@ namespace plasma_seek {
                     }
                 }
                 mediaInfos.SaveToXml(SongListXmlPath);
+            }
+        }
+
+        private void SongSelectionChange(object sender, SelectionChangedEventArgs e) {
+            ListBoxItem item = e.Source as ListBoxItem;
+            if (item!=null) {
+                System.Windows.MessageBox.Show(songList.SelectedValue.ToString());
+            }
+            
+        }
+
+        private void SongListItem_DoubleClick(object sender, MouseButtonEventArgs e) {
+            MediaInfo info = songList.SelectedValue as MediaInfo;
+            if (info!=null) {
+                currentSongImage.Source = info.GetImage();//显示专辑封面
+                currentSongAlbum.Text = info.Album;
+                currentSongArtist.Text = info.Artist;
+                currentSongTime.Text = info.Time;
+                currentSongTitle.Text = info.Title;
             }
         }
     }
