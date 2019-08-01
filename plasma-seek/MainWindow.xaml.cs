@@ -17,6 +17,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using plasma_seek.PersionalClass;
+using System.Collections.ObjectModel;
 
 namespace plasma_seek {
     /// <summary>
@@ -29,7 +30,7 @@ namespace plasma_seek {
         public MainWindow() {
 
             InitializeComponent();
-            
+
             //=============================================
             //获取软件的运行目录
             _solfWarePath = Directory.GetCurrentDirectory();
@@ -38,14 +39,8 @@ namespace plasma_seek {
             _FolderPath = System.IO.Path.Combine(_configPath, "PathList.xml");
             //创建路径
             //Directory.CreateDirectory(_configPath);
-            //============================================
-
-
-            //====================
             _currentSongInfo = null;
-
             MediaElementInitialization();
-
             InitializationAllSetting();
         }
 
@@ -56,13 +51,18 @@ namespace plasma_seek {
         private string _configPath;//各种设置信息路径
         private string _SongListXmlPath;//歌曲列表文件路径
         private string _FolderPath;//歌曲文件夹列表路径
+        //private string _favoriteSongPath;//最爱歌曲记录文件路径
 
         MediaInfos mediaInfos;//歌曲信息列表S
         private ID3Info _currentSongInfo;//当前歌曲信息
-        private SongFolderRecoders _folderRecoerds;
+        private SongFolderRecoders _folderRecoerds;//路径文件夹列表
+                                                   //private FavoriteSongs favorites//最喜爱列表
+
+        private bool isAudioPlay;//记录音乐播放状态
+        private System.ComponentModel.ICollectionView mediasListView;
 
         MediaElement audio;//播放器
-                           //==============================================================
+
         #endregion
 
 
@@ -71,10 +71,9 @@ namespace plasma_seek {
         public string ConfigPath { get => _configPath; }
         public string SongListXmlPath { get => _SongListXmlPath; }
         public string FolderPath { get => _FolderPath; }
+        //public string  FavoriteSongPath { get => _favoriteSongPath; }
         //====================================================
         #endregion
-
-
         /// <summary>
         /// 初始化播放器
         /// </summary>
@@ -88,20 +87,20 @@ namespace plasma_seek {
 
         private void InitializationAllSetting() {
 
-            if (Directory.Exists(_configPath) ==false) {
+            if (Directory.Exists(_configPath) == false) {
                 //检查文件是否存在,如果不存在创建它
                 Directory.CreateDirectory(_configPath);
             }
 
             //加载文件夹路径列表
             _folderRecoerds = SongFolderRecoders.LoadFromXml(_FolderPath) as SongFolderRecoders;
-            if (_folderRecoerds==null) {
+            if (_folderRecoerds == null) {
                 _folderRecoerds = new SongFolderRecoders();
                 _folderRecoerds.SaveToXml(_FolderPath);
             }
             //加载歌曲信息列表
             mediaInfos = MediaInfos.LoadFromXml(SongListXmlPath);//从歌曲列表记录文件加载
-            if (mediaInfos==null) {
+            if (mediaInfos == null) {
                 mediaInfos = new MediaInfos();
             } else {
                 //检查歌曲是否存在
@@ -121,7 +120,15 @@ namespace plasma_seek {
                 }
             }
             mediaInfos.SaveToXml(SongListXmlPath);
-            songList.ItemsSource = mediaInfos;//将歌曲信息赋值到Listbox中
+
+
+            //创建音乐播放控制
+            mediasListView = CollectionViewSource.GetDefaultView(mediaInfos);
+            //设置前一首,下一首按钮是否可用
+            previous.IsEnabled = mediasListView.CurrentPosition != 0;
+            next.IsEnabled = mediasListView.CurrentPosition != mediaInfos.Count - 1;
+
+            songList.ItemsSource = mediasListView;//将歌曲信息赋值到Listbox中
         }
 
         /// <summary>
@@ -143,7 +150,7 @@ namespace plasma_seek {
                     if (regex.IsMatch(songPath)) {
 
                         //记录拥有音乐文件的文件夹路径=================================
-                        if (_folderRecoerds.Count==0) {
+                        if (_folderRecoerds.Count == 0) {
                             //将文件夹路径记录到列表中
                             _folderRecoerds.Add(new SongFolderRecoder(getFolder.SelectedPath));
                             //将列表信息记录到xml中
@@ -161,7 +168,7 @@ namespace plasma_seek {
                             }
                         }
                         //==================================================================
-                        
+
                         //当符合正则表达式时
                         try {
                             try {
@@ -169,7 +176,7 @@ namespace plasma_seek {
                                 media = new ID3Info(songPath, true);
                                 MediaInfo info = new MediaInfo(media);
                                 //将歌曲信息增加到
-                                if (mediaInfos.HaveItem(info)==false) {
+                                if (mediaInfos.HaveItem(info) == false) {
                                     mediaInfos.Add(info);
                                 }
 
@@ -182,6 +189,7 @@ namespace plasma_seek {
                     }
                 }
                 mediaInfos.SaveToXml(SongListXmlPath);
+                mediasListView.Refresh();
             }
         }
 
@@ -192,9 +200,21 @@ namespace plasma_seek {
             }
 
         }
-
+        /// <summary>
+        /// 双击歌曲发生的事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void SongListItem_DoubleClick(object sender, MouseButtonEventArgs e) {
             MediaInfo info = songList.SelectedValue as MediaInfo;
+            mediasListView.MoveCurrentTo(info);
+            AudioPlay(info);
+        }
+        /// <summary>
+        /// 播放音乐
+        /// </summary>
+        /// <param name="info">音乐文件</param>
+        private void AudioPlay(MediaInfo info) {
             try {
                 if (info != null) {
                     currentSongImage.Source = info.GetImage();//显示专辑封面
@@ -206,6 +226,10 @@ namespace plasma_seek {
                     Uri songUri = new Uri(info.Path);
                     audio.Source = songUri;
                     audio.Play();
+                    isAudioPlay = true;
+
+                    previous.IsEnabled = mediasListView.CurrentPosition != 0;
+                    next.IsEnabled = mediasListView.CurrentPosition != mediaInfos.Count - 1;
                 }
             } catch (Exception) {
                 return;

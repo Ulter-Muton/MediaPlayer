@@ -63,6 +63,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="MainWindow.xaml.AudioPlayControl.cs" />
     <Compile Include="MyControl\DrawImagePanel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -90,7 +91,11 @@
     <Compile Include="MediaInfo.cs" />
     <Compile Include="MediaInfos.cs" />
     <Compile Include="PersionalClass\BaseLoadAsve.cs" />
+    <Compile Include="PersionalClass\FavoriteSong.cs" />
+    <Compile Include="PersionalClass\FavoriteSongs.cs" />
     <Compile Include="PersionalClass\MusicPlayer.cs" />
+    <Compile Include="PersionalClass\PlayList.cs" />
+    <Compile Include="PersionalClass\PlayListItem.cs" />
     <Compile Include="PersionalClass\SongFolderRecoder.cs" />
     <Compile Include="PersionalClass\SongFolderRecoders.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">

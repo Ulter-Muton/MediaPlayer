@@ -6,6 +6,7 @@
     <Album>チームB 5th Stage“シアターの女神” ~studio recordings コレクション~�</Album>
     <Path>E:\Music\AKB48 - 岚の夜には.mp3</Path>
     <Time>未知</Time>
+    <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
     <Title>願いごとの持ち腐れ</Title>
@@ -13,6 +14,7 @@
     <Album>願いごとの持ち腐れ(Type A)�</Album>
     <Path>E:\Music\AKB48 - 願いごとの持ち腐れ.mp3</Path>
     <Time>未知</Time>
+    <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
     <Title>風は吹いている</Title>
@@ -20,6 +22,7 @@
     <Album>風は吹いている [TYPE B]�</Album>
     <Path>E:\Music\AKB48 - 風は吹いている.mp3</Path>
     <Time>未知</Time>
+    <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
     <Title>たいようの哀悼歌</Title>
@@ -27,6 +30,7 @@
     <Album>たいようの哀悼歌</Album>
     <Path>E:\Music\FLOWER - たいようの哀悼歌.mp3</Path>
     <Time>未知</Time>
+    <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
     <Title>Green Flash</Title>
@@ -34,6 +38,7 @@
     <Album>未知</Album>
     <Path>E:\Music\Green Flash.mp3</Path>
     <Time>未知</Time>
+    <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
     <Title>クモ</Title>
@@ -41,6 +46,7 @@
     <Album>クモ (初回限定盤)�</Album>
     <Path>E:\Music\TOKIO - クモ.mp3</Path>
     <Time>未知</Time>
+    <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
     <Title>一生所爱</Title>
@@ -48,6 +54,7 @@
     <Album />
     <Path>E:\Music\卢冠廷 - 一生所爱.mp3</Path>
     <Time>未知</Time>
+    <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
     <Title />
@@ -55,5 +62,6 @@
     <Album>未知</Album>
     <Path>E:\Music\横山由依 + 栗本柚希 - Chandelier (AKB48Goup 第七回村内红白) - 1.1(Av18583306,P1).Mp3</Path>
     <Time>未知</Time>
+    <IsFavorite>false</IsFavorite>
   </MediaInfo>
 </ArrayOfMediaInfo>

@@ -81,9 +81,9 @@
         </Grid>
         <!--底部控制区-->
         <StackPanel Orientation="Horizontal" Grid.Row="2">
-            <Button Content="prev" x:Name="previous"/>
-            <Button Content="star/stop" x:Name="startAndPause"/>
-            <Button Content="next" x:Name="next"/>
+            <Button Content="prev" x:Name="previous" Click="Previous_Click"/>
+            <Button Content="star/stop" x:Name="startAndPause" Click="StartPaulse_Click"/>
+            <Button Content="next" x:Name="next" Click="Next_Click"/>
 
             <TextBlock x:Name="currentPosition"/>
             <Slider x:Name="timeLineSplier" Width="100"/>

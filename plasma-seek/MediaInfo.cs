@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Drawing;
 using System.IO;
 using System.Linq;
@@ -16,8 +17,12 @@ namespace plasma_seek {
     /// 表示音频文件的类
     /// 用于listbox的显示
     /// </summary>
-    public class MediaInfo {
+    public class MediaInfo : INotifyPropertyChanged {
         private ID3Info _id3Frames;
+        private bool _isFavorite;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
         //private string _title;
         //private string _artist;
         //private string _album;
@@ -29,6 +34,7 @@ namespace plasma_seek {
             Artist = "未知";
             Path = "";
             Time = "未知";
+            IsFavorite = false;
             //_id3Frames.ID3v1Info.
         }
         public MediaInfo(ID3Info info) {
@@ -62,7 +68,7 @@ namespace plasma_seek {
             //专辑名称
             string time = _id3Frames.ID3v2Info.GetTextFrame("TIME");//获取歌手名字,使用第三方的库
             if (time != "") {
-                Time=time;
+                Time = time;
             }
 
             //路径
@@ -84,7 +90,7 @@ namespace plasma_seek {
         /// </summary>
         /// <returns></returns>
         public BitmapImage GetImage() {
-            AttachedPictureFrame[] frames=null;
+            AttachedPictureFrame[] frames = null;
             //======================================================
             //生成歌曲信息实例
             if (_id3Frames != null) {
@@ -96,10 +102,10 @@ namespace plasma_seek {
                 } catch (Exception) {
                     frames = null;
                 }
-                
+
             }
             //======================================================
-            if (frames==null || frames.Length == 0) {
+            if (frames == null || frames.Length == 0) {
                 var bitmap = new BitmapImage();
                 bitmap.BeginInit();
                 bitmap.UriSource = new Uri("pack://application:,,,/Images/DiskImage.png");
@@ -118,12 +124,30 @@ namespace plasma_seek {
                 return bitmap;
             }
         }
+
+        private void OnChange(string propertyName) {
+            if (PropertyChanged!=null) {
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+            
+        }
+
+
         #region 属性
         public string Title { get; set; }
         public string Artist { get; set; }
         public string Album { get; set; }
         public string Path { get; set; }
         public string Time { get; set; }
+        public bool IsFavorite {
+            get {
+                return _isFavorite;
+            }
+            set {
+                _isFavorite = value;
+                OnChange("IsFavorite");
+            }
+        }
         #endregion
     }
 }
