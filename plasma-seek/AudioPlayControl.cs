@@ -1,0 +1,265 @@
+﻿using ID3;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Forms;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using System.Text.RegularExpressions;
+using plasma_seek.PersionalClass;
+using System.ComponentModel;
+
+namespace plasma_seek {
+
+
+    /// <summary>
+    /// Interaction logic for MainWindow.xaml
+    /// </summary>
+    /// 
+    public partial class MainWindow : Window,INotifyPropertyChanged {
+        #region 变量
+        //========依赖属性,用来数据绑定
+        public static readonly DependencyProperty IsRecycleProperty;
+        public static readonly DependencyProperty IsRandomProperty;
+        public static readonly DependencyProperty SingleRecycleProperty;
+
+        public event PropertyChangedEventHandler PropertyChanged;//用于数据绑定,当属性改变时,调用事件处理器
+        #endregion
+
+        #region 静态构造器
+        static MainWindow() {
+            IsRecycleProperty = DependencyProperty.Register("IsRecycle", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+            IsRandomProperty = DependencyProperty.Register("IsRandom", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+            SingleRecycleProperty = DependencyProperty.Register("SingleRecycle", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+        }
+        #endregion
+
+
+        #region 属性
+        /// <summary>
+        /// 控制是否循环播放
+        /// </summary>
+        public bool IsRecycle { get => (bool)GetValue(IsRecycleProperty); set => SetValue(IsRecycleProperty, value); }
+        /// <summary>
+        /// 控制是否随机播放
+        /// </summary>
+        public bool IsRandom { get => (bool)GetValue(IsRandomProperty); set => SetValue(IsRandomProperty, value); }
+        /// <summary>
+        /// 单曲 循环
+        /// </summary>
+        public bool SingleRecycle { get => (bool)GetValue(SingleRecycleProperty); set => SetValue(SingleRecycleProperty, value); }
+        #endregion
+
+
+
+        /// <summary>
+        /// 播放音乐
+        /// </summary>
+        /// <param name="info">音乐文件</param>
+        private void AudioPlay(MediaInfo info) {
+            try {
+                if (info != null) {
+                    currentSongImage.Source = info.GetImage();//显示专辑封面
+                    currentSongAlbum.Text = info.Album;
+                    currentSongArtist.Text = info.Artist;
+                    currentSongGenur.Text = info.Gener;
+                    currentSongTitle.Text = info.Title;
+
+                    Uri songUri = new Uri(info.Path);
+                    audio.Source = songUri;
+                    audio.Play();
+                    isAudioPlay = true;
+
+                }
+            } catch (Exception) {
+                return;
+            }
+        }
+
+
+        private void StartPaulse_Click(object sender, RoutedEventArgs e) {
+            //检查是否在播放状态
+            if (isAudioPlay) {
+                audio.Pause();
+                isAudioPlay = false;
+            } else {
+                audio.Play();
+                isAudioPlay = true;
+            }
+        }
+        private void Previous_Click(object sender, RoutedEventArgs e) {
+            //mediasListView.MoveCurrentToPrevious();
+
+            ////listbox滚动到播放位置
+            //songList.SelectedItem = mediaInfos[mediasListView.CurrentPosition];
+            //songList.ScrollIntoView(mediaInfos[mediasListView.CurrentPosition]);
+
+            ////audio.Source = new Uri(mediaInfos[mediasListView.CurrentPosition].Path);
+            ////audio.Play();
+            ////isAudioPlay = true;
+            //AudioPlay(mediasListView.CurrentItem as MediaInfo);
+
+            //============================================
+            ICollectionView tmpView = AudioListSelect(AudioControlSign.Previous);
+            AudioPlayControl(tmpView, AudioControlSign.Previous);
+            ScrollBoxToItem(tmpView);
+            PreviewNextButtonIntinial();
+        }
+        private void Next_Click(object sender, RoutedEventArgs e) {
+
+            ICollectionView tmpView = AudioListSelect(AudioControlSign.Next);
+            AudioPlayControl(tmpView, AudioControlSign.Next);
+            ScrollBoxToItem(tmpView);
+            PreviewNextButtonIntinial();
+
+            //========================================
+            //mediasListView.MoveCurrentToNext();
+
+            ////listbox滚动到播放位置
+            //songList.SelectedItem = mediaInfos[mediasListView.CurrentPosition];
+            //songList.ScrollIntoView(mediaInfos[mediasListView.CurrentPosition]);
+
+            //AudioPlay(mediasListView.CurrentItem as MediaInfo);
+        }
+        /// <summary>
+        /// 设置自动播放下一首
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void AudioPlayCompliete(object sender, RoutedEventArgs e) {
+            RoutedEventArgs args = new RoutedEventArgs();
+            args.RoutedEvent =System.Windows.Controls.Button.ClickEvent;
+            args.Source = next;
+            Next_Click(next, args);
+        }
+
+        /// <summary>
+        /// 当属性改变时发出事件,方法放置在属性set块里面
+        /// </summary>
+        /// <param name="propertyName">属性名称</param>
+        private void PropertyOnChanged(string propertyName) {
+            if (PropertyChanged != null) {
+                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            }
+        }
+
+        #region 控制播放顺序的核心功能
+        /// <summary>
+        /// 控制播放上一曲或者下一曲
+        /// </summary>
+        /// <param name="view">列表的控制视图</param>
+        /// <param name="myControl"></param>
+        private void AudioPlayControl(ICollectionView view, AudioControlSign myControl) {
+            if (myControl == AudioControlSign.Previous) {
+                view.MoveCurrentToPrevious();
+                MediaInfo tmpInfo = view.CurrentItem as MediaInfo;
+                if (tmpInfo != null) {
+                    AudioPlay(tmpInfo);
+                }
+            } else {
+                //播放下一首歌曲
+                if (SingleRecycle) {
+                    //单曲循环,不处理
+                } else {
+                    if (IsRandom) {
+                        //如果设置了随机播放
+                        IsRecycle = true;
+                        Random random = new Random();
+                        int position = random.Next(0, mediaInfos.Count);
+                        view.MoveCurrentToPosition(position);
+                    } else {
+                        //不是随机播放
+                        view.MoveCurrentToNext();
+                    }
+                    
+                }              
+                MediaInfo tmpInfo = view.CurrentItem as MediaInfo;
+                if (tmpInfo != null) {
+                    AudioPlay(tmpInfo);
+                }
+            }
+        }
+        /// <summary>
+        /// 选择使用那个列表
+        /// </summary>
+        /// <returns></returns>
+        private ICollectionView AudioListSelect(AudioControlSign control) {
+
+            if (IsRecycle&&mediasListView.CurrentPosition==mediaInfos.Count-1) {
+                //如果是重复模式,在最后一首歌时,将视图控制器恢复初始化
+                mediasListView.MoveCurrentToPosition(-1);
+                return mediasListView;
+            }
+
+
+            if (control == AudioControlSign.Previous) {
+                if (playList.Count != 0) {
+                    if (playListView.CurrentPosition == 0) {
+                        playListView.MoveCurrentToPrevious();
+                        mediasListView.MoveCurrentToNext();//因为audioplaycontrol方法直接moveprevious,所以先向前移动一位,然后按"上一首"可以回到前面播放的那一首
+                        return mediasListView;
+                    } else if (playListView.CurrentPosition == -1) {
+                        return mediasListView;
+                    } else {
+                        return playListView;
+                    }
+                } else {
+                    return mediasListView;
+                }
+            } else {
+                //输入控制是MyControl.Next
+                if (playList.Count == 0||IsRandom) {
+                    //如果播放列表没有内容,或者设置了随机播放
+                    return mediasListView;
+                } else {
+                    if (playListView.CurrentPosition == -1) {
+                        return playListView;
+                    } else if (playListView.CurrentPosition == playList.Count) {
+                        //当播放列表播放完毕后,清空列表
+                        playList.Clear();
+                        playListView.Refresh();
+                        return mediasListView;
+                    } else {
+                        return playListView;
+                    }
+                }
+            }
+
+        }
+        /// <summary>
+        /// 设置按钮是否可用
+        /// </summary>
+        private void PreviewNextButtonIntinial() {
+            if (IsRecycle) {
+                previous.IsEnabled = next.IsEnabled = true;
+            } else {
+                previous.IsEnabled = mediasListView.CurrentPosition == 0 ? false : true;
+                next.IsEnabled = mediasListView.CurrentPosition == mediaInfos.Count - 1 ? false : true;
+            }
+
+        }
+        /// <summary>
+        /// 设置listbox的选择项并且滚动到此项
+        /// </summary>
+        /// <param name="view"></param>
+        private void ScrollBoxToItem(ICollectionView view) {
+            var item = view.CurrentItem as MediaInfo;
+            if (item != null) {
+                songList.SelectedItem = item;
+                songList.ScrollIntoView(item);
+            }
+
+        }
+        #endregion
+    }
+}

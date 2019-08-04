@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 G:\Project\MediaPlayer\plasma-seek\App.xaml
-31750519622
+31422873131
 11507052371
-191169284574
-17-1443708213
-MainWindow.xaml;Style\Resource.ControlTemplate.xaml;Style\test.xaml;
+22805117732
+18290004091
+MainWindow.xaml;MyControl\StarStopButton.xaml;Style\Resource.ControlTemplate.xaml;
 
-False
+True
 

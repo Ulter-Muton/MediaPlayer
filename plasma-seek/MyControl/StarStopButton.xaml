@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Button xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:plasma_seek"
+        xmlns:convert="clr-namespace:plasma_seek.DateConvertor"
+        x:Class="plasma_seek.MyControl.StarStopButton">
+    <Button.Template>
+        <ControlTemplate  TargetType="{x:Type Button}">
+            <ControlTemplate.Resources>
+                <convert:LengthDubTwo x:Key="convertor"/>
+            </ControlTemplate.Resources>
+            <Border Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
+                      Background="#00000000"
+                    Name="rootBorder">
+                
+                <Grid>
+                <Ellipse Width="{TemplateBinding Width,Converter={StaticResource convertor}}" Name="Ellipse" Fill="{TemplateBinding  Background}"/>
+                <Grid>
+                    <Rectangle Name="stop" Fill="{TemplateBinding Foreground}" RadiusX="0.5" RadiusY="0.5" Visibility="Collapsed"/>
+                    <Polygon Name="start" Fill="{TemplateBinding Foreground}"/>
+                </Grid>
+            </Grid>
+        </Border>
+    </ControlTemplate>
+    </Button.Template>
+</Button>

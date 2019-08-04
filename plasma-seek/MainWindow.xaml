@@ -8,7 +8,8 @@
         mc:Ignorable="d"
         Height="450" Width="800"
         WindowStyle="ToolWindow"
-        ResizeMode="CanResize">
+        ResizeMode="CanResize"
+        x:Name="myWin">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -43,8 +44,8 @@
                             <TextBlock x:Name="currentSongAlbum" />
                         </StackPanel>
                         <StackPanel Orientation="Horizontal">
-                            <Label Content="时间:"/>
-                            <TextBlock x:Name="currentSongTime" />
+                            <Label Content="类型:"/>
+                            <TextBlock x:Name="currentSongGenur" />
                         </StackPanel>
                     </StackPanel>
                     <TextBlock Text="歌曲:"/>
@@ -89,8 +90,13 @@
             <Slider x:Name="timeLineSplier" Width="100"/>
             <TextBlock x:Name="totalTime"/>
 
-            <Slider x:Name="volum" MinHeight="0" Maximum="1" Value="0.5" Width="100"/>
+            
             <ToggleButton Content="love" x:Name="loveMusic"/>
+            <ToggleButton IsChecked="{Binding ElementName=myWin, Path=IsRecycle, Mode=TwoWay}" Content="recycle all"/>
+            <ToggleButton IsChecked="{Binding ElementName=myWin, Path=SingleRecycle, Mode=TwoWay}" Content="singleRecycle"/>
+            <ToggleButton IsChecked="{Binding ElementName=myWin, Path=IsRandom, Mode=TwoWay}" Content="random"/>
+            <Label  Content="volum"/>
+            <Slider x:Name="volum" MinHeight="0" Maximum="1" Value="0.5" Width="100"/>
         </StackPanel>
     </Grid>
 </Window>

@@ -1,35 +1,83 @@
 <?xml version="1.0"?>
 <ArrayOfMediaInfo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <MediaInfo>
-    <Title>岚の夜には</Title>
+    <Title>05 陳奕迅 - 岁月如歌</Title>
+    <Artist>陳奕迅</Artist>
+    <Album>Sound &amp; Sight</Album>
+    <Path>E:\Music\05 陳奕迅 - 岁月如歌.flac</Path>
+    <Gener>Pop</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>AKB48 - また あなたのことを考えてた</Title>
     <Artist>AKB48</Artist>
-    <Album>チームB 5th Stage“シアターの女神” ~studio recordings コレクション~�</Album>
+    <Album>ハイテンション ＜劇場盤＞</Album>
+    <Path>E:\Music\AKB48 - また あなたのことを考えてた(ボーカルチーム).flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>AKB48 - 回遊魚のキャパシティ</Title>
+    <Artist>AKB48</Artist>
+    <Album>studio recordings コレクション</Album>
+    <Path>E:\Music\AKB48 - 回遊魚のキャパシティ.flac</Path>
+    <Gener>J-Pop</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>AKB48 - 岚の夜には</Title>
+    <Artist>AKB48</Artist>
+    <Album>チームB 5th Stage“シアターの女神” ~studio recordings コレクション~</Album>
     <Path>E:\Music\AKB48 - 岚の夜には.mp3</Path>
-    <Time>未知</Time>
+    <Gener>J-Pop</Gener>
     <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
-    <Title>願いごとの持ち腐れ</Title>
+    <Title>AKB48 - 涙の表面張力</Title>
     <Artist>AKB48</Artist>
-    <Album>願いごとの持ち腐れ(Type A)�</Album>
+    <Album>僕たちは、あの日の夜明けを知っている (Type-A)</Album>
+    <Path>E:\Music\AKB48 - 涙の表面張力.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>AKB48 - 願いごとの持ち腐れ</Title>
+    <Artist>AKB48</Artist>
+    <Album>願いごとの持ち腐れ(Type A)</Album>
     <Path>E:\Music\AKB48 - 願いごとの持ち腐れ.mp3</Path>
-    <Time>未知</Time>
+    <Gener>未知</Gener>
     <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
-    <Title>風は吹いている</Title>
+    <Title>AKB48 - 風は吹いている</Title>
     <Artist>AKB48</Artist>
-    <Album>風は吹いている [TYPE B]�</Album>
+    <Album>風は吹いている [TYPE B]</Album>
     <Path>E:\Music\AKB48 - 風は吹いている.mp3</Path>
-    <Time>未知</Time>
+    <Gener>未知</Gener>
     <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
-    <Title>たいようの哀悼歌</Title>
+    <Title>AKB48 Team A - 蜃気楼</Title>
+    <Artist>AKB48 Team A</Artist>
+    <Album>studio recordings コレクション</Album>
+    <Path>E:\Music\AKB48 Team A - 蜃気楼.flac</Path>
+    <Gener>J-Pop</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>米津玄師 - 打上花火</Title>
+    <Artist>DAOKO/米津玄師</Artist>
+    <Album>打上花火</Album>
+    <Path>E:\Music\DAOKO,米津玄師 - 打上花火.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>FLOWER - たいようの哀悼歌</Title>
     <Artist>FLOWER</Artist>
     <Album>たいようの哀悼歌</Album>
     <Path>E:\Music\FLOWER - たいようの哀悼歌.mp3</Path>
-    <Time>未知</Time>
+    <Gener>未知</Gener>
     <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
@@ -37,31 +85,191 @@
     <Artist>未知</Artist>
     <Album>未知</Album>
     <Path>E:\Music\Green Flash.mp3</Path>
-    <Time>未知</Time>
+    <Gener>未知</Gener>
     <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
-    <Title>クモ</Title>
+    <Title>miwa - Princess -Instrumental-</Title>
+    <Artist>miwa</Artist>
+    <Album>Princess</Album>
+    <Path>E:\Music\miwa - Princess -Instrumental-.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>miwa - ヒカリヘ instrumental synth theme - instrumental</Title>
+    <Artist>miwa</Artist>
+    <Album>ホイッスル ～君と過こした日々～</Album>
+    <Path>E:\Music\miwa - ヒカリヘ instrumental synth theme - instrumental.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>miw</Title>
+    <Artist>miwa</Artist>
+    <Album>miwa ballad collection ~graduation~</Album>
+    <Path>E:\Music\miwa - 月食 ~winter moon~.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>TOKIO - クモ</Title>
     <Artist>TOKIO</Artist>
-    <Album>クモ (初回限定盤)�</Album>
+    <Album>クモ (初回限定盤)</Album>
     <Path>E:\Music\TOKIO - クモ.mp3</Path>
-    <Time>未知</Time>
+    <Gener>未知</Gener>
     <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
-    <Title>一生所爱</Title>
-    <Artist>未知</Artist>
-    <Album />
+    <Title>Wha</Title>
+    <Artist>Wham!</Artist>
+    <Album>1000 Klassiekers: De Eindejaarstop Van Radio 2 Volume 2</Album>
+    <Path>E:\Music\Wham! - Last Christmas.flac</Path>
+    <Gener>Pop</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>X JAPAN - La Venus </Title>
+    <Artist>X JAPAN</Artist>
+    <Album>We Are X (Original Soundtrack)</Album>
+    <Path>E:\Music\X JAPAN - La Venus (Acoustic Version).flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>X JAPAN - Silent Jealousy</Title>
+    <Artist>X JAPAN</Artist>
+    <Album>THE WORLD~X JAPAN 初の全世界ベスト~</Album>
+    <Path>E:\Music\X JAPAN - Silent Jealousy.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>X JAPAN - 紅</Title>
+    <Artist>X JAPAN</Artist>
+    <Album>THE WORLD~X JAPAN 初の全世界ベスト~</Album>
+    <Path>E:\Music\X JAPAN - 紅.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>伍佰 - 突然的自我</Title>
+    <Artist>伍佰</Artist>
+    <Album>忘情1015精选辑</Album>
+    <Path>E:\Music\伍佰 - 突然的自我.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>刘思涵 - 走在冷风中</Title>
+    <Artist>刘思涵</Artist>
+    <Album>拥抱你</Album>
+    <Path>E:\Music\刘思涵 - 走在冷风中.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>卢冠廷 - 一生所爱</Title>
+    <Artist>卢冠廷</Artist>
+    <Album>Beyond Imagination</Album>
     <Path>E:\Music\卢冠廷 - 一生所爱.mp3</Path>
-    <Time>未知</Time>
+    <Gener>未知</Gener>
     <IsFavorite>false</IsFavorite>
   </MediaInfo>
   <MediaInfo>
-    <Title />
+    <Title>H</Title>
+    <Artist>广东雨神/毛伯合</Artist>
+    <Album>广东爱情故事（架子鼓）</Album>
+    <Path>E:\Music\广东雨神,毛伯合 - 广东爱情故事（Hark Rock）.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>傲日其愣 - 凉凉</Title>
+    <Artist>张碧晨/陈奕夫/傲日其愣/唐倩</Artist>
+    <Album>我想和你唱 第二季 第4期</Album>
+    <Path>E:\Music\张碧晨,陈奕夫,傲日其愣 - 凉凉.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>曲婉婷 - Jar Of Love</Title>
+    <Artist>未知</Artist>
+    <Album>未知</Album>
+    <Path>E:\Music\曲婉婷 - Jar Of Love.ncm</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>栗本柚希 - Chandelier </Title>
     <Artist>未知</Artist>
     <Album>未知</Album>
     <Path>E:\Music\横山由依 + 栗本柚希 - Chandelier (AKB48Goup 第七回村内红白) - 1.1(Av18583306,P1).Mp3</Path>
-    <Time>未知</Time>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>欅坂46 - 不協和音</Title>
+    <Artist>欅坂46</Artist>
+    <Album>不協和音 (TYPE-A)</Album>
+    <Path>E:\Music\欅坂46 - 不協和音.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>渡辺麻友 - 守ってあげたくなる</Title>
+    <Artist>渡辺麻友</Artist>
+    <Album>Best Regards!</Album>
+    <Path>E:\Music\渡辺麻友 - 守ってあげたくなる.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>矢野立美 - TAKE ME HIGHER</Title>
+    <Artist>矢野立美</Artist>
+    <Album>ウルトラマンティガ COMPLETE“TIGA”EDITION</Album>
+    <Path>E:\Music\矢野立美 - TAKE ME HIGHER.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>絢香 - I believe</Title>
+    <Artist>絢香</Artist>
+    <Album>THIS IS ME～絢香 10th anniversary BEST～</Album>
+    <Path>E:\Music\絢香 - I believe.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>薛之谦 - 演员</Title>
+    <Artist>薛之谦</Artist>
+    <Album>绅士</Album>
+    <Path>E:\Music\薛之谦 - 演员.flac</Path>
+    <Gener>未知</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>许巍 - 旅行</Title>
+    <Artist>许巍</Artist>
+    <Album>曾经的你</Album>
+    <Path>E:\Music\许巍 - 旅行.flac</Path>
+    <Gener>���������e����</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>チャップリン</Title>
+    <Artist>鈴木雅之</Artist>
+    <Album>Martini Duet</Album>
+    <Path>E:\Music\鈴木雅之 - ロンリー・チャップリン.flac</Path>
+    <Gener>JPop</Gener>
+    <IsFavorite>false</IsFavorite>
+  </MediaInfo>
+  <MediaInfo>
+    <Title>陈慧娴 - 傻女</Title>
+    <Artist>陈慧娴</Artist>
+    <Album>Back To Priscilla 30th Anniversary Collections</Album>
+    <Path>E:\Music\陈慧娴 - 傻女.flac</Path>
+    <Gener>Cantopop</Gener>
     <IsFavorite>false</IsFavorite>
   </MediaInfo>
 </ArrayOfMediaInfo>

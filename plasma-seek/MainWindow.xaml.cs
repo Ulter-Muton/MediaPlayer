@@ -18,6 +18,8 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using plasma_seek.PersionalClass;
 using System.Collections.ObjectModel;
+using ATL;
+using System.ComponentModel;
 
 namespace plasma_seek {
     /// <summary>
@@ -42,6 +44,7 @@ namespace plasma_seek {
             _currentSongInfo = null;
             MediaElementInitialization();
             InitializationAllSetting();
+
         }
 
         #region 变量
@@ -53,15 +56,19 @@ namespace plasma_seek {
         private string _FolderPath;//歌曲文件夹列表路径
         //private string _favoriteSongPath;//最爱歌曲记录文件路径
 
-        MediaInfos mediaInfos;//歌曲信息列表S
-        private ID3Info _currentSongInfo;//当前歌曲信息
+        private MediaInfos mediaInfos;//歌曲信息列表S
+        private MediaInfos playList;//播放列表
+        private Track _currentSongInfo;//当前歌曲信息
         private SongFolderRecoders _folderRecoerds;//路径文件夹列表
                                                    //private FavoriteSongs favorites//最喜爱列表
 
         private bool isAudioPlay;//记录音乐播放状态
         private System.ComponentModel.ICollectionView mediasListView;
+        private System.ComponentModel.ICollectionView playListView;
 
         MediaElement audio;//播放器
+
+        
 
         #endregion
 
@@ -82,8 +89,11 @@ namespace plasma_seek {
             audio.LoadedBehavior = MediaState.Manual;
             audio.UnloadedBehavior = MediaState.Stop;
             audio.Visibility = Visibility.Collapsed;
+            audio.MediaEnded += AudioPlayCompliete;
             panel.Children.Add(audio);
         }
+
+
 
         private void InitializationAllSetting() {
 
@@ -129,6 +139,10 @@ namespace plasma_seek {
             next.IsEnabled = mediasListView.CurrentPosition != mediaInfos.Count - 1;
 
             songList.ItemsSource = mediasListView;//将歌曲信息赋值到Listbox中
+
+            //播放列表初始化
+            playList = new MediaInfos();
+            playListView = CollectionViewSource.GetDefaultView(playList);
         }
 
         /// <summary>
@@ -143,8 +157,8 @@ namespace plasma_seek {
             if (getFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
                 FilePaths = Directory.GetFiles(getFolder.SelectedPath);
                 //FileStream mediaStream = null;
-                ID3Info media = null;
-                Regex regex = new Regex(@"^.+\.mp3$", RegexOptions.IgnoreCase);//使用正则表达式过滤出音频名称
+                Track media = null;
+                Regex regex = new Regex(@"(\w+[ ]*)+(?=[(.mp3)(.flav)])", RegexOptions.IgnoreCase);//使用正则表达式过滤出音频名称
                 foreach (string songPath in FilePaths) {
                     //过滤出属于音频信息的音频
                     if (regex.IsMatch(songPath)) {
@@ -173,7 +187,7 @@ namespace plasma_seek {
                         try {
                             try {
                                 //获取歌曲文件
-                                media = new ID3Info(songPath, true);
+                                media = new Track(songPath, true);
                                 MediaInfo info = new MediaInfo(media);
                                 //将歌曲信息增加到
                                 if (mediaInfos.HaveItem(info) == false) {
@@ -210,30 +224,6 @@ namespace plasma_seek {
             mediasListView.MoveCurrentTo(info);
             AudioPlay(info);
         }
-        /// <summary>
-        /// 播放音乐
-        /// </summary>
-        /// <param name="info">音乐文件</param>
-        private void AudioPlay(MediaInfo info) {
-            try {
-                if (info != null) {
-                    currentSongImage.Source = info.GetImage();//显示专辑封面
-                    currentSongAlbum.Text = info.Album;
-                    currentSongArtist.Text = info.Artist;
-                    currentSongTime.Text = info.Time;
-                    currentSongTitle.Text = info.Title;
-
-                    Uri songUri = new Uri(info.Path);
-                    audio.Source = songUri;
-                    audio.Play();
-                    isAudioPlay = true;
-
-                    previous.IsEnabled = mediasListView.CurrentPosition != 0;
-                    next.IsEnabled = mediasListView.CurrentPosition != mediaInfos.Count - 1;
-                }
-            } catch (Exception) {
-                return;
-            }
-        }
+              
     }
 }

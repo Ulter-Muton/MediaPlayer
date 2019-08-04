@@ -11,6 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using ID3;
 using ID3.ID3v2Frames.BinaryFrames;
+using ATL;
 
 namespace plasma_seek {
     /// <summary>
@@ -18,7 +19,7 @@ namespace plasma_seek {
     /// 用于listbox的显示
     /// </summary>
     public class MediaInfo : INotifyPropertyChanged {
-        private ID3Info _id3Frames;
+        //private Track mediaTrack;
         private bool _isFavorite;
 
         public event PropertyChangedEventHandler PropertyChanged;
@@ -33,46 +34,42 @@ namespace plasma_seek {
             Album = "未知";
             Artist = "未知";
             Path = "";
-            Time = "未知";
+            Gener = "未知";
             IsFavorite = false;
             //_id3Frames.ID3v1Info.
         }
-        public MediaInfo(ID3Info info) {
+        public MediaInfo(Track info) {
 
-            _id3Frames = info;
+            //mediaTrack = info;
 
             //以下是歌曲的具体信息=====================
             //获取标题
-            Regex regex = new Regex(@"(\w+[ ]*)+(?=.mp3)");//从路径中获取歌曲名
-            this.Title = regex.Match(_id3Frames.FilePath).Value;
+            Regex regex = new Regex(@"(\w+( *-* *)*)+(?=[(.mp3)(.flav)])");//从路径中获取歌曲名
+            if (info.Title != null && info.Title.Length != 0) {
+                this.Title = info.Title;
+            }
+            this.Title = regex.Match(info.Path).Value;
             //获取作者
-            if (_id3Frames.ID3v1Info.HaveTag && _id3Frames.ID3v1Info.Artist != "") {
-                Artist = _id3Frames.ID3v1Info.Artist;
+            if (info.Artist != "") {
+                Artist = info.Artist;
             } else {
-                //ID3v1无歌曲信息
-                string artist = _id3Frames.ID3v2Info.GetTextFrame("TOPE");//获取歌手名字,使用第三方的库
-                if (artist != "") {
-                    Artist = artist;
-                }
+                //什么都不做
             }
             //专辑名称
-            if (_id3Frames.ID3v1Info.HaveTag && _id3Frames.ID3v1Info.Album != "") {
-                Album = _id3Frames.ID3v1Info.Artist;
+            if (info.Album != "") {
+                Album = info.Album;
             } else {
-                //ID3v1无歌曲信息
-                string album = _id3Frames.ID3v2Info.GetTextFrame("TALB");//获取歌手名字,使用第三方的库
-                if (album != "") {
-                    Album = album;
-                }
+                //什么都不做
             }
             //专辑名称
-            string time = _id3Frames.ID3v2Info.GetTextFrame("TIME");//获取歌手名字,使用第三方的库
-            if (time != "") {
-                Time = time;
+            string gener = info.Genre;//获取歌曲类型
+            if (gener != "") {
+                Gener = gener;
             }
 
             //路径
-            Path = _id3Frames.FilePath;
+            Path = info.Path;
+
         }
         /// <summary>
         /// 定义对比
@@ -90,46 +87,65 @@ namespace plasma_seek {
         /// </summary>
         /// <returns></returns>
         public BitmapImage GetImage() {
-            AttachedPictureFrame[] frames = null;
+            List<PictureInfo> pictureInfos = null;
             //======================================================
             //生成歌曲信息实例
-            if (_id3Frames != null) {
-                frames = _id3Frames.ID3v2Info.AttachedPictureFrames.Items;
-            } else {
-                try {
-                    ID3Info songInfo = new ID3Info(this.Path, true);
-                    frames = songInfo.ID3v2Info.AttachedPictureFrames.Items;
-                } catch (Exception) {
-                    frames = null;
-                }
-
+            //if (mediaTrack != null) {
+            //    //如果含有歌曲源信息
+            //    pictureInfos = mediaTrack.EmbeddedPictures as List<PictureInfo>;
+            //} else {
+            //如果没有含有歌曲源信息
+            try {
+                //创建一个源信息
+                Track songInfo = new Track(this.Path, true);
+                pictureInfos = songInfo.EmbeddedPictures as List<PictureInfo>;
+            } catch (Exception) {
+                pictureInfos = null;
             }
+
+
             //======================================================
-            if (frames == null || frames.Length == 0) {
-                var bitmap = new BitmapImage();
+            var bitmap = new BitmapImage();
+            if (pictureInfos != null && pictureInfos.Count != 0) {
+                //歌曲以及嵌入图片
+                var itemInfo = pictureInfos[0];
+                MemoryStream stream = null;
+                try {
+                    stream = new MemoryStream(itemInfo.PictureData);
+                    //将实例保存的stream保存到bitmap中
+
+                    bitmap.BeginInit();
+                    bitmap.CacheOption = BitmapCacheOption.OnLoad;
+                    bitmap.StreamSource = stream;
+                    bitmap.EndInit();
+
+                    return bitmap;
+                } catch (Exception) {
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri("pack://application:,,,/Images/DiskImage.png");
+                    bitmap.EndInit();
+                    return bitmap;
+                } finally {
+                    if (stream != null) {
+                        stream.Flush();
+                        stream.Close();
+                    }
+                }
+            } else {
+                //如果没有嵌入图片
                 bitmap.BeginInit();
                 bitmap.UriSource = new Uri("pack://application:,,,/Images/DiskImage.png");
                 bitmap.EndInit();
                 return bitmap;
-            } else {
-                var item = frames[0];
-
-                //将实例保存的stream保存到bitmap中
-                var bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.CacheOption = BitmapCacheOption.OnLoad;
-                bitmap.StreamSource = item.Data;
-                bitmap.EndInit();
-                item.Data.Dispose();
-                return bitmap;
             }
+
         }
 
         private void OnChange(string propertyName) {
-            if (PropertyChanged!=null) {
+            if (PropertyChanged != null) {
                 PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
             }
-            
+
         }
 
 
@@ -138,7 +154,7 @@ namespace plasma_seek {
         public string Artist { get; set; }
         public string Album { get; set; }
         public string Path { get; set; }
-        public string Time { get; set; }
+        public string Gener { get; set; }
         public bool IsFavorite {
             get {
                 return _isFavorite;
