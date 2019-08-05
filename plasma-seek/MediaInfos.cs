@@ -12,6 +12,9 @@ namespace plasma_seek {
     /// 歌曲信息的列表,用于绑定listbox的内容
     /// </summary>
     public class MediaInfos:ObservableCollection<MediaInfo> {
+
+        public MediaInfos() {
+        }
         /// <summary>
         /// 从xml加载列表
         /// </summary>

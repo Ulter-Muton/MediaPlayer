@@ -67,8 +67,12 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AudioPlayControl.cs" />
+    <Compile Include="DateConvertor\BitmapImageToILixtConvertor.cs" />
     <Compile Include="DateConvertor\LengthDubTwo.cs" />
-    <Compile Include="MyControl\DrawImagePanel.cs" />
+    <Compile Include="DateConvertor\TimeSpanToDoubleConvertor.cs" />
+    <Compile Include="SongDisPlayPanel.xaml.cs">
+      <DependentUpon>SongDisPlayPanel.xaml</DependentUpon>
+    </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -82,11 +86,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="MyControl\StarStopButton.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Style\Resource.ControlTemplate.xaml">
+    <Page Include="SongDisPlayPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -94,7 +94,6 @@
   <ItemGroup>
     <Compile Include="MediaInfo.cs" />
     <Compile Include="MediaInfos.cs" />
-    <Compile Include="MyControl\StarStopButton.cs" />
     <Compile Include="MyEnum.cs" />
     <Compile Include="PersionalClass\BaseLoadAsve.cs" />
     <Compile Include="PersionalClass\FavoriteSong.cs" />
@@ -132,9 +131,6 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\DiskImage.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="lib\ID3.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

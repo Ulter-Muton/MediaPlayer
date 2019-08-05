@@ -21,14 +21,15 @@ namespace plasma_seek {
     public class MediaInfo : INotifyPropertyChanged {
         //private Track mediaTrack;
         private bool _isFavorite;
+        private string _title;
+        private string _artist;
+        private string _album;
+        private string _path;
+        private string _gener;
+        private byte[] _picture;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
-        //private string _title;
-        //private string _artist;
-        //private string _album;
-        //private string _path;
-        //private Image _albumImage;
         protected MediaInfo() {
             Title = "未知";
             Album = "未知";
@@ -36,6 +37,8 @@ namespace plasma_seek {
             Path = "";
             Gener = "未知";
             IsFavorite = false;
+            PictureBytes = null;
+            //Picture = null;
             //_id3Frames.ID3v1Info.
         }
         public MediaInfo(Track info) {
@@ -66,6 +69,12 @@ namespace plasma_seek {
             if (gener != "") {
                 Gener = gener;
             }
+            //获取封面
+            //Picture = GetImage(info);
+            byte[] date = info.EmbeddedPictures[0].PictureData;
+            if (date !=null&&date.Length!=0){
+                PictureBytes = date;
+            }
 
             //路径
             Path = info.Path;
@@ -87,6 +96,29 @@ namespace plasma_seek {
         /// </summary>
         /// <returns></returns>
         public BitmapImage GetImage() {
+           
+            //======================================================
+            //生成歌曲信息实例
+            //if (mediaTrack != null) {
+            //    //如果含有歌曲源信息
+            //    pictureInfos = mediaTrack.EmbeddedPictures as List<PictureInfo>;
+            //} else {
+            //如果没有含有歌曲源信息
+            Track songInfo=null;
+            try {
+                //创建一个源信息
+                songInfo = new Track(this.Path, true);
+            } catch (Exception) {
+                return null;
+            }
+            if (songInfo!=null) {
+                return GetImage(songInfo);
+            } else {
+                return null;
+            }
+            
+        }
+        public BitmapImage GetImage(Track track) {
             List<PictureInfo> pictureInfos = null;
             //======================================================
             //生成歌曲信息实例
@@ -96,14 +128,10 @@ namespace plasma_seek {
             //} else {
             //如果没有含有歌曲源信息
             try {
-                //创建一个源信息
-                Track songInfo = new Track(this.Path, true);
-                pictureInfos = songInfo.EmbeddedPictures as List<PictureInfo>;
+                pictureInfos = track.EmbeddedPictures as List<PictureInfo>;
             } catch (Exception) {
                 pictureInfos = null;
             }
-
-
             //======================================================
             var bitmap = new BitmapImage();
             if (pictureInfos != null && pictureInfos.Count != 0) {
@@ -138,8 +166,11 @@ namespace plasma_seek {
                 bitmap.EndInit();
                 return bitmap;
             }
+        }
+        public void SetImaage() {
 
         }
+
 
         private void OnChange(string propertyName) {
             if (PropertyChanged != null) {
@@ -150,11 +181,18 @@ namespace plasma_seek {
 
 
         #region 属性
-        public string Title { get; set; }
-        public string Artist { get; set; }
-        public string Album { get; set; }
-        public string Path { get; set; }
-        public string Gener { get; set; }
+        public string Title { get => _title; set{ _title = value; OnChange("Title"); } }
+        public string Artist { get => _artist; set { _artist = value; OnChange("Artist"); } }
+        public string Album { get => _album; set { _album = value; OnChange("Album"); } }
+        public string Path { get => _path; set { _path = value; OnChange("Path"); } }
+        public string Gener { get => _gener; set { _gener = value; OnChange("Gener"); } }
+        public byte[] PictureBytes { get => _picture; set {_picture = value; OnChange("PictureBytes"); } }
+        //public BitmapImage Picture {
+        //    get {
+        //        return _albumImage;
+        //    }
+        //    set { _albumImage = value; }
+        //}
         public bool IsFavorite {
             get {
                 return _isFavorite;

@@ -44,7 +44,6 @@ namespace plasma_seek {
             _currentSongInfo = null;
             MediaElementInitialization();
             InitializationAllSetting();
-
         }
 
         #region 变量
@@ -212,7 +211,6 @@ namespace plasma_seek {
             if (item != null) {
                 System.Windows.MessageBox.Show(songList.SelectedValue.ToString());
             }
-
         }
         /// <summary>
         /// 双击歌曲发生的事件
@@ -224,6 +222,5 @@ namespace plasma_seek {
             mediasListView.MoveCurrentTo(info);
             AudioPlay(info);
         }
-              
     }
 }

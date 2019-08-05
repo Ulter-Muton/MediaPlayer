@@ -4,27 +4,27 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:plasma_seek"
-        xmlns:localMyControl="clr-namespace:plasma_seek.MyControl"
+        xmlns:dateConvertor="clr-namespace:plasma_seek.DateConvertor"
         mc:Ignorable="d"
         Height="450" Width="800"
         WindowStyle="ToolWindow"
         ResizeMode="CanResize"
         x:Name="myWin">
-    <Grid>
+    <Grid ShowGridLines="false">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
 
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
             <!--分区-->
-            <Grid>
+            <Grid Grid.Column="0" Width="180">
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
@@ -53,50 +53,106 @@
                 </WrapPanel>
             </Grid>
             <!--内容区-->
-            <Grid Grid.Column="1" x:Name="contentShow">
+            <!--<Grid Grid.Column="1" x:Name="contentShow">
+                <Grid.Resources>
+                    <dateConvertor:BitmapImageToILixtConvertor x:Key="ImageSourceConvertor"/>
+                </Grid.Resources>-->
 
-                <DockPanel>
-                    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                        <Button x:Name="findMusic" Content="FInd"  Click="FindSongOnClick"/>
-                    </StackPanel>
+            <DockPanel Grid.Column="1">
 
-                    <ListView x:Name="songList" SelectionChanged="SongSelectionChange" 
-                              MouseDoubleClick="SongListItem_DoubleClick" ScrollViewer.VerticalScrollBarVisibility="Auto">
-                        <ListView.View>
-                            <GridView>
-                                <GridView.Columns>
-                                    <GridViewColumn Header="歌曲" 
-                                                    DisplayMemberBinding="{Binding Path=Title}" 
-                                                    Width="400"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Artist}"
-                                                    Header="歌手" Width="100"/>
-                                    <GridViewColumn DisplayMemberBinding="{Binding Path=Album}" 
-                                                    Header="专辑" Width="100"/>
-                                </GridView.Columns>
-                            </GridView>
-                        </ListView.View>
-                    </ListView>
+                <DockPanel.Resources>
+                    <dateConvertor:BitmapImageToILixtConvertor x:Key="ImageSourceConvertor"/>
+                </DockPanel.Resources>
 
-                </DockPanel>
-            </Grid>
+                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
+                    <Button x:Name="findMusic" Content="FInd"  Click="FindSongOnClick"/>
+                </StackPanel>
+
+                <ListBox x:Name="songList" SelectionChanged="SongSelectionChange" 
+                         MouseDoubleClick="SongListItem_DoubleClick" 
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                         HorizontalAlignment="Stretch" 
+                         VerticalAlignment="Stretch"
+                         Padding="5">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate DataType="{x:Type local:MediaInfo}">
+                            <Border Name="rootBorder">
+                                <Grid Width="80" Height="140">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="80"/>
+                                        <RowDefinition Height="40"/>
+                                        <RowDefinition Height="20"/>
+                                    </Grid.RowDefinitions>
+                                    <Image Name="Picture" Stretch="Fill" Source="{Binding PictureBytes, Converter={StaticResource ResourceKey=ImageSourceConvertor}}"/>
+                                    <TextBlock Grid.Row="1" 
+                                               Name="songName" 
+                                               Text="{Binding Path=Title}"  
+                                               TextWrapping="WrapWithOverflow"/>
+                                    <StackPanel Grid.Row="2" Margin="2"
+                                                Orientation="Horizontal">
+                                        <TextBlock Text="歌手:" FontSize="10" FontFamily="console" />
+                                        <TextBlock Grid.Row="2" 
+                                               Name="artist" 
+                                               Text="{Binding Path=Artist}" 
+                                               TextWrapping="WrapWithOverflow"
+                                               FontSize="10" FontFamily="console"/>
+                                    </StackPanel>
+                                    
+                                    
+                                    <StackPanel HorizontalAlignment="Right" 
+                                                VerticalAlignment="Top">
+                                        <Button Content="add" Height="10" Width="10" Name="addToPlayList"/>
+                                        <Button Content="love" Height="10" Width="10" Name="loveSong"/>
+                                        <Button Content="edit" Height="10" Width="10" Name="editSong"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                    <ListBox.Template>
+                        <ControlTemplate>
+                            <Border Name="rooBorder" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
+                                    Padding="2" CornerRadius="2">
+                                <ScrollViewer Width="{TemplateBinding Width}"
+                                              HorizontalScrollBarVisibility="Disabled">
+                                    <ItemsPresenter/>
+                                </ScrollViewer>
+                                <!--<WrapPanel Width="{TemplateBinding Width}">
+                                    <ItemsPresenter/>
+                                </WrapPanel>-->
+                            </Border>
+                        </ControlTemplate>
+                    </ListBox.Template>
+                    <ListBox.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel/>
+                        </ItemsPanelTemplate>
+                    </ListBox.ItemsPanel>
+                </ListBox>
+
+            </DockPanel>
+            <!--</Grid>-->
         </Grid>
         <!--底部控制区-->
         <StackPanel Orientation="Horizontal" Grid.Row="2">
+            <StackPanel.Resources>
+                <dateConvertor:TimeSpanToDoubleConvertor x:Key="TimeDoubleConvetter"/>
+            </StackPanel.Resources>
             <Button Content="prev" x:Name="previous" Click="Previous_Click"/>
             <Button Content="star/stop" x:Name="startAndPause" Click="StartPaulse_Click"/>
             <Button Content="next" x:Name="next" Click="Next_Click"/>
 
             <TextBlock x:Name="currentPosition"/>
-            <Slider x:Name="timeLineSplier" Width="100"/>
+            <Slider x:Name="timeLineSplier" Width="400" Value="{Binding Path=Position, Mode=OneWay, Converter={StaticResource TimeDoubleConvetter}}"/>
             <TextBlock x:Name="totalTime"/>
 
-            
+
             <ToggleButton Content="love" x:Name="loveMusic"/>
             <ToggleButton IsChecked="{Binding ElementName=myWin, Path=IsRecycle, Mode=TwoWay}" Content="recycle all"/>
             <ToggleButton IsChecked="{Binding ElementName=myWin, Path=SingleRecycle, Mode=TwoWay}" Content="singleRecycle"/>
             <ToggleButton IsChecked="{Binding ElementName=myWin, Path=IsRandom, Mode=TwoWay}" Content="random"/>
             <Label  Content="volum"/>
-            <Slider x:Name="volum" MinHeight="0" Maximum="1" Value="0.5" Width="100"/>
+            <Slider x:Name="volum" Minimum="0" Maximum="1" Value="0.5" Width="100" ValueChanged="VolumChangeEvent"/>
         </StackPanel>
     </Grid>
 </Window>

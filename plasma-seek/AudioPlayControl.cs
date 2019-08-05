@@ -77,9 +77,12 @@ namespace plasma_seek {
 
                     Uri songUri = new Uri(info.Path);
                     audio.Source = songUri;
-                    audio.Play();
-                    isAudioPlay = true;
+                    audio.Volume = volum.Value;//设置音量  
 
+                    audio.Play();
+                    timeLineSplier.Maximum = audio.NaturalDuration.TimeSpan.TotalMilliseconds;//设置音乐控制条的最大位置
+                    timeLineSplier.DataContext = audio;
+                    isAudioPlay = true;
                 }
             } catch (Exception) {
                 return;
@@ -143,6 +146,16 @@ namespace plasma_seek {
             Next_Click(next, args);
         }
 
+        /// <summary>
+        /// 修改音量
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void VolumChangeEvent(object sender, RoutedPropertyChangedEventArgs<double> e) {
+            if (audio!=null) {
+                audio.Volume = volum.Value;
+            }
+        }
         /// <summary>
         /// 当属性改变时发出事件,方法放置在属性set块里面
         /// </summary>
