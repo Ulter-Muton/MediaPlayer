@@ -151,8 +151,56 @@
             <!--音频播放器-->
             <MediaElement x:Name="audio" Visibility="Collapsed" MediaOpened="Audio_MediaOpened"/>
             <Button Content="prev" x:Name="previous" Click="Previous_Click"/>
-            <Button Content="star/stop" x:Name="startAndPause" Click="StartPaulse_Click"/>
-            <Button Content="next" x:Name="next" Click="Next_Click"/>
+            <Button Content="star/stop" x:Name="startAndPause" Click="StartPaulse_Click" 
+                    Background="#00000000" Foreground="LightSeaGreen"
+                    Width="40" Height="40" Margin="2">
+                <Button.Template>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border Width="{TemplateBinding Width}"
+                                Height="{TemplateBinding Height}"
+                                Background="{TemplateBinding Background}">
+                            <Grid>
+                                <Ellipse Width="{TemplateBinding Width}" 
+                                         Height="{TemplateBinding Height}" 
+                                         Fill="{TemplateBinding Foreground}"
+                                         Name="ellipse"/>
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="50*"/>
+                                        <ColumnDefinition Width="auto"/>
+                                        <ColumnDefinition Width="50*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="50*"/>
+                                        <RowDefinition Height="auto"/>
+                                        <RowDefinition Height="50*"/>
+                                    </Grid.RowDefinitions>
+                                    <Rectangle Grid.Row="1" Grid.Column="1" Name="rect" Width="16" Height="16" Fill="White" 
+                                           RadiusX="5" RadiusY="5"  Visibility="Hidden"
+                                               HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Polygon Name="traiangle" Grid.Row="1" Grid.Column="1" Points="3,0 3,16 16.75,8" 
+                                             Fill="White" />
+                                </Grid>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <!--以下是触发器-->
+                            <Trigger Property="Control.IsMouseOver" Value="true">
+                                <!--当鼠标移动到上方时-->
+                                <Setter TargetName="rect" Property="Width" Value="18"/>
+                                <Setter TargetName="rect" Property="Height" Value="18"/>
+                                <Setter TargetName="traiangle" Property="Points" Value="3,0 3,18 18.58,9"/>
+                            </Trigger>
+                            <Trigger Property="Button.IsPressed" Value="true">
+                                <!--当按下按钮时-->
+                                <Setter TargetName="ellipse" Property="Fill" Value="#30c2ba"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                    
+                </Button.Template>
+            </Button>
+            <Button Content="next" x:Name="next" Click="Next_Click" />
 
             <TextBlock x:Name="currentPosition"/>
             <Label Name="currentTimeLabel" Content="{Binding Path=Position, Converter={StaticResource TimeSapnFormat}}"/>

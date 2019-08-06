@@ -8,6 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("lib/id3.dll")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("images/radiorect100x100.png")]
 
 

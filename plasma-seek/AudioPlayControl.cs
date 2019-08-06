@@ -165,13 +165,14 @@ namespace plasma_seek {
 
         private void TimeLineSplier_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e) {
             timeLineSplier.DataContext = null;
-            
+            audio.Volume = 0;
         }
 
         private void TimeLineSplier_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e) {
             int currentValue = (int)timeLineSplier.Value;
             TimeSpan span = new TimeSpan(0, 0, currentValue);
             audio.Position = span;
+            audio.Volume = volum.Value;
             timeLineSplier.DataContext = watcher;
         }
         #region 控制播放顺序的核心功能

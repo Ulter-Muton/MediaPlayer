@@ -77,6 +77,10 @@
     <Compile Include="SongDisPlayPanel.xaml.cs">
       <DependentUpon>SongDisPlayPanel.xaml</DependentUpon>
     </Compile>
+    <Page Include="StarStopButton.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -135,6 +139,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Images\DiskImage.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\rect8433.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\radiorect100X100.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
