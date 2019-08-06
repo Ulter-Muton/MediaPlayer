@@ -69,23 +69,28 @@ namespace plasma_seek {
         private void AudioPlay(MediaInfo info) {
             try {
                 if (info != null) {
+                    Uri songUri = new Uri(info.Path);
+                    audio.Source = songUri;
+                    audio.Volume = volum.Value;//设置音量  
+
+
+                    
+                    audio.Play();
+                    watcher.Media = audio;
                     currentSongImage.Source = info.GetImage();//显示专辑封面
                     currentSongAlbum.Text = info.Album;
                     currentSongArtist.Text = info.Artist;
                     currentSongGenur.Text = info.Gener;
                     currentSongTitle.Text = info.Title;
-
-                    Uri songUri = new Uri(info.Path);
-                    audio.Source = songUri;
-                    audio.Volume = volum.Value;//设置音量  
-
-                    audio.Play();
-                    timeLineSplier.Maximum = audio.NaturalDuration.TimeSpan.TotalMilliseconds;//设置音乐控制条的最大位置
-                    timeLineSplier.DataContext = audio;
+                    //watcher.Media = audio;
+                    //timeLineSplier.Maximum = audio.NaturalDuration.TimeSpan.TotalMilliseconds;//设置音乐控制条的最大位置
+                    //timeLineSplier.DataContext = audio;
                     isAudioPlay = true;
                 }
-            } catch (Exception) {
+            } catch (MediaNotSetException) {
                 return;
+            } catch (Exception) {
+                throw;
             }
         }
 

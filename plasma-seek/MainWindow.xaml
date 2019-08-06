@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:plasma_seek"
         xmlns:dateConvertor="clr-namespace:plasma_seek.DateConvertor"
+        xmlns:PersionalClass="clr-namespace:plasma_seek.PersionalClass"
         mc:Ignorable="d"
         Height="450" Width="800"
         WindowStyle="ToolWindow"
@@ -97,8 +98,8 @@
                                                TextWrapping="WrapWithOverflow"
                                                FontSize="10" FontFamily="console"/>
                                     </StackPanel>
-                                    
-                                    
+
+
                                     <StackPanel HorizontalAlignment="Right" 
                                                 VerticalAlignment="Top">
                                         <Button Content="add" Height="10" Width="10" Name="addToPlayList"/>
@@ -133,18 +134,30 @@
             </DockPanel>
             <!--</Grid>-->
         </Grid>
-        <!--底部控制区-->
+
+        <!--====================================================================================-->
+        <!--====================================================================================-->
+
+
+        <!--底部播放控制区-->
         <StackPanel Orientation="Horizontal" Grid.Row="2">
             <StackPanel.Resources>
+                <!--资源-->
                 <dateConvertor:TimeSpanToDoubleConvertor x:Key="TimeDoubleConvetter"/>
+                <dateConvertor:TimeSpanFormat x:Key="TimeSapnFormat"/>
             </StackPanel.Resources>
+
+            <!--音频播放器-->
+            <MediaElement x:Name="audio" Visibility="Collapsed"/>
             <Button Content="prev" x:Name="previous" Click="Previous_Click"/>
             <Button Content="star/stop" x:Name="startAndPause" Click="StartPaulse_Click"/>
             <Button Content="next" x:Name="next" Click="Next_Click"/>
 
             <TextBlock x:Name="currentPosition"/>
-            <Slider x:Name="timeLineSplier" Width="400" Value="{Binding Path=Position, Mode=OneWay, Converter={StaticResource TimeDoubleConvetter}}"/>
+            <Label Name="currentTimeLabel" Content="{Binding Path=Position, Converter={StaticResource TimeSapnFormat}}"/>
+            <Slider x:Name="timeLineSplier" Width="200" />
             <TextBlock x:Name="totalTime"/>
+            <Label Name="totlaTimeLabel" Content="{Binding Path=TotalTime, Converter={StaticResource TimeDoubleConvetter}}"/>
 
 
             <ToggleButton Content="love" x:Name="loveMusic"/>

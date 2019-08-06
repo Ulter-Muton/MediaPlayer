@@ -69,7 +69,10 @@
     <Compile Include="AudioPlayControl.cs" />
     <Compile Include="DateConvertor\BitmapImageToILixtConvertor.cs" />
     <Compile Include="DateConvertor\LengthDubTwo.cs" />
+    <Compile Include="DateConvertor\TimeSpanFormat.cs" />
     <Compile Include="DateConvertor\TimeSpanToDoubleConvertor.cs" />
+    <Compile Include="MyExceptions\CannotConverterException.cs" />
+    <Compile Include="PersionalClass\AudioPositionWatcher.cs" />
     <Compile Include="SongDisPlayPanel.xaml.cs">
       <DependentUpon>SongDisPlayPanel.xaml</DependentUpon>
     </Compile>

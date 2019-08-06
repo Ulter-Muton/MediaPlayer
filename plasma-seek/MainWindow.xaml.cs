@@ -65,9 +65,10 @@ namespace plasma_seek {
         private System.ComponentModel.ICollectionView mediasListView;
         private System.ComponentModel.ICollectionView playListView;
 
-        MediaElement audio;//播放器
+        private AudioPositionWatcher watcher;//音频时间轴监测
+                                             
 
-        
+
 
         #endregion
 
@@ -84,12 +85,15 @@ namespace plasma_seek {
         /// 初始化播放器
         /// </summary>
         private void MediaElementInitialization() {
-            audio = new MediaElement();
+            //audio = new MediaElement();
             audio.LoadedBehavior = MediaState.Manual;
             audio.UnloadedBehavior = MediaState.Stop;
             audio.Visibility = Visibility.Collapsed;
             audio.MediaEnded += AudioPlayCompliete;
-            panel.Children.Add(audio);
+            watcher = new AudioPositionWatcher();
+            currentTimeLabel.DataContext = watcher;
+            totlaTimeLabel.DataContext = watcher;
+            //panel.Children.Add(audio);
         }
 
 
