@@ -12,7 +12,7 @@ namespace plasma_seek.DateConvertor {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             if (value is TimeSpan) {
                 TimeSpan span = (TimeSpan)value;
-                return span.Seconds;
+                return span.TotalSeconds;
             } else {
                 throw new Exception("value isnot TimeSpan");
             }

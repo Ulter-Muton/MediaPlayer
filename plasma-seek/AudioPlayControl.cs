@@ -18,6 +18,7 @@ using System.Windows.Shapes;
 using System.Text.RegularExpressions;
 using plasma_seek.PersionalClass;
 using System.ComponentModel;
+using plasma_seek.DateConvertor;
 
 namespace plasma_seek {
 
@@ -60,41 +61,32 @@ namespace plasma_seek {
         public bool SingleRecycle { get => (bool)GetValue(SingleRecycleProperty); set => SetValue(SingleRecycleProperty, value); }
         #endregion
 
+        /// <summary>
+        /// 加载完毕
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Audio_MediaOpened(object sender, RoutedEventArgs e) {
+
+            watcher.Media = audio;
+            //label显示总时间
+            TimeSpan time = audio.NaturalDuration.TimeSpan;
+            totlaTimeLabel.Content = new TimeSpanFormat().Convert(time, null, null, null);
+            timeLineSplier.Maximum = time.TotalSeconds;
+            timeLineSplier.Minimum = 0;
+        }
 
 
         /// <summary>
         /// 播放音乐
         /// </summary>
         /// <param name="info">音乐文件</param>
-        private void AudioPlay(MediaInfo info) {
-            try {
-                if (info != null) {
-                    Uri songUri = new Uri(info.Path);
-                    audio.Source = songUri;
-                    audio.Volume = volum.Value;//设置音量  
-
-
-                    
-                    audio.Play();
-                    watcher.Media = audio;
-                    currentSongImage.Source = info.GetImage();//显示专辑封面
-                    currentSongAlbum.Text = info.Album;
-                    currentSongArtist.Text = info.Artist;
-                    currentSongGenur.Text = info.Gener;
-                    currentSongTitle.Text = info.Title;
-                    //watcher.Media = audio;
-                    //timeLineSplier.Maximum = audio.NaturalDuration.TimeSpan.TotalMilliseconds;//设置音乐控制条的最大位置
-                    //timeLineSplier.DataContext = audio;
-                    isAudioPlay = true;
-                }
-            } catch (MediaNotSetException) {
-                return;
-            } catch (Exception) {
-                throw;
-            }
-        }
-
-
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void StartPaulse_Click(object sender, RoutedEventArgs e) {
             //检查是否在播放状态
             if (isAudioPlay) {
@@ -171,7 +163,56 @@ namespace plasma_seek {
             }
         }
 
+        private void TimeLineSplier_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e) {
+            timeLineSplier.DataContext = null;
+            
+        }
+
+        private void TimeLineSplier_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e) {
+            int currentValue = (int)timeLineSplier.Value;
+            TimeSpan span = new TimeSpan(0, 0, currentValue);
+            audio.Position = span;
+            timeLineSplier.DataContext = watcher;
+        }
         #region 控制播放顺序的核心功能
+
+        private void AudioPlay(MediaInfo info) {
+            try {
+                if (info != null) {
+                    Uri songUri = new Uri(info.Path);
+                    audio.Source = songUri;
+                    audio.Volume = volum.Value;//设置音量  
+
+                    audio.Play();
+
+                    currentSongImage.Source = info.GetImage();//显示专辑封面
+                    currentSongAlbum.Text = info.Album;
+                    currentSongArtist.Text = info.Artist;
+                    currentSongGenur.Text = info.Gener;
+                    currentSongTitle.Text = info.Title;
+                    //watcher.Media = audio;
+                    //timeLineSplier.Maximum = audio.NaturalDuration.TimeSpan.TotalMilliseconds;//设置音乐控制条的最大位置
+                    //timeLineSplier.DataContext = audio;
+
+
+                    isAudioPlay = true;
+                }
+            } catch (MediaNotSetException) {
+                return;
+            } catch (Exception) {
+                throw;
+            }
+        }
+        /// <summary>
+        /// 播放音乐的异步实现
+        /// </summary>
+        /// <param name="info"></param>
+        private void AudioPlaySync(MediaInfo info) {
+            Task task = new Task(() => AudioPlay(info));
+            task.Start();
+        }
+
+
         /// <summary>
         /// 控制播放上一曲或者下一曲
         /// </summary>

@@ -145,19 +145,24 @@
                 <!--资源-->
                 <dateConvertor:TimeSpanToDoubleConvertor x:Key="TimeDoubleConvetter"/>
                 <dateConvertor:TimeSpanFormat x:Key="TimeSapnFormat"/>
+                <dateConvertor:StringtoSecondConvertor x:Key="stringIntConvertor"/>
             </StackPanel.Resources>
 
             <!--音频播放器-->
-            <MediaElement x:Name="audio" Visibility="Collapsed"/>
+            <MediaElement x:Name="audio" Visibility="Collapsed" MediaOpened="Audio_MediaOpened"/>
             <Button Content="prev" x:Name="previous" Click="Previous_Click"/>
             <Button Content="star/stop" x:Name="startAndPause" Click="StartPaulse_Click"/>
             <Button Content="next" x:Name="next" Click="Next_Click"/>
 
             <TextBlock x:Name="currentPosition"/>
             <Label Name="currentTimeLabel" Content="{Binding Path=Position, Converter={StaticResource TimeSapnFormat}}"/>
-            <Slider x:Name="timeLineSplier" Width="200" />
+            
+            <Slider x:Name="timeLineSplier" Width="200" 
+                    Value="{Binding Path=Position, Converter={StaticResource TimeDoubleConvetter}, Mode=TwoWay}" />
+            
             <TextBlock x:Name="totalTime"/>
-            <Label Name="totlaTimeLabel" Content="{Binding Path=TotalTime, Converter={StaticResource TimeDoubleConvetter}}"/>
+            <Label Name="totlaTimeLabel" Content="00:00"/>
+            <!--<Button Content="{Binding ElementName=timeLineSplier, Path=Value}" Click="Button_Click"/>-->
 
 
             <ToggleButton Content="love" x:Name="loveMusic"/>
@@ -165,7 +170,7 @@
             <ToggleButton IsChecked="{Binding ElementName=myWin, Path=SingleRecycle, Mode=TwoWay}" Content="singleRecycle"/>
             <ToggleButton IsChecked="{Binding ElementName=myWin, Path=IsRandom, Mode=TwoWay}" Content="random"/>
             <Label  Content="volum"/>
-            <Slider x:Name="volum" Minimum="0" Maximum="1" Value="0.5" Width="100" ValueChanged="VolumChangeEvent"/>
+            <Slider x:Name="volum" Minimum="0" Maximum="1" Value="0.5" Width="100" ValueChanged="VolumChangeEvent" />
         </StackPanel>
     </Grid>
 </Window>

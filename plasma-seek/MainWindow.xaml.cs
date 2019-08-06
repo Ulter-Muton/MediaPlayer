@@ -92,7 +92,7 @@ namespace plasma_seek {
             audio.MediaEnded += AudioPlayCompliete;
             watcher = new AudioPositionWatcher();
             currentTimeLabel.DataContext = watcher;
-            totlaTimeLabel.DataContext = watcher;
+            timeLineSplier.DataContext = watcher;
             //panel.Children.Add(audio);
         }
 
@@ -173,8 +173,18 @@ namespace plasma_seek {
                             //将列表信息记录到xml中
                             _folderRecoerds.SaveToXml(FolderPath);
                         } else {
-                            foreach (var item in _folderRecoerds) {
-                                if (item.Equals(new SongFolderRecoder(getFolder.SelectedPath))) {
+                            //foreach (var item in _folderRecoerds) {
+                            //    if (item.Equals(new SongFolderRecoder(getFolder.SelectedPath))) {
+                            //        //不做任何操作
+                            //    } else {
+                            //        //将文件夹路径记录到列表中
+                            //        _folderRecoerds.Add(new SongFolderRecoder(getFolder.SelectedPath));
+                            //        //将列表信息记录到xml中
+                            //        _folderRecoerds.SaveToXml(FolderPath);
+                            //    }
+                            //}
+                            for (int i = 0; i < _folderRecoerds.Count; i++) {
+                                if (_folderRecoerds[i].Equals(new SongFolderRecoder(getFolder.SelectedPath))) {
                                     //不做任何操作
                                 } else {
                                     //将文件夹路径记录到列表中
@@ -224,7 +234,15 @@ namespace plasma_seek {
         private void SongListItem_DoubleClick(object sender, MouseButtonEventArgs e) {
             MediaInfo info = songList.SelectedValue as MediaInfo;
             mediasListView.MoveCurrentTo(info);
+            PreviewNextButtonIntinial();
             AudioPlay(info);
+            //AudioPlaySync(info);
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e) {
+            if (audio!=null) {
+                audio.Position = new TimeSpan(0, 0, 50);
+            }
         }
     }
 }

@@ -26,7 +26,6 @@ G:\Project\MediaPlayer\plasma-seek\bin\Debug\plasma-seek.exe
 G:\Project\MediaPlayer\plasma-seek\bin\Debug\plasma-seek.pdb
 G:\Project\MediaPlayer\plasma-seek\bin\Debug\JetBrains.Annotations.dll
 G:\Project\MediaPlayer\plasma-seek\bin\Debug\JetBrains.Annotations.xml
-G:\Project\MediaPlayer\plasma-seek\obj\Debug\plasma-seek.csprojAssemblyReference.cache
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\MainWindow.g.cs
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\App.g.cs
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\plasma-seek_MarkupCompile.cache
@@ -43,3 +42,4 @@ G:\Project\MediaPlayer\plasma-seek\bin\Debug\ATL.dll
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\SongDisPlayPanel.baml
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\SongDisPlayPanel.g.cs
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\GeneratedInternalTypeHelper.g.cs
+G:\Project\MediaPlayer\plasma-seek\obj\Debug\plasma-seek.csprojAssemblyReference.cache

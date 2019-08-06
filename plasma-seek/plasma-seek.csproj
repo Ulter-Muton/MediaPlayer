@@ -69,6 +69,7 @@
     <Compile Include="AudioPlayControl.cs" />
     <Compile Include="DateConvertor\BitmapImageToILixtConvertor.cs" />
     <Compile Include="DateConvertor\LengthDubTwo.cs" />
+    <Compile Include="DateConvertor\StringtoSecondConvertor.cs" />
     <Compile Include="DateConvertor\TimeSpanFormat.cs" />
     <Compile Include="DateConvertor\TimeSpanToDoubleConvertor.cs" />
     <Compile Include="MyExceptions\CannotConverterException.cs" />

@@ -26,6 +26,7 @@ namespace plasma_seek.PersionalClass {
         public TimeSpan Position {
             get => _position; set {
                 _position = value;
+                Media.Position = value;//设置音频播放位置
                 OnPropertyChange("Position");
             }
         }
@@ -71,8 +72,14 @@ namespace plasma_seek.PersionalClass {
         }
 
         private void OnPropertyChange(string propertyName) {
+            //利用task异步调用所有订阅的方法,防止线程阻塞
             if (PropertyChanged != null) {
-                PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propertyName));
+                var invockers = PropertyChanged.GetInvocationList();
+                foreach (var item in invockers) {
+                    //laumda表达式为执行订阅的方法
+                    Task task = new Task(() => item.DynamicInvoke(this, new PropertyChangedEventArgs(propertyName)));
+                    task.Start(); 
+                }
             }
         }
     }
