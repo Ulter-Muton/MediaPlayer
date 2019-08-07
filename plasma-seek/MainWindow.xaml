@@ -10,7 +10,8 @@
         Height="450" Width="800"
         WindowStyle="ToolWindow"
         ResizeMode="CanResize"
-        x:Name="myWin">
+        x:Name="myWin"
+        FontFamily="Comic Sans MS,console,黑体" >
     <Grid ShowGridLines="false">
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -29,29 +30,34 @@
                 <Grid.RowDefinitions>
                     <RowDefinition/>
                     <RowDefinition/>
-                    <RowDefinition/>
+                    <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Button HorizontalAlignment="Center" VerticalAlignment="Center">本地</Button>
-                <WrapPanel x:Name="songCurrentPanel" Grid.Row="2">
-                    <!--<localMyControl:DrawImagePanel x:Name="songFace" Width="50" Height="50"/>-->
-                    <Image x:Name="currentSongImage" Source="Images/DiskImage.png" Width="80" Height="80" HorizontalAlignment="Left"/>
-                    <StackPanel Name="panel" Width="100">
-                        <StackPanel Orientation="Horizontal">
-                            <Label  Content="歌手:"/>
-                            <TextBlock x:Name="currentSongArtist" />
+                <Border Grid.Row="2" Background="#f2f4f6" Margin="4" Height="160" CornerRadius="5">
+                    <WrapPanel x:Name="songCurrentPanel" Grid.Row="2" >
+                        <!--<localMyControl:DrawImagePanel x:Name="songFace" Width="50" Height="50"/>-->
+
+                        <Image x:Name="currentSongImage" Source="Images/DiskImage.png" Width="90" Height="90" HorizontalAlignment="Left" Stretch="Fill" Margin="5,5,0,0"/>
+                        <StackPanel Name="panel" Width="100">
+                            <StackPanel Orientation="Horizontal">
+                                <Label  Content="歌手:"/>
+                                <TextBlock x:Name="currentSongArtist" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="专辑:"/>
+                                <TextBlock x:Name="currentSongAlbum" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <Label Content="类型:"/>
+                                <TextBlock x:Name="currentSongGenur" />
+                            </StackPanel>
                         </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="专辑:"/>
-                            <TextBlock x:Name="currentSongAlbum" />
-                        </StackPanel>
-                        <StackPanel Orientation="Horizontal">
-                            <Label Content="类型:"/>
-                            <TextBlock x:Name="currentSongGenur" />
-                        </StackPanel>
-                    </StackPanel>
-                    <TextBlock Text="歌曲:"/>
-                    <TextBlock Name="currentSongTitle"/>
-                </WrapPanel>
+                        <TextBlock Text="歌曲:"/>
+                        <TextBlock Name="currentSongTitle"/>
+                    </WrapPanel>
+
+                </Border>
+                
             </Grid>
             <!--内容区-->
             <!--<Grid Grid.Column="1" x:Name="contentShow">
@@ -74,30 +80,46 @@
                          ScrollViewer.VerticalScrollBarVisibility="Auto" 
                          HorizontalAlignment="Stretch" 
                          VerticalAlignment="Stretch"
-                         Padding="5">
+                         Padding="10" Background="#0d3f67">
                     <ListBox.ItemTemplate>
                         <DataTemplate DataType="{x:Type local:MediaInfo}">
-                            <Border Name="rootBorder">
-                                <Grid Width="80" Height="140">
+                            <Border Name="rootBorder" CornerRadius="5">
+                                <Grid >
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="80"/>
-                                        <RowDefinition Height="40"/>
-                                        <RowDefinition Height="20"/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
                                     </Grid.RowDefinitions>
-                                    <Image Name="Picture" Stretch="Fill" Source="{Binding PictureBytes, Converter={StaticResource ResourceKey=ImageSourceConvertor}}"/>
-                                    <TextBlock Grid.Row="1" 
-                                               Name="songName" 
-                                               Text="{Binding Path=Title}"  
-                                               TextWrapping="WrapWithOverflow"/>
-                                    <StackPanel Grid.Row="2" Margin="2"
-                                                Orientation="Horizontal">
-                                        <TextBlock Text="歌手:" FontSize="10" FontFamily="console" />
-                                        <TextBlock Grid.Row="2" 
-                                               Name="artist" 
-                                               Text="{Binding Path=Artist}" 
+                                    <Border Width="95" Height="95" CornerRadius="4,4,4,2" Background="#0d3f67" Margin="2.5"
+                                            Padding="4">
+                                        <Image Name="Picture" Margin="2" Source="{Binding PictureBytes, Converter={StaticResource ResourceKey=ImageSourceConvertor}}"/>
+                                    </Border>
+                                    <Border Width="92" Height="42" Margin="4,2,4,2" Background="#99f2f4f6" CornerRadius="5" Grid.Row="1">
+                                        <TextBlock Grid.Row="1" 
+                                               Name="songName"  FontFamily="Comic Sans MS,console,黑体" 
+                                                   FontSize="12"
+                                               Text="{Binding Path=Title}"   FontWeight="Bold"
                                                TextWrapping="WrapWithOverflow"
-                                               FontSize="10" FontFamily="console"/>
-                                    </StackPanel>
+                                                   Margin="2"/>
+                                    </Border>
+                                    <Border Grid.Row="2" Width="92" Height="16" Background="#99f2f4f6" Margin="4,2,4,2" CornerRadius="5">
+                                        <Grid  Width="80" Height="14"  >
+                                            <!--<TextBlock Text="歌手:" FontSize="10" FontFamily="console"
+                                                       FontStyle="Italic" TextAlignment="Center" Margin="2"
+                                                       HorizontalAlignment="Center"/>-->
+                                            <TextBlock Grid.Row="2" Margin="5,2,5,2"
+                                                        Name="artist" TextAlignment="Center"
+                                                        Text="{Binding Path=Artist}" 
+                                                        TextWrapping="NoWrap"
+                                                        FontSize="10" FontFamily="Comic Sans MS,console,黑体"
+                                                       FontStyle="Italic"
+                                                       Width="96" Height="12"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center"/>
+                                        </Grid>
+                                    </Border>
+                                    
+                                    
 
 
                                     <StackPanel HorizontalAlignment="Right" 
@@ -108,12 +130,13 @@
                                     </StackPanel>
                                 </Grid>
                             </Border>
+
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                     <ListBox.Template>
                         <ControlTemplate>
                             <Border Name="rooBorder" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
-                                    Padding="2" CornerRadius="2">
+                                    Padding="5"  >
                                 <ScrollViewer Width="{TemplateBinding Width}"
                                               HorizontalScrollBarVisibility="Disabled">
                                     <ItemsPresenter/>
@@ -126,9 +149,40 @@
                     </ListBox.Template>
                     <ListBox.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <WrapPanel/>
+                            <WrapPanel Background="#f2f4f6"/>
                         </ItemsPanelTemplate>
                     </ListBox.ItemsPanel>
+                    <!--修改listboxitem的外观-->
+                    <ListBox.ItemContainerStyle>
+                        <!--利用setter改变template属性,产生新的外观-->
+                        <Style TargetType="{x:Type ListBoxItem}">
+                            <Setter Property="Foreground" Value="#0d3f67"/>
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                        <Border Name="rootBorder" Background="#1ee3cf" Margin="5"
+                                                CornerRadius="5">
+                                            <ContentPresenter/>
+                                        </Border>
+                                        
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="ListBoxItem.IsSelected" Value="true">
+                                                <Setter TargetName="rootBorder" Property="Background" Value="#6b48ff"/>
+                                            </Trigger>
+                                            <MultiTrigger>
+                                                <MultiTrigger.Conditions>
+                                                    <Condition Property="ListBoxItem.IsMouseOver" Value="true"/>
+                                                    <Condition Property="ListBoxItem.IsSelected" Value="false"/>
+                                                </MultiTrigger.Conditions>
+                                                <Setter TargetName="rootBorder" Property="Background" Value="#08ffc8"/>
+                                                <Setter Property="ListBoxItem.Foreground" Value="#fe5f55"/>
+                                            </MultiTrigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </ListBox.ItemContainerStyle>
                 </ListBox>
 
             </DockPanel>
@@ -153,7 +207,8 @@
             <!--控制按钮-->
             <local:StarStopButton Content="prev" x:Name="previous" Click="Previous_Click" Width="35" Height="35" Margin="2"
                                   IsStartStopButton="False" IsNext="False"/>
-            <local:StarStopButton x:Name="startAndPause" Width="40" Height="40" Click="StartPaulse_Click"       IsStartStopButton="True" IsPlaying="{Binding ElementName=myWin, Path=IsAudioPlay}"/>
+            <local:StarStopButton x:Name="startAndPause" Width="40" Height="40" Click="StartPaulse_Click"                                       IsStartStopButton="True" IsPlaying="{Binding ElementName=myWin, Path=IsAudioPlay}"
+                                  Padding="2"/>
             <!--<local:StarStopButton x:Name="startStop" IsStartStopButton="True" Width="40" Height="40" IsPlaying="{Binding ElementName=myWin, Path=IsAudioPlay}"/>-->
 
             <local:StarStopButton Content="next" x:Name="next" Click="Next_Click" Width="35" Height="35" 
@@ -163,17 +218,17 @@
             <Label Name="currentTimeLabel" Content="{Binding Path=Position, Converter={StaticResource TimeSapnFormat}}"/>
             
             <Slider x:Name="timeLineSplier" Width="200" 
-                    Value="{Binding Path=Position, Converter={StaticResource TimeDoubleConvetter}, Mode=TwoWay}" />
+                    Value="{Binding Path=Position, Converter={StaticResource TimeDoubleConvetter}, Mode=TwoWay}"/>
             
             <TextBlock x:Name="totalTime"/>
             <Label Name="totlaTimeLabel" Content="00:00"/>
             <!--<Button Content="{Binding ElementName=timeLineSplier, Path=Value}" Click="Button_Click"/>-->
 
 
-            <ToggleButton Content="love" x:Name="loveMusic"/>
-            <ToggleButton IsChecked="{Binding ElementName=myWin, Path=IsRecycle, Mode=TwoWay}" Content="recycle all"/>
-            <ToggleButton IsChecked="{Binding ElementName=myWin, Path=SingleRecycle, Mode=TwoWay}" Content="singleRecycle"/>
-            <ToggleButton IsChecked="{Binding ElementName=myWin, Path=IsRandom, Mode=TwoWay}" Content="random"/>
+            <local:SongToggerButton  Content="love" x:Name="loveMusic" ToolTip="喜爱"/>
+            <local:SongToggerButton ButtonFunction="3" IsChecked="{Binding ElementName=myWin, Path=IsRecycle, Mode=TwoWay}" Content="recycle all" ToolTip="全部循环"/>
+            <local:SongToggerButton ButtonFunction="4" IsChecked="{Binding ElementName=myWin, Path=SingleRecycle, Mode=TwoWay}" ToolTip="单曲循环" Content="singleRecycle"/>
+            <local:SongToggerButton ButtonFunction="2" IsChecked="{Binding ElementName=myWin, Path=IsRandom, Mode=TwoWay}" Content="random" ToolTip="随机"/>
             <Label  Content="volum"/>
             <Slider x:Name="volum" Minimum="0" Maximum="1" Value="0.5" Width="100" ValueChanged="VolumChangeEvent" />
         </StackPanel>

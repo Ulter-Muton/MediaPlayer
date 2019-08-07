@@ -7,8 +7,9 @@
     <Button.Template>
         <ControlTemplate TargetType="{x:Type Button}">
             <Border Width="{TemplateBinding Width}"
-                                Height="{TemplateBinding Height}"
-                                Background="{TemplateBinding Background}">
+                    Height="{TemplateBinding Height}"
+                    Background="{TemplateBinding Background}"
+                    Margin="{Binding Padding}">
                 <Grid>
                     <Ellipse Width="{TemplateBinding Width}" 
                                          Height="{TemplateBinding Height}" 

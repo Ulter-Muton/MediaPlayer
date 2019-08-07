@@ -238,7 +238,7 @@ namespace plasma_seek {
         private void SongListItem_DoubleClick(object sender, MouseButtonEventArgs e) {
             MediaInfo info = songList.SelectedValue as MediaInfo;
             mediasListView.MoveCurrentTo(info);
-            PreviewNextButtonIntinial();
+            ControlButtonIntinial();
             AudioPlay(info);
             //AudioPlaySync(info);
         }

@@ -19,6 +19,7 @@ using System.Text.RegularExpressions;
 using plasma_seek.PersionalClass;
 using System.ComponentModel;
 using plasma_seek.DateConvertor;
+using plasma_seek.MyExceptions;
 
 namespace plasma_seek {
 
@@ -27,7 +28,7 @@ namespace plasma_seek {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    public partial class MainWindow : Window,INotifyPropertyChanged {
+    public partial class MainWindow : Window, INotifyPropertyChanged {
         #region 变量
         //========依赖属性,用来数据绑定
         public static readonly DependencyProperty IsRecycleProperty;
@@ -81,22 +82,28 @@ namespace plasma_seek {
         /// 播放音乐
         /// </summary>
         /// <param name="info">音乐文件</param>
-        
+
         /// <summary>
         /// 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void StartPaulse_Click(object sender, RoutedEventArgs e) {
-            //检查是否在播放状态
-            if (isAudioPlay) {
-                audio.Pause();
-                IsAudioPlay = false;
+
+            //检查listbox是否选择了歌曲
+            if (audio.Source==null) {
+                //donothing
             } else {
-                audio.Play();
-                IsAudioPlay = true;
+                if (IsAudioPlay) {
+                    audio.Pause();
+                    IsAudioPlay = false;
+                } else {
+                    audio.Play();
+                    IsAudioPlay = true;
+                }
             }
         }
+
         private void Previous_Click(object sender, RoutedEventArgs e) {
             //mediasListView.MoveCurrentToPrevious();
 
@@ -113,14 +120,14 @@ namespace plasma_seek {
             ICollectionView tmpView = AudioListSelect(AudioControlSign.Previous);
             AudioPlayControl(tmpView, AudioControlSign.Previous);
             ScrollBoxToItem(tmpView);
-            PreviewNextButtonIntinial();
+            ControlButtonIntinial();
         }
         private void Next_Click(object sender, RoutedEventArgs e) {
 
             ICollectionView tmpView = AudioListSelect(AudioControlSign.Next);
             AudioPlayControl(tmpView, AudioControlSign.Next);
             ScrollBoxToItem(tmpView);
-            PreviewNextButtonIntinial();
+            ControlButtonIntinial();
 
             //========================================
             //mediasListView.MoveCurrentToNext();
@@ -138,7 +145,7 @@ namespace plasma_seek {
         /// <param name="e"></param>
         private void AudioPlayCompliete(object sender, RoutedEventArgs e) {
             RoutedEventArgs args = new RoutedEventArgs();
-            args.RoutedEvent =System.Windows.Controls.Button.ClickEvent;
+            args.RoutedEvent = System.Windows.Controls.Button.ClickEvent;
             args.Source = next;
             Next_Click(next, args);
         }
@@ -149,7 +156,7 @@ namespace plasma_seek {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void VolumChangeEvent(object sender, RoutedPropertyChangedEventArgs<double> e) {
-            if (audio!=null) {
+            if (audio != null) {
                 audio.Volume = volum.Value;
             }
         }
@@ -163,18 +170,13 @@ namespace plasma_seek {
             }
         }
 
-        private void TimeLineSplier_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e) {
-            timeLineSplier.DataContext = null;
-            audio.Volume = 0;
-        }
+        //private void TimeLineSplier_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e) {
 
-        private void TimeLineSplier_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e) {
-            int currentValue = (int)timeLineSplier.Value;
-            TimeSpan span = new TimeSpan(0, 0, currentValue);
-            audio.Position = span;
-            audio.Volume = volum.Value;
-            timeLineSplier.DataContext = watcher;
-        }
+        //}
+
+        //private void TimeLineSplier_DragCompleted(object sender, System.Windows.Controls.Primitives.DragCompletedEventArgs e) {
+
+        //}
         #region 控制播放顺序的核心功能
 
         private void AudioPlay(MediaInfo info) {
@@ -196,7 +198,7 @@ namespace plasma_seek {
                     //timeLineSplier.DataContext = audio;
 
 
-                    isAudioPlay = true;
+                    IsAudioPlay = true;
                 }
             } catch (MediaNotSetException) {
                 return;
@@ -221,7 +223,11 @@ namespace plasma_seek {
         /// <param name="myControl"></param>
         private void AudioPlayControl(ICollectionView view, AudioControlSign myControl) {
             if (myControl == AudioControlSign.Previous) {
-                view.MoveCurrentToPrevious();
+                if (IsRecycle && view.CurrentPosition == 0) {
+                    view.MoveCurrentToPosition(mediaInfos.Count - 1);//如果列表已经结束,移到表头
+                } else {
+                    view.MoveCurrentToPrevious();
+                }
                 MediaInfo tmpInfo = view.CurrentItem as MediaInfo;
                 if (tmpInfo != null) {
                     AudioPlay(tmpInfo);
@@ -239,10 +245,15 @@ namespace plasma_seek {
                         view.MoveCurrentToPosition(position);
                     } else {
                         //不是随机播放
-                        view.MoveCurrentToNext();
+                        if (IsRecycle && view.CurrentPosition == mediaInfos.Count - 1) {
+                            view.MoveCurrentToPosition(0);
+                        } else {
+                            view.MoveCurrentToNext();
+                        }
+
                     }
-                    
-                }              
+
+                }
                 MediaInfo tmpInfo = view.CurrentItem as MediaInfo;
                 if (tmpInfo != null) {
                     AudioPlay(tmpInfo);
@@ -255,7 +266,7 @@ namespace plasma_seek {
         /// <returns></returns>
         private ICollectionView AudioListSelect(AudioControlSign control) {
 
-            if (IsRecycle&&mediasListView.CurrentPosition==mediaInfos.Count-1) {
+            if (IsRecycle && mediasListView.CurrentPosition == mediaInfos.Count - 1) {
                 //如果是重复模式,在最后一首歌时,将视图控制器恢复初始化
                 mediasListView.MoveCurrentToPosition(-1);
                 return mediasListView;
@@ -278,7 +289,7 @@ namespace plasma_seek {
                 }
             } else {
                 //输入控制是MyControl.Next
-                if (playList.Count == 0||IsRandom) {
+                if (playList.Count == 0 || IsRandom) {
                     //如果播放列表没有内容,或者设置了随机播放
                     return mediasListView;
                 } else {
@@ -299,8 +310,9 @@ namespace plasma_seek {
         /// <summary>
         /// 设置按钮是否可用
         /// </summary>
-        private void PreviewNextButtonIntinial() {
+        private void ControlButtonIntinial() {
             if (IsRecycle) {
+                next.IsEnabled = next.IsEnabled = true;
                 previous.IsEnabled = next.IsEnabled = true;
             } else {
                 previous.IsEnabled = mediasListView.CurrentPosition == 0 ? false : true;

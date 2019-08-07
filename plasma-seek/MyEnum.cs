@@ -18,4 +18,11 @@ namespace plasma_seek {
         /// </summary>
         Next=1
     }
+    public enum ButtonFunction {
+        Default=0,
+        Love=1,
+        Random=2,
+        Recycle=3,
+        SingleRecycle=4
+    }
 }
