@@ -78,6 +78,10 @@ namespace plasma_seek {
         public string ConfigPath { get => _configPath; }
         public string SongListXmlPath { get => _SongListXmlPath; }
         public string FolderPath { get => _FolderPath; }
+        public bool IsAudioPlay { get => isAudioPlay; set {
+                isAudioPlay = value;
+                PropertyOnChanged("IsAudioPlay");
+            } }
         //public string  FavoriteSongPath { get => _favoriteSongPath; }
         //====================================================
         #endregion

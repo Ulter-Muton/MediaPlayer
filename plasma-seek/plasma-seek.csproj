@@ -77,6 +77,9 @@
     <Compile Include="SongDisPlayPanel.xaml.cs">
       <DependentUpon>SongDisPlayPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="StarStopButton.xaml.cs">
+      <DependentUpon>StarStopButton.xaml</DependentUpon>
+    </Compile>
     <Page Include="StarStopButton.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

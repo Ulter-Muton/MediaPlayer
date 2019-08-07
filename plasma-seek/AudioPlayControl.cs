@@ -91,10 +91,10 @@ namespace plasma_seek {
             //检查是否在播放状态
             if (isAudioPlay) {
                 audio.Pause();
-                isAudioPlay = false;
+                IsAudioPlay = false;
             } else {
                 audio.Play();
-                isAudioPlay = true;
+                IsAudioPlay = true;
             }
         }
         private void Previous_Click(object sender, RoutedEventArgs e) {
