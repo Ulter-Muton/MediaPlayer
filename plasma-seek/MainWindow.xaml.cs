@@ -240,6 +240,7 @@ namespace plasma_seek {
             MediaInfo info = songList.SelectedValue as MediaInfo;
             mediasListView.MoveCurrentTo(info);
             ControlButtonIntinial();
+            timeLineSplier.IsEnabled = true;
             AudioPlay(info);
             //AudioPlaySync(info);
         }
@@ -248,6 +249,10 @@ namespace plasma_seek {
             if (audio!=null) {
                 audio.Position = new TimeSpan(0, 0, 50);
             }
+        }
+
+        private void AddSong_Click(object sender, RoutedEventArgs e) {
+
         }
     }
 }

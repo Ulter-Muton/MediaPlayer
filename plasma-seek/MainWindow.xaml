@@ -12,6 +12,24 @@
         x:Name="myWin"
         FontFamily="Comic Sans MS,console,黑体" >
     <Grid ShowGridLines="false">
+
+        <Grid.Resources>
+            <!--提升框的模板-->
+            <ControlTemplate x:Key="toolTipTemplate" TargetType="{x:Type ToolTip}">
+                <Border  Background="#881ee3cf" CornerRadius="5" >
+                    <ContentPresenter Margin="10"/>
+                </Border>
+            </ControlTemplate>
+
+
+            <!--字体样式-->
+            <Style x:Key="fontShowStyle" TargetType="{x:Type Control}">
+                <Setter Property="FontFamily" Value="Comic Sans MS,console,黑体"/>
+                <Setter Property="Foreground" Value="#0d3f67"/>
+                <Setter Property="FontSize" Value="14"/>
+            </Style>
+        </Grid.Resources>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition/>
@@ -116,45 +134,39 @@
 
                 <DockPanel.Resources>
                     <dateConvertor:BitmapImageToILixtConvertor x:Key="ImageSourceConvertor"/>
-                </DockPanel.Resources>
 
-                <StackPanel DockPanel.Dock="Top" Orientation="Horizontal">
-                    <Button x:Name="findMusic" Content="FInd"  Click="FindSongOnClick"/>
-                </StackPanel>
 
-                <ListBox x:Name="songList" SelectionChanged="SongSelectionChange" 
-                         MouseDoubleClick="SongListItem_DoubleClick" 
-                         ScrollViewer.VerticalScrollBarVisibility="Auto" 
-                         HorizontalAlignment="Stretch" 
-                         VerticalAlignment="Stretch"
-                         Padding="10" Background="#0d3f67">
-                    <ListBox.ItemTemplate>
-                        <DataTemplate DataType="{x:Type local:MediaInfo}">
-                            <Border Name="rootBorder" CornerRadius="5">
-                                <Grid >
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                    </Grid.RowDefinitions>
-                                    <Border Width="95" Height="95" CornerRadius="4,4,4,2" Background="#0d3f67" Margin="2.5"
+                    <DataTemplate x:Key="mediaInfo" DataType="{x:Type local:MediaInfo}">
+                        <Border Name="rootBorder" CornerRadius="5">
+                            <Grid >
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Border Width="95" Height="95" CornerRadius="4,4,4,2" Background="#0d3f67" Margin="2.5"
                                             Padding="4">
-                                        <Image Name="Picture" Margin="2" Source="{Binding PictureBytes, Converter={StaticResource ResourceKey=ImageSourceConvertor}}"/>
-                                    </Border>
-                                    <Border Width="92" Height="42" Margin="4,2,4,2" Background="#99f2f4f6" CornerRadius="5" Grid.Row="1">
-                                        <TextBlock Grid.Row="1" 
-                                               Name="songName"  FontFamily="Comic Sans MS,console,黑体" 
-                                                   FontSize="12"
-                                               Text="{Binding Path=Title}"   FontWeight="Bold"
+                                    <Image Name="Picture" Margin="2" 
+                                           Source="{Binding PictureBytes, Converter={StaticResource ResourceKey=ImageSourceConvertor}}"/>
+                                </Border>
+                                <Border Width="92" Height="42" Margin="4,2,4,2" Background="#99f2f4f6" 
+                                        CornerRadius="5" Grid.Row="1">
+                                    <TextBlock Grid.Row="1" 
+                                               Name="songName"  
+                                               FontFamily="Comic Sans MS,console,黑体" 
+                                               FontSize="12"
+                                               Text="{Binding Path=Title}"   
+                                               FontWeight="Bold"
                                                TextWrapping="WrapWithOverflow"
-                                                   Margin="2"/>
-                                    </Border>
-                                    <Border Grid.Row="2" Width="92" Height="16" Background="#99f2f4f6" Margin="4,2,4,2" CornerRadius="5">
-                                        <Grid  Width="80" Height="14"  >
-                                            <!--<TextBlock Text="歌手:" FontSize="10" FontFamily="console"
+                                               Margin="2"/>
+                                </Border>
+                                <Border Grid.Row="2" Width="92" Height="16" 
+                                        Background="#99f2f4f6" Margin="4,2,4,2" CornerRadius="5">
+                                    <Grid  Width="80" Height="14"  >
+                                        <!--<TextBlock Text="歌手:" FontSize="10" FontFamily="console"
                                                        FontStyle="Italic" TextAlignment="Center" Margin="2"
                                                        HorizontalAlignment="Center"/>-->
-                                            <TextBlock Grid.Row="2" Margin="5,2,5,2"
+                                        <TextBlock Grid.Row="2" Margin="5,2,5,2"
                                                         Name="artist" TextAlignment="Center"
                                                         Text="{Binding Path=Artist}" 
                                                         TextWrapping="NoWrap"
@@ -163,23 +175,122 @@
                                                        Width="96" Height="12"
                                                        HorizontalAlignment="Center"
                                                        VerticalAlignment="Center"/>
+                                    </Grid>
+                                </Border>
+
+
+
+
+                                <StackPanel HorizontalAlignment="Right" 
+                                            VerticalAlignment="Top">
+                                    <Button Content="add" Height="10" Width="10" Name="addToPlayList"/>
+                                    <Button Content="love" Height="10" Width="10" Name="loveSong"/>
+                                    <Button Content="edit" Height="10" Width="10" Name="editSong"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+
+                    </DataTemplate>
+                </DockPanel.Resources>
+                
+                
+                <Border DockPanel.Dock="Top" CornerRadius="5" Background="#f2f4f6" Margin="4,4,4,2" Height="24">
+
+                    <Border.Resources>
+                        <Style TargetType="Button" x:Key="buttonStyle">
+                            <Setter Property="Background" Value="#1ee3cf"/>
+                            <Setter Property="Foreground" Value="#f2f4f6"/>
+                            <Setter Property="Width" Value="20"/>
+                            <Setter Property="Height" Value="20"/>
+                            <Setter Property="Padding" Value="2"/>
+                            <Setter Property="Margin" Value="2"/>
+                        </Style>
+                    </Border.Resources>
+                    
+                    <StackPanel  Orientation="Horizontal">
+                        <Button  x:Name="findMusic" Style="{StaticResource buttonStyle}">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Name="root" 
+                                            CornerRadius="5"
+                                            Background="{TemplateBinding Background}" 
+                                            Width="{TemplateBinding Width}"
+                                            Height="{TemplateBinding Height}">
+                                        <Grid>
+                                            <Polygon Name="poly" Points="5,5 5,15 15,15 15,7 9,7 7,5" 
+                                                     Fill="{TemplateBinding Foreground}" />
                                         </Grid>
                                     </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsPressed" Value="true">
+                                            <Setter TargetName="poly" Property="Fill" Value="#ff502f"/>
+                                            
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Button.IsPressed" Value="false"/>
+                                                <Condition Property="Button.IsMouseOver" Value="true"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter TargetName="root" Property="Button.Background" Value="#08ffc8"/>
+                                        </MultiTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
+                            <Button.ToolTip>
+                                <ToolTip Content="打开音频文件夹" 
+                                            Style="{DynamicResource fontShowStyle}"
+                                            Template="{DynamicResource toolTipTemplate}"/>
+                            </Button.ToolTip>
+                        </Button>
 
 
+                        <Button Name="addSong" Style="{StaticResource buttonStyle}" Click="AddSong_Click">
+                            <Button.Template>
+                                <ControlTemplate TargetType="Button">
+                                    <Border Name="root" 
+                                            CornerRadius="5"
+                                            Background="{TemplateBinding Background}" 
+                                            Width="{TemplateBinding Width}"
+                                            Height="{TemplateBinding Height}">
+                                        <Grid>
+                                            <Polygon Name="poly" Points="4,9 4,11 9,11 9,16 11,16 11,11 
+                                                     16,11 16,9 11,9 11,4 9,4 9,9" 
+                                                     Fill="{TemplateBinding Foreground}" />
+                                        </Grid>
+                                    </Border>
+                                    <ControlTemplate.Triggers>
+                                        <Trigger Property="IsPressed" Value="true">
+                                            <Setter TargetName="poly" Property="Fill" Value="#ff502f"/>
 
+                                        </Trigger>
+                                        <MultiTrigger>
+                                            <MultiTrigger.Conditions>
+                                                <Condition Property="Button.IsPressed" Value="false"/>
+                                                <Condition Property="Button.IsMouseOver" Value="true"/>
+                                            </MultiTrigger.Conditions>
+                                            <Setter TargetName="root" Property="Button.Background" Value="#08ffc8"/>
+                                        </MultiTrigger>
+                                    </ControlTemplate.Triggers>
+                                </ControlTemplate>
+                            </Button.Template>
 
-                                    <StackPanel HorizontalAlignment="Right" 
-                                                VerticalAlignment="Top">
-                                        <Button Content="add" Height="10" Width="10" Name="addToPlayList"/>
-                                        <Button Content="love" Height="10" Width="10" Name="loveSong"/>
-                                        <Button Content="edit" Height="10" Width="10" Name="editSong"/>
-                                    </StackPanel>
-                                </Grid>
-                            </Border>
+                            <Button.ToolTip>
+                                <ToolTip Content="增加音乐文件" 
+                                            Style="{DynamicResource fontShowStyle}"
+                                            Template="{DynamicResource toolTipTemplate}"/>
+                            </Button.ToolTip>
+                        </Button>
+                    </StackPanel>
 
-                        </DataTemplate>
-                    </ListBox.ItemTemplate>
+                </Border>
+
+                <ListBox x:Name="songList" SelectionChanged="SongSelectionChange" 
+                         MouseDoubleClick="SongListItem_DoubleClick" 
+                         ScrollViewer.VerticalScrollBarVisibility="Auto" 
+                         HorizontalAlignment="Stretch" 
+                         VerticalAlignment="Stretch"
+                         Padding="10" Background="#0d3f67" ItemTemplate="{StaticResource mediaInfo}">
+                    
                     <ListBox.Template>
                         <ControlTemplate>
                             <Border Name="rooBorder" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
@@ -250,22 +361,7 @@
                 <dateConvertor:TimeSpanToDoubleConvertor x:Key="TimeDoubleConvetter"/>
                 <dateConvertor:TimeSpanFormat x:Key="TimeSapnFormat"/>
                 <dateConvertor:StringtoSecondConvertor x:Key="stringIntConvertor"/>
-                
-                <!--提升框的模板-->
-                <ControlTemplate x:Key="toolTipTemplate" TargetType="{x:Type ToolTip}">
-                    <Border  Background="#881ee3cf" CornerRadius="5" >
-                        <ContentPresenter Margin="10"/>
-                    </Border>
-                </ControlTemplate>
-                
-                
-                <!--字体样式-->
-                <Style x:Key="fontShowStyle" TargetType="{x:Type Control}">
-                    <Setter Property="FontFamily" Value="Comic Sans MS,console,黑体"/>
-                    <Setter Property="Foreground" Value="#0d3f67"/>
-                    <Setter Property="FontSize" Value="14"/>
-                </Style>
-                
+                              
                 
                 <!--============================================================================-->
                 <!--进度条的模板-->
@@ -405,18 +501,15 @@
             <TextBlock x:Name="currentPosition"/>
             <Label Name="currentTimeLabel" Width="45" VerticalAlignment="Center"
                    Content="{Binding Path=Position, Converter={StaticResource TimeSapnFormat}}"
-                   FontFamily="Comic Sans MS,console,黑体"/>
+                   FontFamily="console,黑体"/>
 
             <Slider x:Name="timeLineSplier" Width="200" VerticalAlignment="Center"
                     Value="{Binding Path=Position, Converter={StaticResource TimeDoubleConvetter}, Mode=TwoWay}"
-                    Template="{StaticResource silderTemplate}"/>
-
-
-
+                    Template="{StaticResource silderTemplate}" IsEnabled="False"/>
 
             <TextBlock x:Name="totalTime"/>
             <Label Name="totlaTimeLabel" Content="00:00" Width="45" 
-                   VerticalAlignment="Center" FontFamily="Comic Sans MS,console,黑体"/>
+                   VerticalAlignment="Center" FontFamily="console,黑体"/>
             <!--<Button Content="{Binding ElementName=timeLineSplier, Path=Value}" Click="Button_Click"/>-->
 
 
