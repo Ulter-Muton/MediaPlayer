@@ -47,3 +47,5 @@ G:\Project\MediaPlayer\plasma-seek\obj\Debug\StarStopButton.baml
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\StarStopButton.g.cs
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\SongToggerButton.g.cs
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\SongToggerButton.baml
+G:\Project\MediaPlayer\plasma-seek\obj\Debug\MySlider.baml
+G:\Project\MediaPlayer\plasma-seek\obj\Debug\App.baml

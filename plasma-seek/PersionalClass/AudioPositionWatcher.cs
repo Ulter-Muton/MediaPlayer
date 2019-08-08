@@ -26,7 +26,9 @@ namespace plasma_seek.PersionalClass {
         public TimeSpan Position {
             get => _position; set {
                 _position = value;
-                Media.Position = value;//设置音频播放位置
+                if (Media!=null) {
+                    Media.Position = value;//设置音频播放位置
+                }               
                 OnPropertyChange("Position");
             }
         }

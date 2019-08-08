@@ -21,7 +21,7 @@
                         <ColumnDefinition Width="50*"/>
                     </Grid.ColumnDefinitions>
 
-                    <Polygon Grid.Column="1" Grid.Row="1" Name="love" Points="0,4 4,0 8,0 10,4 12,0 16,0 20,4 10,16" Fill="White" Stroke="Red" StrokeThickness="2" Visibility="Collapsed"/>
+                    <Polygon Grid.Column="1" Grid.Row="1" Name="love" Points="0,4 4,0 8,0 10,4 12,0 16,0 20,4 10,16" Fill="#00000000" Stroke="Red" StrokeThickness="2" Visibility="Collapsed"/>
                     <Polygon Grid.Column="1" Grid.Row="1" Name="random" Points="0,0 8,0 16,16 24,16 24,0 16,0 8,16 0,16" Fill="#00000000" Stroke="Gray" StrokeThickness="2" Visibility="Collapsed"/>
                     <Polygon Name="singleRecycle" Grid.Column="1" Grid.Row="1" Points="0,0 0,20 9,20 9,0" Stroke="Gray" StrokeThickness="2" Visibility="Collapsed"/>
                     <Ellipse Name="recycleAll" Grid.Column="1" Grid.Row="1" Width="20" Height="20" Stroke="gray" StrokeThickness="2" Visibility="Collapsed"/>

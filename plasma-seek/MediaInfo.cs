@@ -187,12 +187,6 @@ namespace plasma_seek {
         public string Path { get => _path; set { _path = value; OnChange("Path"); } }
         public string Gener { get => _gener; set { _gener = value; OnChange("Gener"); } }
         public byte[] PictureBytes { get => _picture; set {_picture = value; OnChange("PictureBytes"); } }
-        //public BitmapImage Picture {
-        //    get {
-        //        return _albumImage;
-        //    }
-        //    set { _albumImage = value; }
-        //}
         public bool IsFavorite {
             get {
                 return _isFavorite;

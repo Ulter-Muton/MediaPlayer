@@ -7,8 +7,7 @@
         xmlns:dateConvertor="clr-namespace:plasma_seek.DateConvertor"
         xmlns:PersionalClass="clr-namespace:plasma_seek.PersionalClass"
         mc:Ignorable="d"
-        Height="450" Width="800"
-        WindowStyle="ToolWindow"
+        Height="450" Width="800" 
         ResizeMode="CanResize"
         x:Name="myWin"
         FontFamily="Comic Sans MS,console,黑体" >
@@ -16,9 +15,17 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition/>
-            <RowDefinition Height="50"/>
+            <RowDefinition Height="58"/>
         </Grid.RowDefinitions>
 
+        <Border Background="#1ee3cf" CornerRadius="5">
+            <StackPanel Orientation="Horizontal" Margin="2">
+                <Image Source="/图标.ico" Stretch="Fill" Width="36" Height="36"/>
+                <Label Content="音乐播放器" Style="{DynamicResource ResourceKey=fontShowStyle}" 
+                       FontSize="18" Foreground="White"/>
+            </StackPanel>
+        </Border>
+        
         <Grid Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>
@@ -33,31 +40,71 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
                 <Button HorizontalAlignment="Center" VerticalAlignment="Center">本地</Button>
-                <Border Grid.Row="2" Background="#f2f4f6" Margin="4" Height="160" CornerRadius="5">
-                    <WrapPanel x:Name="songCurrentPanel" Grid.Row="2" >
+                <Border Grid.Row="2" Background="#f2f4f6" Margin="4" Height="180" CornerRadius="5">
+                    <Grid x:Name="songCurrentPanel" Grid.Row="2" >
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="auto"/>
+                            <RowDefinition Height="100*"/>
+                        </Grid.RowDefinitions>
                         <!--<localMyControl:DrawImagePanel x:Name="songFace" Width="50" Height="50"/>-->
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="auto"/>
+                                <ColumnDefinition Width="100*"/>
+                            </Grid.ColumnDefinitions>
+                            
+                            <Image x:Name="currentSongImage" Source="Images/DiskImage.png" Width="90" Height="90" HorizontalAlignment="Left" Stretch="Fill" Margin="5,5,0,0" Grid.Column="0"/>
 
-                        <Image x:Name="currentSongImage" Source="Images/DiskImage.png" Width="90" Height="90" HorizontalAlignment="Left" Stretch="Fill" Margin="5,5,0,0"/>
-                        <StackPanel Name="panel" Width="100">
-                            <StackPanel Orientation="Horizontal">
-                                <Label  Content="歌手:"/>
-                                <TextBlock x:Name="currentSongArtist" />
+                            
+                            <StackPanel Grid.Column="1" Grid.Row="0">
+                                
+                                
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="专辑:"/>
-                                <TextBlock x:Name="currentSongAlbum" />
+                        </Grid>
+
+                        <Grid Name="panel" Grid.Row="1" Margin="5">
+                            <Grid.Resources>
+                                <Style x:Key="fontShowStyle" TargetType="{x:Type Control}">
+                                    <Setter Property="FontFamily" Value="Comic Sans MS,console,黑体"/>
+                                    <Setter Property="Foreground" Value="#0d3f67"/>
+                                    <Setter Property="FontSize" Value="14"/>
+                                </Style>
+                                <Style x:Key="textBoxFont" TargetType="{x:Type TextBlock}">
+                                    <Setter Property="FontFamily" Value="Comic Sans MS,console,黑体"/>
+                                    <Setter Property="Foreground" Value="#0d3f67"/>
+                                    <Setter Property="FontSize" Value="10"/>
+                                    <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
+                                </Style>
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="100*"/>
+                                <RowDefinition Height="auto"/>
+                                <RowDefinition Height="auto"/>
+                            </Grid.RowDefinitions>
+
+                            <StackPanel Orientation="Horizontal" Margin="2,2,2,1"
+                                        Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
+                                <TextBlock Text="Title:" Style="{StaticResource textBoxFont}" Foreground="#ff585d"/>
+                                <TextBlock Name="currentSongTitle" Style="{StaticResource textBoxFont}" Width="130"/>
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="类型:"/>
-                                <TextBlock x:Name="currentSongGenur" />
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" 
+                                        Grid.Column="0" Grid.Row="1" Margin="2,1,2,1">
+                                <TextBlock Text="Artist:" Style="{StaticResource textBoxFont}" Foreground="#ff585d"/>
+                                <TextBlock x:Name="currentSongArtist" Style="{StaticResource textBoxFont}"/>
                             </StackPanel>
-                        </StackPanel>
-                        <TextBlock Text="歌曲:"/>
-                        <TextBlock Name="currentSongTitle"/>
-                    </WrapPanel>
+                            <StackPanel Orientation="Horizontal"  Grid.Column="1" Grid.Row="2" Margin="2,1,2,2">
+                                <TextBlock Text="Album:" Style="{StaticResource textBoxFont}" Foreground="#ff585d"/>
+                                <TextBlock x:Name="currentSongAlbum" Style="{StaticResource textBoxFont}"/>
+                                <Label Content="Type:" Style="{StaticResource fontShowStyle }" Visibility="Collapsed"/>
+                                <TextBlock x:Name="currentSongGenur"  Visibility="Collapsed" Style="{StaticResource textBoxFont}"/>
+                            </StackPanel>
+                        </Grid>
+
+                    </Grid>
 
                 </Border>
-                
+
             </Grid>
             <!--内容区-->
             <!--<Grid Grid.Column="1" x:Name="contentShow">
@@ -118,8 +165,8 @@
                                                        VerticalAlignment="Center"/>
                                         </Grid>
                                     </Border>
-                                    
-                                    
+
+
 
 
                                     <StackPanel HorizontalAlignment="Right" 
@@ -164,7 +211,7 @@
                                                 CornerRadius="5">
                                             <ContentPresenter/>
                                         </Border>
-                                        
+
                                         <ControlTemplate.Triggers>
                                             <Trigger Property="ListBoxItem.IsSelected" Value="true">
                                                 <Setter TargetName="rootBorder" Property="Background" Value="#6b48ff"/>
@@ -194,13 +241,154 @@
 
 
         <!--底部播放控制区-->
-        <StackPanel Orientation="Horizontal" Grid.Row="2">
+        <Border Grid.Row="2" Background="#f2f4f6" CornerRadius="10" Margin="4"/>
+        <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="4">
+
+
             <StackPanel.Resources>
                 <!--资源-->
                 <dateConvertor:TimeSpanToDoubleConvertor x:Key="TimeDoubleConvetter"/>
                 <dateConvertor:TimeSpanFormat x:Key="TimeSapnFormat"/>
                 <dateConvertor:StringtoSecondConvertor x:Key="stringIntConvertor"/>
+                
+                <!--提升框的模板-->
+                <ControlTemplate x:Key="toolTipTemplate" TargetType="{x:Type ToolTip}">
+                    <Border  Background="#881ee3cf" CornerRadius="5" >
+                        <ContentPresenter Margin="10"/>
+                    </Border>
+                </ControlTemplate>
+                
+                
+                <!--字体样式-->
+                <Style x:Key="fontShowStyle" TargetType="{x:Type Control}">
+                    <Setter Property="FontFamily" Value="Comic Sans MS,console,黑体"/>
+                    <Setter Property="Foreground" Value="#0d3f67"/>
+                    <Setter Property="FontSize" Value="14"/>
+                </Style>
+                
+                
+                <!--============================================================================-->
+                <!--进度条的模板-->
+                <ControlTemplate x:Key="silderTemplate" TargetType="{x:Type Slider}">
+                    <Border  Width="{TemplateBinding Width}" Height="42"
+                             SnapsToDevicePixels="True">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                                <RowDefinition/>
+                            </Grid.RowDefinitions>
+
+                            <!--<Rectangle Grid.Row="1" Width="{TemplateBinding Width}" 
+                                       Fill="#08ffc8" Height="2"/>-->
+
+                            <!--重要 Track的namePART_Track 竟然影响到这个进度条能不能拖动-->
+                            <Track 
+                                Name="PART_Track"
+                                Grid.Row="1">
+                                <!--完成进度-->
+                                <Track.DecreaseRepeatButton>
+                                    <RepeatButton OverridesDefaultStyle="True"
+                                                  Focusable="False"
+                                                  KeyboardNavigation.IsTabStop="False">
+                                        <RepeatButton.Command>
+                                            <RoutedCommand/>
+                                        </RepeatButton.Command>
+                                        <RepeatButton.Style>
+                                            <Style TargetType="{x:Type RepeatButton}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                                                            <Rectangle Width="{TemplateBinding Width}" 
+                                                                        Height="2" Fill="#ff585d"/>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </RepeatButton.Style>
+                                    </RepeatButton>
+                                </Track.DecreaseRepeatButton>
+                                <Track.Thumb>
+                                    <Thumb OverridesDefaultStyle="True"
+                                           Focusable="False">
+                                        <Thumb.Template>
+                                            <ControlTemplate TargetType="{x:Type Thumb}">
+                                                <Border Background="#00000000" Width="14" Height="14">
+                                                    <Grid>
+                                                        <Ellipse Width="14" Height="14" Fill="White"
+                                                                 HorizontalAlignment="Center"
+                                                                 VerticalAlignment="Center"
+                                                                 StrokeThickness="1"/>
+                                                        <Ellipse Name="outside" Width="10" Height="10" Stroke="#1ee3cf" 
+                                                                 HorizontalAlignment="Center"
+                                                                 VerticalAlignment="Center"
+                                                                 StrokeThickness="1"/>
+
+                                                        <Ellipse Name="inside" Grid.Column="1" Grid.Row="1" 
+                                                                 Stroke="#1ee3cf" 
+                                                                 HorizontalAlignment="Center"
+                                                                 VerticalAlignment="Center"
+                                                                 Width="6" Height="6"
+                                                                 Canvas.Left="2" Canvas.Top="2"/>
+                                                    </Grid>
+                                                </Border>
+                                                <ControlTemplate.Triggers>
+
+                                                    <MultiTrigger>
+                                                        <MultiTrigger.Conditions>
+                                                            <Condition Property="IsMouseOver" Value="true"/>
+                                                            <Condition Property="IsDragging" Value="false"/>
+                                                        </MultiTrigger.Conditions>
+                                                        <Setter TargetName="outside" Property="Width" Value="12"/>
+                                                        <Setter TargetName="outside" Property="Height" Value="12"/>
+                                                        <Setter TargetName="inside" Property="Width" Value="8"/>
+                                                        <Setter TargetName="inside" Property="Height" Value="8"/>
+                                                    </MultiTrigger>
+
+                                                    <Trigger Property="IsDragging" Value="true">
+                                                        <Setter TargetName="outside" Property="Width" Value="12"/>
+                                                        <Setter TargetName="outside" Property="Height" Value="12"/>
+                                                        <Setter TargetName="inside" Property="Width" Value="8"/>
+                                                        <Setter TargetName="inside" Property="Height" Value="8"/>
+                                                        <Setter TargetName="outside" Property="Stroke" Value="#6b48ff"/>
+                                                        <Setter TargetName="inside" Property="Stroke" Value="#6b48ff"/>
+                                                        <Setter TargetName="inside" Property="Fill" Value="#6b48ff"/>
+                                                    </Trigger>
+                                                </ControlTemplate.Triggers>
+                                            </ControlTemplate>
+                                        </Thumb.Template>
+                                    </Thumb>
+                                </Track.Thumb>
+                                <Track.IncreaseRepeatButton>
+                                    <RepeatButton OverridesDefaultStyle="True"
+                                                  KeyboardNavigation.IsTabStop="False"
+                                                  Focusable="False">
+                                        <RepeatButton.Command>
+                                            <RoutedCommand/>
+                                        </RepeatButton.Command>
+                                        <RepeatButton.Style>
+                                            <Style TargetType="{x:Type RepeatButton}">
+                                                <Setter Property="Template">
+                                                    <Setter.Value>
+                                                        <ControlTemplate TargetType="{x:Type RepeatButton}">
+                                                            <Rectangle Width="{TemplateBinding Width}" 
+                                                           Height="2" Fill="#08ffc8"/>
+                                                        </ControlTemplate>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Style>
+                                        </RepeatButton.Style>
+                                    </RepeatButton>
+                                </Track.IncreaseRepeatButton>
+                            </Track>
+                        </Grid>
+
+                    </Border>
+
+                </ControlTemplate>
             </StackPanel.Resources>
+
+
 
             <!--音频播放器-->
             <MediaElement x:Name="audio" Visibility="Collapsed" MediaOpened="Audio_MediaOpened"/>
@@ -213,24 +401,62 @@
 
             <local:StarStopButton Content="next" x:Name="next" Click="Next_Click" Width="35" Height="35" 
                                   IsStartStopButton="False" IsNext="True"/>
-            
+
             <TextBlock x:Name="currentPosition"/>
-            <Label Name="currentTimeLabel" Content="{Binding Path=Position, Converter={StaticResource TimeSapnFormat}}"/>
-            
-            <Slider x:Name="timeLineSplier" Width="200" 
-                    Value="{Binding Path=Position, Converter={StaticResource TimeDoubleConvetter}, Mode=TwoWay}"/>
-            
+            <Label Name="currentTimeLabel" Width="45" VerticalAlignment="Center"
+                   Content="{Binding Path=Position, Converter={StaticResource TimeSapnFormat}}"
+                   FontFamily="Comic Sans MS,console,黑体"/>
+
+            <Slider x:Name="timeLineSplier" Width="200" VerticalAlignment="Center"
+                    Value="{Binding Path=Position, Converter={StaticResource TimeDoubleConvetter}, Mode=TwoWay}"
+                    Template="{StaticResource silderTemplate}"/>
+
+
+
+
             <TextBlock x:Name="totalTime"/>
-            <Label Name="totlaTimeLabel" Content="00:00"/>
+            <Label Name="totlaTimeLabel" Content="00:00" Width="45" 
+                   VerticalAlignment="Center" FontFamily="Comic Sans MS,console,黑体"/>
             <!--<Button Content="{Binding ElementName=timeLineSplier, Path=Value}" Click="Button_Click"/>-->
 
 
-            <local:SongToggerButton  Content="love" x:Name="loveMusic" ToolTip="喜爱"/>
-            <local:SongToggerButton ButtonFunction="3" IsChecked="{Binding ElementName=myWin, Path=IsRecycle, Mode=TwoWay}" Content="recycle all" ToolTip="全部循环"/>
-            <local:SongToggerButton ButtonFunction="4" IsChecked="{Binding ElementName=myWin, Path=SingleRecycle, Mode=TwoWay}" ToolTip="单曲循环" Content="singleRecycle"/>
-            <local:SongToggerButton ButtonFunction="2" IsChecked="{Binding ElementName=myWin, Path=IsRandom, Mode=TwoWay}" Content="random" ToolTip="随机"/>
+            <!--最爱,随机,循环,单曲循环按钮-->
+            <local:SongToggerButton  Content="love" x:Name="loveMusic" IsChecked="{Binding Path=IsFavorite}">
+                <local:SongToggerButton.ToolTip>
+                    <ToolTip Content="喜爱" 
+                             Style="{StaticResource fontShowStyle}"
+                             Template="{StaticResource toolTipTemplate}"/>
+                </local:SongToggerButton.ToolTip>
+            </local:SongToggerButton>
+
+
+            <local:SongToggerButton ButtonFunction="3" IsChecked="{Binding ElementName=myWin, Path=IsRecycle, Mode=TwoWay}" Content="recycle all" >
+                <local:SongToggerButton.ToolTip>
+                    <ToolTip Content="全部循环" 
+                             Style="{StaticResource fontShowStyle}"
+                             Template="{StaticResource toolTipTemplate}"/>
+                </local:SongToggerButton.ToolTip>
+            </local:SongToggerButton>
+
+            <local:SongToggerButton ButtonFunction="4" IsChecked="{Binding ElementName=myWin, Path=SingleRecycle, Mode=TwoWay}"  Content="singleRecycle">
+                <local:SongToggerButton.ToolTip>
+                    <ToolTip Content="单曲循环" 
+                             Style="{StaticResource fontShowStyle}"
+                             Template="{StaticResource toolTipTemplate}"/>
+                </local:SongToggerButton.ToolTip>
+            </local:SongToggerButton>
+
+            <local:SongToggerButton ButtonFunction="2" IsChecked="{Binding ElementName=myWin, Path=IsRandom, Mode=TwoWay}" Content="random">
+                <local:SongToggerButton.ToolTip>
+                    <ToolTip Content="随机" FontFamily="Comic Sans MS,console,黑体" 
+                             Foreground="#0d3f67"
+                             Template="{StaticResource toolTipTemplate}">
+                    </ToolTip>
+                </local:SongToggerButton.ToolTip>
+            </local:SongToggerButton>
             <Label  Content="volum"/>
-            <Slider x:Name="volum" Minimum="0" Maximum="1" Value="0.5" Width="100" ValueChanged="VolumChangeEvent" />
+            <Slider x:Name="volum" Minimum="0" Maximum="1" Value="0.5" Width="100"
+                    ValueChanged="VolumChangeEvent" Template="{StaticResource silderTemplate}"/>
         </StackPanel>
     </Grid>
 </Window>
