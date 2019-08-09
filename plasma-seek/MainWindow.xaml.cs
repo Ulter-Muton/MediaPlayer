@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
-using System.Windows.Forms;
+//using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -20,6 +20,8 @@ using plasma_seek.PersionalClass;
 using System.Collections.ObjectModel;
 using ATL;
 using System.ComponentModel;
+using Microsoft.Win32;
+using Microsoft.WindowsAPICodePack.Dialogs;
 
 namespace plasma_seek {
     /// <summary>
@@ -66,7 +68,7 @@ namespace plasma_seek {
         private System.ComponentModel.ICollectionView playListView;
 
         private AudioPositionWatcher watcher;//音频时间轴监测
-                                             
+
 
 
 
@@ -78,10 +80,13 @@ namespace plasma_seek {
         public string ConfigPath { get => _configPath; }
         public string SongListXmlPath { get => _SongListXmlPath; }
         public string FolderPath { get => _FolderPath; }
-        public bool IsAudioPlay { get => isAudioPlay; set {
+        public bool IsAudioPlay {
+            get => isAudioPlay; set {
                 isAudioPlay = value;
                 PropertyOnChanged("IsAudioPlay");
-            } }
+            }
+        }
+        public SongFolderRecoders FolderRecorders { get => _folderRecoerds; set => _folderRecoerds = value; }
         //public string  FavoriteSongPath { get => _favoriteSongPath; }
         //====================================================
         #endregion
@@ -159,11 +164,19 @@ namespace plasma_seek {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void FindSongOnClick(object sender, RoutedEventArgs e) {
-            FolderBrowserDialog getFolder = new FolderBrowserDialog();
+            CommonOpenFileDialog getFolder = new CommonOpenFileDialog();
+            //FolderBrowserDialog getFolder = new FolderBrowserDialog();
+
+            if (FolderRecorders.Count>0) {
+                //如果已经有了路径
+                getFolder.DefaultDirectory = FolderRecorders[0].Path;
+            }
+
+            getFolder.IsFolderPicker = true;
             string[] FilePaths = null;
             //获取文件夹信息
-            if (getFolder.ShowDialog() == System.Windows.Forms.DialogResult.OK) {
-                FilePaths = Directory.GetFiles(getFolder.SelectedPath);
+            if (getFolder.ShowDialog() == CommonFileDialogResult.Ok) {
+                FilePaths = Directory.GetFiles(getFolder.FileName);
                 //FileStream mediaStream = null;
                 Track media = null;
                 Regex regex = new Regex(@"(\w+[ ]*)+(?=[(.mp3)(.flav)])", RegexOptions.IgnoreCase);//使用正则表达式过滤出音频名称
@@ -174,7 +187,7 @@ namespace plasma_seek {
                         //记录拥有音乐文件的文件夹路径=================================
                         if (_folderRecoerds.Count == 0) {
                             //将文件夹路径记录到列表中
-                            _folderRecoerds.Add(new SongFolderRecoder(getFolder.SelectedPath));
+                            _folderRecoerds.Add(new SongFolderRecoder(getFolder.FileName));
                             //将列表信息记录到xml中
                             _folderRecoerds.SaveToXml(FolderPath);
                         } else {
@@ -189,11 +202,11 @@ namespace plasma_seek {
                             //    }
                             //}
                             for (int i = 0; i < _folderRecoerds.Count; i++) {
-                                if (_folderRecoerds[i].Equals(new SongFolderRecoder(getFolder.SelectedPath))) {
+                                if (_folderRecoerds[i].Equals(new SongFolderRecoder(getFolder.FileName))) {
                                     //不做任何操作
                                 } else {
                                     //将文件夹路径记录到列表中
-                                    _folderRecoerds.Add(new SongFolderRecoder(getFolder.SelectedPath));
+                                    _folderRecoerds.Add(new SongFolderRecoder(getFolder.FileName));
                                     //将列表信息记录到xml中
                                     _folderRecoerds.SaveToXml(FolderPath);
                                 }
@@ -246,13 +259,34 @@ namespace plasma_seek {
         }
 
         private void Button_Click(object sender, RoutedEventArgs e) {
-            if (audio!=null) {
+            if (audio != null) {
                 audio.Position = new TimeSpan(0, 0, 50);
             }
         }
-
+        /// <summary>
+        /// 增加一首歌曲
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void AddSong_Click(object sender, RoutedEventArgs e) {
+            //
+            OpenFileDialog openfile = new OpenFileDialog();
+            openfile.Filter = "mp3|*.mp3|flav|*.flav|mp4|*.mp4|all files|*.*";
 
+            if (openfile.ShowDialog().GetValueOrDefault()) {
+                Track music = new Track(openfile.FileName, false);
+                if (music!=null) {
+                    MediaInfo info = new MediaInfo(music);
+                    if (mediaInfos.HaveItem(info)) {
+                        //do nothing
+                    } else {
+                        mediaInfos.Add(info);
+                        mediasListView.Refresh();
+                    }
+                }
+            }
         }
+
+
     }
 }

@@ -77,7 +77,6 @@ namespace plasma_seek {
             timeLineSplier.Minimum = 0;
         }
 
-
         /// <summary>
         /// 播放音乐
         /// </summary>
