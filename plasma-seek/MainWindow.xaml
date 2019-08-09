@@ -46,7 +46,7 @@
                                         <Setter TargetName="insider" Property="Width" Value="8"/>
                                         <Setter TargetName="insider" Property="Height" Value="8"/>
                                         <Setter TargetName="insider" Property="Fill" Value="#ff6768"/>
-                                        
+
                                     </Trigger>
                                     <Trigger Property="ButtonBase.IsPressed" Value="true">
                                         <Setter Property="Foreground">
@@ -54,7 +54,7 @@
                                                 <SolidColorBrush>#ca3e47</SolidColorBrush>
                                             </Setter.Value>
                                         </Setter>
-                                        
+
                                     </Trigger>
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
@@ -135,7 +135,7 @@
                                         <ResourceDictionary />
                                     </Style.Resources>
                                     <Setter Property="FrameworkElement.OverridesDefaultStyle" Value="True">
-                                        
+
                                     </Setter>
                                     <Setter Property="KeyboardNavigation.IsTabStop" Value="True"/>
 
@@ -215,7 +215,7 @@
 
             </ControlTemplate.Triggers>
         </ControlTemplate>
-        
+
         <!--滚动视窗模板-->
         <ControlTemplate x:Key="scrollViewerTemplate" TargetType="ScrollViewer" >
             <Grid Background="{TemplateBinding Panel.Background}">
@@ -227,7 +227,7 @@
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
-                
+
                 <Rectangle
                             Grid.Column="1"
                             Grid.Row="1"
@@ -259,7 +259,7 @@
                             Value="{Binding Path=HorizontalOffset, Mode=OneWay, RelativeSource={RelativeSource Mode=TemplatedParent}}"
                             Visibility="{TemplateBinding ScrollViewer.ComputedHorizontalScrollBarVisibility}"
                             Cursor="Arrow"
-                            AutomationProperties.AutomationId="HorizontalScrollBar" />  
+                            AutomationProperties.AutomationId="HorizontalScrollBar" />
             </Grid>
         </ControlTemplate>
 
@@ -278,11 +278,11 @@
             <Setter Property="Foreground" Value="#0d3f67"/>
             <Setter Property="FontSize" Value="14"/>
         </Style>
-        
+
     </Window.Resources>
-    
+
     <Grid ShowGridLines="false">
- 
+
 
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
@@ -317,13 +317,55 @@
                 <!--播放列表-->
 
 
-                <TreeView Grid.Row="1">
-                    <TreeViewItem Header="所有音乐">
-                        <TreeViewItem Header="最爱"/>
-                        <TreeViewItem Header="播放列表"/>
-                        <TreeViewItem Header="歌手"/>
-                        <TreeViewItem Header="类型"/>
-                    </TreeViewItem>
+                <TreeView Grid.Row="1" Background="#dadada">
+                    <TreeView.Template>
+                        <ControlTemplate TargetType="TreeView">
+                            <Border Background="{TemplateBinding Background}" 
+                                    Width="{TemplateBinding Width}"
+                                    Height="{TemplateBinding Height}"
+                                    CornerRadius="10">
+                                <ItemsPresenter/>
+                            </Border>
+                        </ControlTemplate>
+                    </TreeView.Template>
+                    <!--<TreeView.Style>
+                        <Style TargetType="TreeView">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate>
+                                        <Border Background="#dadada" 
+                                                Width="{TemplateBinding Width}"
+                                                Height="{TemplateBinding Height}"
+                                                CornerRadius="5"
+                                                Margin="{TemplateBinding Padding}">
+                                            <ItemsPresenter/>
+                                        </Border>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="ItemTemplate">
+                                <Setter.Value>
+                                    <DataTemplate>
+                                        <Border Background="#6b48ff" Width="{Binding Width}">
+                                            
+                                        </Border>
+                                    </DataTemplate>
+                                </Setter.Value>
+                            </Setter>
+                            <Setter Property="ItemContainerStyle">
+                                <Setter.Value>
+                                    <Style TargetType="TreeViewItem">
+
+                                    </Style>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TreeView.Style>-->
+                    <local:MyTreeViewItem Header="所有音乐">
+                        <local:MyTreeViewItem Header="最爱" MouseDoubleClick="FavoriteItem_Click"/>
+                        <local:MyTreeViewItem Header="歌手" MouseDoubleClick="ArtistItem_Click"/>
+                        <local:MyTreeViewItem Header="类型" MouseDoubleClick="TypeItem_Click"/>
+                    </local:MyTreeViewItem>
                 </TreeView>
 
                 <!---->
@@ -345,9 +387,10 @@
 
 
                     <StackPanel Grid.Column="1" Grid.Row="0">
-
-
+                        
                     </StackPanel>
+                    
+                    
                 </Grid>
 
                 <Grid Name="panel" Grid.Row="1" Margin="5">
@@ -788,7 +831,7 @@
 
 
         <!--最爱,随机,循环,单曲循环按钮-->
-        <local:SongToggerButton  Content="love" x:Name="loveMusic" IsChecked="{Binding Path=IsFavorite}">
+        <local:SongToggerButton  Content="love" x:Name="loveMusic" Checked="SetUnsetFavorite_Click">
             <local:SongToggerButton.ToolTip>
                 <ToolTip Content="喜爱" 
                              Style="{StaticResource fontShowStyle}"

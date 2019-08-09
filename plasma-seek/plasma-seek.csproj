@@ -90,14 +90,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="AudioPlayControl.cs" />
+    <Compile Include="MainWindow.PlayControl.cs" />
     <Compile Include="DateConvertor\BitmapImageToILixtConvertor.cs" />
     <Compile Include="DateConvertor\LengthDubTwo.cs" />
     <Compile Include="DateConvertor\SliderIsEnabledConvertor.cs" />
     <Compile Include="DateConvertor\StringtoSecondConvertor.cs" />
     <Compile Include="DateConvertor\TimeSpanFormat.cs" />
     <Compile Include="DateConvertor\TimeSpanToDoubleConvertor.cs" />
+    <Compile Include="MainWindow.SortList.cs" />
     <Compile Include="MyExceptions\CannotConverterException.cs" />
+    <Compile Include="MyTreeViewItem.xaml.cs">
+      <DependentUpon>MyTreeViewItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PersionalClass\AudioPositionWatcher.cs" />
     <Compile Include="SongDisPlayPanel.xaml.cs">
       <DependentUpon>SongDisPlayPanel.xaml</DependentUpon>
@@ -108,9 +112,17 @@
     <Compile Include="StarStopButton.xaml.cs">
       <DependentUpon>StarStopButton.xaml</DependentUpon>
     </Compile>
+    <Page Include="MySearchBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MySlider.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="MyTreeViewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="SongToggerButton.xaml">
       <SubType>Designer</SubType>
@@ -134,6 +146,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="SongDisPlayPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TreViewDefault.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -205,6 +221,9 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="SortClass\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

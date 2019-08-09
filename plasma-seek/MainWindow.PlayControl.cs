@@ -20,6 +20,7 @@ using plasma_seek.PersionalClass;
 using System.ComponentModel;
 using plasma_seek.DateConvertor;
 using plasma_seek.MyExceptions;
+using System.Windows.Controls.Primitives;
 
 namespace plasma_seek {
 
@@ -83,7 +84,7 @@ namespace plasma_seek {
         /// <param name="info">音乐文件</param>
 
         /// <summary>
-        /// 
+        /// 开始结束按钮的事件
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -103,6 +104,12 @@ namespace plasma_seek {
             }
         }
 
+
+        /// <summary>
+        /// 上一首按钮按下后
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Previous_Click(object sender, RoutedEventArgs e) {
             //mediasListView.MoveCurrentToPrevious();
 
@@ -121,6 +128,12 @@ namespace plasma_seek {
             ScrollBoxToItem(tmpView);
             ControlButtonIntinial();
         }
+
+        /// <summary>
+        /// 下一首按钮按下后
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Next_Click(object sender, RoutedEventArgs e) {
 
             ICollectionView tmpView = AudioListSelect(AudioControlSign.Next);
@@ -137,6 +150,7 @@ namespace plasma_seek {
 
             //AudioPlay(mediasListView.CurrentItem as MediaInfo);
         }
+
         /// <summary>
         /// 设置自动播放下一首
         /// </summary>
@@ -148,6 +162,19 @@ namespace plasma_seek {
             args.Source = next;
             Next_Click(next, args);
         }
+        /// <summary>
+        /// 设置这首歌曲是否喜爱
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetUnsetFavorite_Click(object sender, RoutedEventArgs e) {
+            ToggleButton toggle = e.Source as ToggleButton;
+            if (toggle!=null&& toggle.IsChecked!=null) {
+                //设置是否是最爱
+                mediaInfos[mediasListView.CurrentPosition].IsFavorite = (bool)toggle.IsChecked;
+            }   
+        }
+
 
         /// <summary>
         /// 修改音量
@@ -192,6 +219,8 @@ namespace plasma_seek {
                     currentSongArtist.Text = info.Artist;
                     currentSongGenur.Text = info.Gener;
                     currentSongTitle.Text = info.Title;
+
+                    loveMusic.IsChecked = mediaInfos[mediasListView.CurrentPosition].IsFavorite;//显示这首音乐是否是喜爱的
                     //watcher.Media = audio;
                     //timeLineSplier.Maximum = audio.NaturalDuration.TimeSpan.TotalMilliseconds;//设置音乐控制条的最大位置
                     //timeLineSplier.DataContext = audio;

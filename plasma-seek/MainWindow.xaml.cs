@@ -102,7 +102,7 @@ namespace plasma_seek {
             watcher = new AudioPositionWatcher();
             currentTimeLabel.DataContext = watcher;
             timeLineSplier.DataContext = watcher;
-            loveMusic.DataContext = _currentSongInfo;
+            
             //panel.Children.Add(audio);
         }
 
@@ -287,6 +287,6 @@ namespace plasma_seek {
             }
         }
 
-
+       
     }
 }
