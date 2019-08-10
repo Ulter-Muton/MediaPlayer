@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace plasma_seek.MyExceptions {
     /// <summary>
-    /// 转化失败
+    /// Converter转化失败抛出异常
     /// </summary>
     class CannotConverterException:Exception {
         public CannotConverterException():base("Convert fail") {           

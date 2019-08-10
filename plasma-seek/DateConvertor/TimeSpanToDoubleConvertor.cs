@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 using System.Windows.Data;
 
 namespace plasma_seek.DateConvertor {
+    /// <summary>
+    /// 将timespan和double相互转换
+    /// </summary>
     [ValueConversion(typeof(TimeSpan), typeof(double))]
     class TimeSpanToDoubleConvertor : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {

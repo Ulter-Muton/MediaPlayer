@@ -3,6 +3,7 @@
             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
             x:Class="plasma_seek.SongDisPlayPanel"
       Width="60" Height="60">
+    <!--显示专辑封面,歌曲名称-->
     <Grid.RowDefinitions>
         <RowDefinition Height="auto"/>
         <RowDefinition Height="30"/>
@@ -12,8 +13,8 @@
     <TextBlock Grid.Row="1" Name="songName" Text="{Binding Path=SongTitle}"/>
     <TextBlock Grid.Row="2" Name="artist" Text="{Binding Path=MusicArtist}"/>
     <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top">
-        <Button Content="add" Height="10" Width="10" Name="addToPlayList"/>
-        <Button Content="love" Height="10" Width="10" Name="loveSong"/>
-        <Button Content="edit" Height="10" Width="10" Name="editSong"/>
+        <Button Content="add" Height="10" Width="10" Name="addToPlayList" Visibility="Collapsed"/>
+        <Button Content="love" Height="10" Width="10" Name="loveSong" Visibility="Collapsed"/>
+        <Button Content="edit" Height="10" Width="10" Name="editSong" Visibility="Collapsed"/>
     </StackPanel>
 </Grid>

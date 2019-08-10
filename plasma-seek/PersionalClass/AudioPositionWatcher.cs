@@ -11,7 +11,7 @@ namespace plasma_seek.PersionalClass {
     public  class MediaNotSetException:Exception {
     }
     /// <summary>
-    /// 使用一个计时器获取音乐的当前时间轴
+    /// 使用一个计时器获取音乐的当前时间轴,此类作为中间人控制音乐的播放时间轴
     /// </summary>
     public class AudioPositionWatcher : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;

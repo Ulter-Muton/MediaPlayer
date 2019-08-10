@@ -105,5 +105,18 @@ namespace plasma_seek {
             //toggle.IsChecked = false;
             //searchText.Text = "";
         }
+        /// <summary>
+        /// 写入查找的信息后按enter可以触发查找事件
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void EnterKeyUp(object sender, KeyEventArgs e) {
+            if (sender is TextBox) {
+                if (e.Key==Key.Enter) {
+                    SearchButton_OnClick(searchButton, new RoutedEventArgs() { RoutedEvent = Button.ClickEvent, Source = searchButton });
+                }
+                e.Handled = true;
+            }
+        }
     }
 }

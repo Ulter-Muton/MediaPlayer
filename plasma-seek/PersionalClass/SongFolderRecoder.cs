@@ -6,6 +6,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace plasma_seek.PersionalClass {
+    /// <summary>
+    /// 这个类用来定义要记录路径到xml中
+    /// </summary>
     public class SongFolderRecoder : INotifyPropertyChanged {
         public event PropertyChangedEventHandler PropertyChanged;
 

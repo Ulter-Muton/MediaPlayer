@@ -4,6 +4,7 @@
         xmlns:local="clr-namespace:plasma_seek"
         x:Class="plasma_seek.StarStopButton"
         Width="40" Height="40" Margin="2" Background="#00000000" Foreground="LightSeaGreen">
+    <!--将播放,下一首,前一首按钮设置到一起,按需要设置成其中的一种-->
     <Button.Template>
         <ControlTemplate TargetType="{x:Type Button}">
             <Border Width="{TemplateBinding Width}"

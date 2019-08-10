@@ -9,6 +9,9 @@ using System.Windows.Data;
 using System.Windows.Media.Imaging;
 
 namespace plasma_seek.DateConvertor {
+    /// <summary>
+    /// 将图片的位数据还原成一个bitmapimage,用来显示歌曲专辑封面.byte[]类型的图片数据来自于Track类型(第三方工具集)
+    /// </summary>
     [ValueConversion(typeof(IList<byte>),typeof(BitmapImage))]
     class BitmapImageToILixtConvertor : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {

@@ -1,4 +1,4 @@
-﻿using ID3;
+﻿
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -97,12 +97,16 @@ namespace plasma_seek {
         //====================================================
         #endregion
 
+        /// <summary>
+        /// 播放器的各种设置改成上一次关闭时的设置
+        /// </summary>
         private void LoadlastTimeOpenSetting() {
             //将播放器设置为上次关闭一致
 
             if (File.Exists(SettingFilePath)) {
                 setting = PlayerSetting.LoadFromXml(SettingFilePath) as PlayerSetting;
             } else {
+                //如果没有设置文件(第一次打开)
                 setting = new PlayerSetting();
             }
 
@@ -127,7 +131,7 @@ namespace plasma_seek {
                 //音量
                 volum.Value = setting.Volumn;
             }
-            
+
         }
         /// <summary>
         /// 初始化播放器
@@ -342,12 +346,14 @@ namespace plasma_seek {
             if (result == MessageBoxResult.Yes) {
                 //关闭前记录各种信息
                 //检查当前位置是不是-1,如果是就设置为0;
-                setting.AudioIndex = mediasListView.CurrentPosition==-1? 0: mediasListView.CurrentPosition;
+                setting.AudioIndex = mediasListView.CurrentPosition == -1 ? 0 : mediasListView.CurrentPosition;
                 setting.IsRandom = this.IsRandom;
                 setting.IsRecycle = this.IsRecycle;
                 setting.IsSIngleRecycle = this.SingleRecycle;
                 setting.Volumn = volum.Value;
                 setting.SaveToXml(SettingFilePath);
+
+                mediaInfos.SaveToXml(SongListXmlPath);
                 e.Cancel = false;
 
             } else {

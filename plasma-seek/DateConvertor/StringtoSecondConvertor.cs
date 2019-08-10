@@ -8,6 +8,9 @@ using System.Windows.Data;
 using plasma_seek.MyExceptions;
 
 namespace plasma_seek.DateConvertor {
+    /// <summary>
+    /// 将字符串的时钟格式的数据转化为Timespan,控制时间间隔,显示时间间隔
+    /// </summary>
     [ValueConversion(typeof(string),typeof(int))]
     class StringtoSecondConvertor : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {

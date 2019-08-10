@@ -4,6 +4,7 @@
         xmlns:local="clr-namespace:plasma_seek"
         x:Class="plasma_seek.SongToggerButton"
         Width="40" Height="40" Margin="2" Background="#00000000" Foreground="LightSeaGreen">
+    <!--togglebutton:将喜爱,循环,单曲循环,随机 放到一个控件里面,按需要将其设置成喜爱或者随机-->
     <ToggleButton.Template>
         <ControlTemplate>
             <Border Name="rootElement" Background="{TemplateBinding Background}"

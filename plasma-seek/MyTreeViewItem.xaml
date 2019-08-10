@@ -2,6 +2,7 @@
 <TreeViewItem xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
               x:Class="plasma_seek.MyTreeViewItem">
+    <!--自定义一个树表的外观,重写模板-->
     <TreeViewItem.Template>
         <ControlTemplate TargetType="TreeViewItem">
             <Border Background="{TemplateBinding Background}">

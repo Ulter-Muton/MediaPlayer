@@ -9,13 +9,11 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using ID3;
-using ID3.ID3v2Frames.BinaryFrames;
 using ATL;
 
 namespace plasma_seek {
     /// <summary>
-    /// 表示音频文件的类
+    /// 表示音频文件的类,其字段储存歌曲的各种信息
     /// 用于listbox的显示
     /// </summary>
     public class MediaInfo : INotifyPropertyChanged {
@@ -75,10 +73,8 @@ namespace plasma_seek {
             if (date !=null&&date.Length!=0){
                 PictureBytes = date;
             }
-
             //路径
             Path = info.Path;
-
         }
         /// <summary>
         /// 定义对比

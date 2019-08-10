@@ -12,6 +12,7 @@
         x:Name="myWin"
         FontFamily="Comic Sans MS,console,黑体" >
 
+    <!-- 这个窗口的资源-->
     <Window.Resources>
         <!--滚动条的模板-->
 
@@ -279,19 +280,20 @@
             <Setter Property="FontSize" Value="14"/>
         </Style>
 
-        <dateConvertor:HasItemsToBoolConvertor x:Key="hasToBool"/>
+        <!--<dateConvertor:HasItemsToBoolConvertor x:Key="hasToBool"/>-->
 
     </Window.Resources>
 
+    <!--窗口的内容-->
     <Grid ShowGridLines="false">
-
-
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>
             <RowDefinition/>
             <RowDefinition Height="58"/>
         </Grid.RowDefinitions>
 
+
+        <!--顶部标识栏-->
         <Border Background="#1ee3cf" CornerRadius="5" Width="100" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal" Margin="2">
                 <!--<Image Source="/图标.ico" Stretch="Fill" Width="36" Height="36" Visibility="Collapsed"/>-->
@@ -300,13 +302,14 @@
             </StackPanel>
         </Border>
 
+        <!--中部列表和提示区-->
         <Grid Grid.Row="1" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="180"/>
                 <ColumnDefinition/>
             </Grid.ColumnDefinitions>
 
-            <!--分区-->
+            <!--左边功能区,音乐信息显示区-->
             <Grid Grid.Column="0" Width="180">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="20*" />
@@ -314,11 +317,10 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
-                <Button HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">本地</Button>
-
-                <!--播放列表-->
 
 
+
+                <!--控制列表的排列顺序-->
                 <TreeView Grid.Row="1" Background="#dadada" Margin="4" >
 
                     <TreeView.Template>
@@ -385,6 +387,8 @@
                             <RowDefinition Height="100*"/>
                         </Grid.RowDefinitions>
                         <!--<localMyControl:DrawImagePanel x:Name="songFace" Width="50" Height="50"/>-->
+
+                <!--当前播放音乐的封面标题等-->
                 <Grid Grid.Row="0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto"/>
@@ -392,16 +396,14 @@
                     </Grid.ColumnDefinitions>
 
                     <Image x:Name="currentSongImage" Source="Images/DiskImage.png" Width="90" Height="90" HorizontalAlignment="Left" Stretch="Fill" Margin="5,5,0,0" Grid.Column="0"/>
-
-
                     <StackPanel Grid.Column="1" Grid.Row="0">
-
                     </StackPanel>
-
-
                 </Grid>
 
+
+
                 <Grid Name="panel" Grid.Row="1" Margin="5">
+                    <!--此Grid的资源-->
                     <Grid.Resources>
                         <Style x:Key="fontShowStyle" TargetType="{x:Type Control}">
                             <Setter Property="FontFamily" Value="Comic Sans MS,console,黑体"/>
@@ -415,12 +417,15 @@
                             <Setter Property="TextWrapping" Value="WrapWithOverflow"/>
                         </Style>
                     </Grid.Resources>
+
+
                     <Grid.RowDefinitions>
                         <RowDefinition Height="100*"/>
                         <RowDefinition Height="auto"/>
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
+                    <!--以下几个面板分别容纳正在播放的歌曲标题,艺术家,专辑等信息-->
                     <StackPanel Orientation="Horizontal" Margin="2,2,2,1"
                                         Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2">
                         <TextBlock Text="Title:" Style="{StaticResource textBoxFont}" Foreground="#ca3e47"/>
@@ -439,13 +444,12 @@
                         <TextBlock x:Name="currentSongGenur"  Visibility="Collapsed" Style="{StaticResource textBoxFont}"/>
                     </StackPanel>
                 </Grid>
-
             </Grid>
-
             </Border>
-
         </Grid>
-        <!--内容区-->
+
+
+        <!--内容区,主要有歌曲列表和查找歌曲等控件-->
         <!--<Grid Grid.Column="1" x:Name="contentShow">
                 <Grid.Resources>
                     <dateConvertor:BitmapImageToILixtConvertor x:Key="ImageSourceConvertor"/>
@@ -457,6 +461,7 @@
                 <dateConvertor:BitmapImageToILixtConvertor x:Key="ImageSourceConvertor"/>
 
 
+                <!--每个Lisbox的项目的外观 Itemtemplate-->
                 <DataTemplate x:Key="mediaInfo" DataType="{x:Type local:MediaInfo}">
                     <Border Name="rootBorder" CornerRadius="5">
                         <Grid >
@@ -499,24 +504,26 @@
                                 </Grid>
                             </Border>
 
-
-
-
                             <StackPanel HorizontalAlignment="Right" 
                                             VerticalAlignment="Top">
+                                <StackPanel.Resources>
+
+                                </StackPanel.Resources>
+
                                 <Button Content="add" Height="10" Width="10" Name="addToPlayList"/>
                                 <Button Content="love" Height="10" Width="10" Name="loveSong"/>
                                 <Button Content="edit" Height="10" Width="10" Name="editSong"/>
                             </StackPanel>
                         </Grid>
                     </Border>
-
                 </DataTemplate>
             </DockPanel.Resources>
 
 
-            <Border DockPanel.Dock="Top" CornerRadius="5" Background="#f2f4f6" Margin="4,4,4,2" Height="24">
 
+
+            <Border DockPanel.Dock="Top" CornerRadius="5" Background="#f2f4f6" Margin="4,4,4,2" Height="24">
+                <!--border的资源文件-->
                 <Border.Resources>
                     <Style TargetType="Button" x:Key="buttonStyle">
                         <Setter Property="Background" Value="#1ee3cf"/>
@@ -529,7 +536,10 @@
                 </Border.Resources>
 
                 <StackPanel  Orientation="Horizontal">
+
+                    <!--选择音乐所在文件夹的按钮-->
                     <Button  x:Name="findMusic" Style="{StaticResource buttonStyle}" Click="FindSongOnClick">
+                        <!--重写按钮的模板-->
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Name="root" 
@@ -557,6 +567,8 @@
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
+
+                        <!--按钮的提示,鼠标悬浮有提示框-->
                         <Button.ToolTip>
                             <ToolTip Content="打开音频文件夹" 
                                             Style="{DynamicResource fontShowStyle}"
@@ -564,8 +576,9 @@
                         </Button.ToolTip>
                     </Button>
 
-
+                    <!--单独增加一条音乐的按钮-->
                     <Button Name="addSong" Style="{StaticResource buttonStyle}" Click="AddSong_Click">
+                        <!--重写模板-->
                         <Button.Template>
                             <ControlTemplate TargetType="Button">
                                 <Border Name="root" 
@@ -594,7 +607,7 @@
                                 </ControlTemplate.Triggers>
                             </ControlTemplate>
                         </Button.Template>
-
+                        <!--按钮提示-->
                         <Button.ToolTip>
                             <ToolTip Content="增加音乐文件" 
                                             Style="{DynamicResource fontShowStyle}"
@@ -602,16 +615,17 @@
                         </Button.ToolTip>
                     </Button>
                 </StackPanel>
-
             </Border>
 
+
+            <!--歌曲列表-->
             <ListBox x:Name="songList" SelectionChanged="SongSelectionChange" 
                          MouseDoubleClick="SongListItem_DoubleClick" 
                          ScrollViewer.VerticalScrollBarVisibility="Auto" 
                          HorizontalAlignment="Stretch" 
                          VerticalAlignment="Stretch"
                          Padding="10" Background="#0d3f67" ItemTemplate="{StaticResource mediaInfo}">
-
+                <!--重写listbox的模板,主要是容纳所有items的外观-->
                 <ListBox.Template>
                     <ControlTemplate>
                         <Border Name="rooBorder" Width="{TemplateBinding Width}" Height="{TemplateBinding Height}"
@@ -621,23 +635,20 @@
 
                                 <ItemsPresenter/>
                             </ScrollViewer>
-                            <!--<Grid>
-                                <ScrollBar Template="{StaticResource myScrollBar}" />
-                            </Grid>-->
-                            <!--<WrapPanel Width="{TemplateBinding Width}">
-                                    <ItemsPresenter/>
-                                </WrapPanel>-->
                         </Border>
                     </ControlTemplate>
                 </ListBox.Template>
+
+                <!--重写排列Items的panel,使用wrappanel可以自动换行-->
                 <ListBox.ItemsPanel>
                     <ItemsPanelTemplate>
                         <WrapPanel Background="#f2f4f6"/>
                     </ItemsPanelTemplate>
                 </ListBox.ItemsPanel>
-                <!--修改listboxitem的外观-->
+
+                <!--修改listboxitem的数据显示形式的模板-->
                 <ListBox.ItemContainerStyle>
-                    <!--利用setter改变template属性,产生新的外观-->
+                    <!--利用setter改变template属性,产生新的动态外观,如鼠标在上面,按下的外观-->
                     <Style TargetType="{x:Type ListBoxItem}">
                         <Setter Property="Foreground" Value="#0d3f67"/>
                         <Setter Property="Template">
@@ -666,9 +677,11 @@
                         </Setter>
                     </Style>
                 </ListBox.ItemContainerStyle>
-            </ListBox>
 
+            </ListBox>
         </DockPanel>
+
+
         <!--一个浮动在上方的查找歌曲的工具-->
         <Canvas Grid.Column="1">
             <Canvas.Resources>
@@ -687,8 +700,10 @@
                     <RowDefinition Height="auto"/>
                 </Grid.RowDefinitions>
 
+                <!--是否展开查找面板的按钮-->
                 <ToggleButton Name="toggle"  Grid.Column="0" Grid.Row="0"
                       FontSize="10">
+                    <!--重写模板-->
                     <ToggleButton.Template>
                         <ControlTemplate TargetType="ToggleButton">
                             <Border Name="root"
@@ -716,24 +731,31 @@
                             </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </ToggleButton.Template>
+
+                    <!--增加鼠标悬浮提示-->
                     <ToggleButton.ToolTip>
                         <ToolTip Template="{StaticResource toolTipTemplate}" 
                                  Content="根据歌曲名称和艺术家名称查找"/>
                     </ToggleButton.ToolTip>
                 </ToggleButton>
+
+
+                <!--内容区,使用正则表达式查找-->
                 <TextBox Width="300" Height="20" 
                  Grid.Column="1" Grid.Row="0"  TextAlignment="Right"
                  FontSize="12" Name="searchText" 
                          Visibility="{Binding ElementName=toggle, Path=IsChecked, 
-                    Converter={StaticResource ischeckedConvertor}}"/>
+                    Converter={StaticResource ischeckedConvertor}}"
+                         KeyUp="EnterKeyUp"/>
 
-
+                <!--按钮确定查找-->
                 <Button Grid.Column="2" Grid.Row="0"
                 Padding="4,2,4,2" Background="#08ffc8" 
                 Name="searchButton"
                         Click="SearchButton_OnClick"
                          Visibility="{Binding ElementName=toggle, Path=IsChecked, 
                     Converter={StaticResource ischeckedConvertor}}">
+                    <!--重写模板-->
                     <Button.Template>
                         <ControlTemplate TargetType="{x:Type Button}">
                             <Border Background="{TemplateBinding Background}"
@@ -748,16 +770,17 @@
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
-
                     OK
                 </Button>
+                
+                <!--显示查找结果的面板-->
                 <ScrollViewer Width="390" Height="280" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
                               VerticalScrollBarVisibility="Hidden" Visibility="{Binding ElementName=toggle, Path=IsChecked, 
                     Converter={StaticResource ischeckedConvertor}}">
                     <StackPanel Width="284" Height="auto" Background="#00000000" Name="ShowResaultpanel" Visibility="{Binding ElementName=toggle, Path=IsChecked, 
                     Converter={StaticResource ischeckedConvertor}}" />
                 </ScrollViewer>
- 
+
             </Grid>
         </Canvas>
         <!--</Grid>-->
@@ -768,7 +791,10 @@
 
 
     <!--底部播放控制区-->
+        <!--底部背景用一个border-->
     <Border Grid.Row="2" Background="#f2f4f6" CornerRadius="10" Margin="4"/>
+        
+        
     <StackPanel Orientation="Horizontal" Grid.Row="2" Margin="4">
 
 
@@ -898,12 +924,16 @@
                 </Border>
 
             </ControlTemplate>
+            
         </StackPanel.Resources>
 
 
 
         <!--音频播放器-->
+        <!--主要-->
         <MediaElement x:Name="audio" Visibility="Collapsed" MediaOpened="Audio_MediaOpened"/>
+        
+        
         <!--控制按钮-->
         <local:StarStopButton Content="prev" x:Name="previous" Click="Previous_Click" Width="35" Height="35" Margin="2"
                                   IsStartStopButton="False" IsNext="False"/>
@@ -968,7 +998,7 @@
                     ValueChanged="VolumChangeEvent" Template="{StaticResource silderTemplate}"/>
     </StackPanel>
 
-
+<!--=========================================================================================================-->
     <!--初次登录用来提示的面板-->
     <Grid Grid.RowSpan="3" Name="firstTimeTipe" Visibility="Collapsed">
         <Border Background="#66dadada"

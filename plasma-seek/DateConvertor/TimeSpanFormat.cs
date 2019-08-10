@@ -8,6 +8,9 @@ using System.Windows.Data;
 using plasma_seek.MyExceptions;
 
 namespace plasma_seek.DateConvertor {
+    /// <summary>
+    /// 数据绑定将timespan转化成格式化的字符串
+    /// </summary>
     class TimeSpanFormat : IValueConverter {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture) {
             if (value is TimeSpan) {
