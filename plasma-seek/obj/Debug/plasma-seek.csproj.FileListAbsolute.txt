@@ -55,5 +55,5 @@ G:\Project\MediaPlayer\plasma-seek\obj\Debug\MyScrolBar.baml
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\MyTreeViewItem.baml
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\MyTreeViewItem.g.cs
 G:\Project\MediaPlayer\plasma-seek\obj\Debug\TreViewDefault.baml
-G:\Project\MediaPlayer\plasma-seek\obj\Debug\MySearchBox.baml
-G:\Project\MediaPlayer\plasma-seek\obj\Debug\MySearchBox.g.cs
+G:\Project\MediaPlayer\plasma-seek\obj\Debug\ShowBlock.baml
+G:\Project\MediaPlayer\plasma-seek\obj\Debug\ShowBlock.g.cs

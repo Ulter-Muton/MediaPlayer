@@ -28,10 +28,10 @@ namespace plasma_seek {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    public partial class MainWindow : Window {
+    public partial class voidSTheMusic : Window {
 
 
-        public MainWindow() {
+        public voidSTheMusic() {
 
             InitializeComponent();
 
@@ -156,7 +156,13 @@ namespace plasma_seek {
             //播放列表初始化
             playList = new MediaInfos();
             playListView = CollectionViewSource.GetDefaultView(playList);
+
+            //增加查找结果点击事件处理
+            ShowResaultpanel.AddHandler(Border.MouseDownEvent, new RoutedEventHandler(SelectedTheMusic));
+            
         }
+
+
 
         /// <summary>
         /// 获取文件夹里面的音乐
@@ -250,6 +256,7 @@ namespace plasma_seek {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SongListItem_DoubleClick(object sender, MouseButtonEventArgs e) {
+            
             MediaInfo info = songList.SelectedValue as MediaInfo;
             mediasListView.MoveCurrentTo(info);
             ControlButtonIntinial();
@@ -287,6 +294,5 @@ namespace plasma_seek {
             }
         }
 
-       
     }
 }

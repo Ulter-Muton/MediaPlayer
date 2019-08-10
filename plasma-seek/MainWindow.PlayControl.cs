@@ -29,7 +29,7 @@ namespace plasma_seek {
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     /// 
-    public partial class MainWindow : Window, INotifyPropertyChanged {
+    public partial class voidSTheMusic : Window, INotifyPropertyChanged {
         #region 变量
         //========依赖属性,用来数据绑定
         public static readonly DependencyProperty IsRecycleProperty;
@@ -40,10 +40,10 @@ namespace plasma_seek {
         #endregion
 
         #region 静态构造器
-        static MainWindow() {
-            IsRecycleProperty = DependencyProperty.Register("IsRecycle", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
-            IsRandomProperty = DependencyProperty.Register("IsRandom", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
-            SingleRecycleProperty = DependencyProperty.Register("SingleRecycle", typeof(bool), typeof(MainWindow), new PropertyMetadata(false));
+        static voidSTheMusic() {
+            IsRecycleProperty = DependencyProperty.Register("IsRecycle", typeof(bool), typeof(voidSTheMusic), new PropertyMetadata(false));
+            IsRandomProperty = DependencyProperty.Register("IsRandom", typeof(bool), typeof(voidSTheMusic), new PropertyMetadata(false));
+            SingleRecycleProperty = DependencyProperty.Register("SingleRecycle", typeof(bool), typeof(voidSTheMusic), new PropertyMetadata(false));
         }
         #endregion
 

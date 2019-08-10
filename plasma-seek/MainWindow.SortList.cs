@@ -7,7 +7,7 @@ using System.Windows.Input;
 using System.ComponentModel;
 
 namespace plasma_seek {
-    partial class MainWindow {
+    partial class voidSTheMusic {
         private void FavoriteItem_Click(object sender, MouseButtonEventArgs e) {
             mediasListView.SortDescriptions.Clear();//清空排序历史
             //第一排序
