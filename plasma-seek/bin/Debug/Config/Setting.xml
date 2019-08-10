@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<PlayerSetting xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <AudioIndex>0</AudioIndex>
+  <IsRandom>false</IsRandom>
+  <IsRecycle>false</IsRecycle>
+  <IsSIngleRecycle>false</IsSIngleRecycle>
+  <Volumn>0.46279069767441755</Volumn>
+  <IsFirstUsing>false</IsFirstUsing>
+</PlayerSetting>

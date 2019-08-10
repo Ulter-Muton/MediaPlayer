@@ -1,4 +1,4 @@
-﻿using ID3;
+﻿
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -37,6 +37,8 @@ namespace plasma_seek {
         public static readonly DependencyProperty SingleRecycleProperty;
 
         public event PropertyChangedEventHandler PropertyChanged;//用于数据绑定,当属性改变时,调用事件处理器
+
+
         #endregion
 
         #region 静态构造器
@@ -214,12 +216,12 @@ namespace plasma_seek {
 
                     audio.Play();
 
-                    currentSongImage.Source = info.GetImage();//显示专辑封面
-                    currentSongAlbum.Text = info.Album;
-                    currentSongArtist.Text = info.Artist;
-                    currentSongGenur.Text = info.Gener;
-                    currentSongTitle.Text = info.Title;
-
+                    //currentSongImage.Source = info.GetImage();//显示专辑封面
+                    //currentSongAlbum.Text = info.Album;
+                    //currentSongArtist.Text = info.Artist;
+                    //currentSongGenur.Text = info.Gener;
+                    //currentSongTitle.Text = info.Title;
+                    CurrentMusicDisplay(info);
                     loveMusic.IsChecked = mediaInfos[mediasListView.CurrentPosition].IsFavorite;//显示这首音乐是否是喜爱的
                     //watcher.Media = audio;
                     //timeLineSplier.Maximum = audio.NaturalDuration.TimeSpan.TotalMilliseconds;//设置音乐控制条的最大位置
@@ -233,6 +235,21 @@ namespace plasma_seek {
             } catch (Exception) {
                 throw;
             }
+        }
+
+        /// <summary>
+        /// 为当前播放面板设置各种信息
+        /// </summary>
+        /// <param name="info"></param>
+        private void CurrentMusicDisplay(MediaInfo info) {
+            if (info!=null) {
+                currentSongImage.Source = info.GetImage();//显示专辑封面
+                currentSongAlbum.Text = info.Album;
+                currentSongArtist.Text = info.Artist;
+                currentSongGenur.Text = info.Gener;
+                currentSongTitle.Text = info.Title;
+            }
+            
         }
         /// <summary>
         /// 播放音乐的异步实现

@@ -90,6 +90,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DateConvertor\HasItemsToBoolConvertor.cs" />
     <Compile Include="DateConvertor\ToggleButtonCheckedVisibilityConvertor.cs" />
     <Compile Include="MainWindow.PlayControl.cs" />
     <Compile Include="DateConvertor\BitmapImageToILixtConvertor.cs" />
@@ -105,6 +106,7 @@
       <DependentUpon>MyTreeViewItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="PersionalClass\AudioPositionWatcher.cs" />
+    <Compile Include="PlayerSetting.cs" />
     <Compile Include="ShowBlock.xaml.cs">
       <DependentUpon>ShowBlock.xaml</DependentUpon>
     </Compile>

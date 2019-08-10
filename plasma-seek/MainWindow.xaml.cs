@@ -35,17 +35,20 @@ namespace plasma_seek {
 
             InitializeComponent();
 
+
             //=============================================
             //获取软件的运行目录
             _solfWarePath = Directory.GetCurrentDirectory();
             _configPath = System.IO.Path.Combine(_solfWarePath, "Config");
             _SongListXmlPath = System.IO.Path.Combine(_configPath, "SongList.xml");
             _FolderPath = System.IO.Path.Combine(_configPath, "PathList.xml");
+            _SettingFile = System.IO.Path.Combine(_configPath, "Setting.xml");
             //创建路径
             //Directory.CreateDirectory(_configPath);
             _currentSongInfo = null;
             MediaElementInitialization();
             InitializationAllSetting();
+            LoadlastTimeOpenSetting();
         }
 
         #region 变量
@@ -55,6 +58,7 @@ namespace plasma_seek {
         private string _configPath;//各种设置信息路径
         private string _SongListXmlPath;//歌曲列表文件路径
         private string _FolderPath;//歌曲文件夹列表路径
+        private string _SettingFile;//设置记录文件
         //private string _favoriteSongPath;//最爱歌曲记录文件路径
 
         private MediaInfos mediaInfos;//歌曲信息列表S
@@ -62,6 +66,7 @@ namespace plasma_seek {
         private Track _currentSongInfo;//当前歌曲信息
         private SongFolderRecoders _folderRecoerds;//路径文件夹列表
                                                    //private FavoriteSongs favorites//最喜爱列表
+        PlayerSetting setting;//记录设置的类
 
         private bool isAudioPlay;//记录音乐播放状态
         private System.ComponentModel.ICollectionView mediasListView;
@@ -77,6 +82,7 @@ namespace plasma_seek {
 
         #region 属性
         //属性
+        public string SettingFilePath { get => _SettingFile; }
         public string ConfigPath { get => _configPath; }
         public string SongListXmlPath { get => _SongListXmlPath; }
         public string FolderPath { get => _FolderPath; }
@@ -90,6 +96,39 @@ namespace plasma_seek {
         //public string  FavoriteSongPath { get => _favoriteSongPath; }
         //====================================================
         #endregion
+
+        private void LoadlastTimeOpenSetting() {
+            //将播放器设置为上次关闭一致
+
+            if (File.Exists(SettingFilePath)) {
+                setting = PlayerSetting.LoadFromXml(SettingFilePath) as PlayerSetting;
+            } else {
+                setting = new PlayerSetting();
+            }
+
+            if (setting.IsFirstUsing) {
+                //初次使用显示提示
+                firstTimeTipe.Visibility = Visibility.Visible;
+            } else {
+                //非初次使用不做提示
+                firstTimeTipe.Visibility = Visibility.Collapsed;
+                //播放面板和列表设置
+                if (mediaInfos.Count > 0) {
+                    CurrentMusicDisplay(mediaInfos[setting.AudioIndex]);
+                    songList.SelectedItem = mediaInfos[setting.AudioIndex];
+                    songList.ScrollIntoView(mediaInfos[setting.AudioIndex]);
+                }
+
+                //各种状态按钮
+                IsRandom = setting.IsRandom;
+                IsRecycle = setting.IsRecycle;
+                SingleRecycle = setting.IsSIngleRecycle;
+
+                //音量
+                volum.Value = setting.Volumn;
+            }
+            
+        }
         /// <summary>
         /// 初始化播放器
         /// </summary>
@@ -102,7 +141,7 @@ namespace plasma_seek {
             watcher = new AudioPositionWatcher();
             currentTimeLabel.DataContext = watcher;
             timeLineSplier.DataContext = watcher;
-            
+
             //panel.Children.Add(audio);
         }
 
@@ -159,7 +198,7 @@ namespace plasma_seek {
 
             //增加查找结果点击事件处理
             ShowResaultpanel.AddHandler(Border.MouseDownEvent, new RoutedEventHandler(SelectedTheMusic));
-            
+
         }
 
 
@@ -173,7 +212,7 @@ namespace plasma_seek {
             CommonOpenFileDialog getFolder = new CommonOpenFileDialog();
             //FolderBrowserDialog getFolder = new FolderBrowserDialog();
 
-            if (FolderRecorders.Count>0) {
+            if (FolderRecorders.Count > 0) {
                 //如果已经有了路径
                 getFolder.DefaultDirectory = FolderRecorders[0].Path;
             }
@@ -256,7 +295,7 @@ namespace plasma_seek {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void SongListItem_DoubleClick(object sender, MouseButtonEventArgs e) {
-            
+
             MediaInfo info = songList.SelectedValue as MediaInfo;
             mediasListView.MoveCurrentTo(info);
             ControlButtonIntinial();
@@ -282,7 +321,7 @@ namespace plasma_seek {
 
             if (openfile.ShowDialog().GetValueOrDefault()) {
                 Track music = new Track(openfile.FileName, false);
-                if (music!=null) {
+                if (music != null) {
                     MediaInfo info = new MediaInfo(music);
                     if (mediaInfos.HaveItem(info)) {
                         //do nothing
@@ -293,6 +332,33 @@ namespace plasma_seek {
                 }
             }
         }
+        /// <summary>
+        /// 设置关闭播放器前处理各种需要储存的数据
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnClosing(CancelEventArgs e) {
+            MessageBoxResult result =
+                MessageBox.Show("想要关闭播放器吗?", "", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes) {
+                //关闭前记录各种信息
+                //检查当前位置是不是-1,如果是就设置为0;
+                setting.AudioIndex = mediasListView.CurrentPosition==-1? 0: mediasListView.CurrentPosition;
+                setting.IsRandom = this.IsRandom;
+                setting.IsRecycle = this.IsRecycle;
+                setting.IsSIngleRecycle = this.SingleRecycle;
+                setting.Volumn = volum.Value;
+                setting.SaveToXml(SettingFilePath);
+                e.Cancel = false;
 
+            } else {
+                e.Cancel = true;
+            }
+            base.OnClosing(e);
+        }
+
+        private void IKnow_OnClick(object sender, RoutedEventArgs e) {
+            firstTimeTipe.Visibility = Visibility.Collapsed;
+            setting.IsFirstUsing = false;
+        }
     }
 }

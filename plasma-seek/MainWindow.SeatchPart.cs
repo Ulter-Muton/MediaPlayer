@@ -89,6 +89,7 @@ namespace plasma_seek {
                     if (item.Title == block.Text) {
                         //对比歌曲标题
                         songList.SelectedItem = item;
+                        songList.ScrollIntoView(item);
                     }
                 }
                 e.Handled = true;

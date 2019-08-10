@@ -279,6 +279,8 @@
             <Setter Property="FontSize" Value="14"/>
         </Style>
 
+        <dateConvertor:HasItemsToBoolConvertor x:Key="hasToBool"/>
+
     </Window.Resources>
 
     <Grid ShowGridLines="false">
@@ -290,9 +292,9 @@
             <RowDefinition Height="58"/>
         </Grid.RowDefinitions>
 
-        <Border Background="#1ee3cf" CornerRadius="5">
+        <Border Background="#1ee3cf" CornerRadius="5" Width="100" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal" Margin="2">
-                <Image Source="/图标.ico" Stretch="Fill" Width="36" Height="36"/>
+                <!--<Image Source="/图标.ico" Stretch="Fill" Width="36" Height="36" Visibility="Collapsed"/>-->
                 <Label Content="音乐播放器" Style="{DynamicResource ResourceKey=fontShowStyle}" 
                        FontSize="18" Foreground="White"/>
             </StackPanel>
@@ -317,15 +319,21 @@
                 <!--播放列表-->
 
 
-                <TreeView Grid.Row="1" Background="#dadada" Margin="4">
+                <TreeView Grid.Row="1" Background="#dadada" Margin="4" >
+
                     <TreeView.Template>
                         <ControlTemplate TargetType="TreeView">
-                            <Border Background="{TemplateBinding Background}" 
+                            <Border Name="root" Background="{TemplateBinding Background}" 
                                     Width="{TemplateBinding Width}"
                                     Height="{TemplateBinding Height}"
                                     CornerRadius="10">
                                 <ItemsPresenter/>
                             </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Control.IsEnabled" Value="false">
+                                    <Setter TargetName="root" Property="Background" Value="#525252"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
                         </ControlTemplate>
                     </TreeView.Template>
                     <!--<TreeView.Style>
@@ -361,7 +369,7 @@
                             </Setter>
                         </Style>
                     </TreeView.Style>-->
-                    <local:MyTreeViewItem Header="所有音乐">
+                    <local:MyTreeViewItem Header="所有音乐"  >
                         <local:MyTreeViewItem Header="最爱" MouseDoubleClick="FavoriteItem_Click"/>
                         <local:MyTreeViewItem Header="歌手" MouseDoubleClick="ArtistItem_Click"/>
                         <local:MyTreeViewItem Header="类型" MouseDoubleClick="TypeItem_Click"/>
@@ -666,8 +674,8 @@
             <Canvas.Resources>
                 <dateConvertor:ToggleButtonCheckedVisibilityConvertor x:Key="ischeckedConvertor"/>
             </Canvas.Resources>
-            
-            
+
+
             <Grid Canvas.Left="80" LostFocus="SearchToolLostFocus">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="40"/>
@@ -734,17 +742,22 @@
                             Margin="{TemplateBinding Padding}"
                             CornerRadius="5" Name="okButton" >
                                 <Grid>
-                                    <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <ContentPresenter HorizontalAlignment="Center" 
+                                                          VerticalAlignment="Center"/>
                                 </Grid>
                             </Border>
                         </ControlTemplate>
                     </Button.Template>
-                    
+
                     OK
                 </Button>
-                <StackPanel Name="ShowResaultpanel" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2" />
-
-
+                <ScrollViewer Width="390" Height="280" Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="2"
+                              VerticalScrollBarVisibility="Hidden" Visibility="{Binding ElementName=toggle, Path=IsChecked, 
+                    Converter={StaticResource ischeckedConvertor}}">
+                    <StackPanel Width="284" Height="auto" Background="#00000000" Name="ShowResaultpanel" Visibility="{Binding ElementName=toggle, Path=IsChecked, 
+                    Converter={StaticResource ischeckedConvertor}}" />
+                </ScrollViewer>
+ 
             </Grid>
         </Canvas>
         <!--</Grid>-->
@@ -954,5 +967,43 @@
         <Slider x:Name="volum" Minimum="0" Maximum="1" Value="0.5" Width="100"
                     ValueChanged="VolumChangeEvent" Template="{StaticResource silderTemplate}"/>
     </StackPanel>
+
+
+    <!--初次登录用来提示的面板-->
+    <Grid Grid.RowSpan="3" Name="firstTimeTipe" Visibility="Collapsed">
+        <Border Background="#66dadada"
+                Width="{Binding ElementName=myWin, Path=ActualWidth}"
+                Height="{Binding ElementName=myWin, Path=ActualHeight}">
+            <Canvas>
+                <Grid Canvas.Left="210" Canvas.Top="70">
+                    <Polygon Points="5,0 50,45 45,50 0,5" Fill="#614ad3" />
+                    <Polygon Points="0,0 20,0 0,20" Fill="#614ad3" />
+                </Grid>
+                <TextBlock Text="初次打开请导入音频文件夹或者音频文件" Canvas.Left="200" Canvas.Top="120" 
+                           FontSize="20" Foreground="#e42c64" FontFamily="Console"/>
+                <Button Width="50" Height="25" Canvas.Left="500" Canvas.Top="150"
+                        Click="IKnow_OnClick">
+                    <Button.Template>
+                        <ControlTemplate>
+                            <Border Width="{TemplateBinding Width}"
+                                    Height="{TemplateBinding Height}"
+                                    BorderBrush="#614ad3" >
+                                <TextBlock Name="textblock" Text="OK" 
+                                           HorizontalAlignment="Center" VerticalAlignment="Center"
+                                           FontSize="20"/>
+                            </Border>
+                            <ControlTemplate.Triggers>
+                                <Trigger Property="Button.IsMouseOver" Value="true">
+                                    <Setter TargetName="textblock" Property="FontSize" Value="22"/>
+                                </Trigger>
+                            </ControlTemplate.Triggers>
+                        </ControlTemplate>
+                    </Button.Template>
+                    知道了
+                </Button>
+            </Canvas>
+        </Border>
     </Grid>
+    </Grid>
+
 </Window>
