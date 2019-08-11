@@ -7,8 +7,8 @@
 <h2>项目明细</h2>
 <p style="text-indent:-2em;padding:2em">项目结构
 	<pre>
-	<ul>plasma-seek============================================项目名称
-		<ul>DateConvertor======================================数据转换相关类,用于数据绑定过程的数据之间的转换
+	plasma-seek============================================项目名称
+		DateConvertor======================================数据转换相关类,用于数据绑定过程的数据之间的转换
 			BitmapImageToILixtConvertor.cs=================图像的byte[]信息转换成位图
 			SliderIsEnabledConvertor.cs====================返回true/false来设置滚动条是否可用
 			StringtoSecondConvertor.cs=====================将00:00格式的字符串转换为秒
@@ -16,10 +16,8 @@
 			TimeSpanToDoubleConvertor.cs===================将时间转换成double类
 			ToggleButtonCheckedVisibilityConvertor.cs======判断数据返回true/false,控制控件是否可见
 		Images=============================================图像文件夹
-
 		MyException========================================自定义异常
-			CannotConverterException.cs</li>
-
+			CannotConverterException.cs================转换失败时抛出,可附带信息
 		PersinalClass======================================需要用到的自定义类型
 			AudioPositionWatcher.cs========================作为连接Mediaelement和被绑定的element主要用来控制音乐的时间轴	
 			BaseLoadAsve.cs================================一个实现了ObservableCollection的具有xml和类之间储存和解析的方法
