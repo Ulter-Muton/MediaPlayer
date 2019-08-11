@@ -6,7 +6,7 @@
 涉及到显示的控件大都重新写模板,让界面更美观
 <h2>项目明细</h2>
 <p>项目结构
-	plasma-seek============================================项目名称
+	<ul>plasma-seek============================================项目名称
 		DateConvertor======================================数据转换相关类,用于数据绑定过程的数据之间的转换
 			BitmapImageToILixtConvertor.cs=================图像的byte[]信息转换成位图
 			SliderIsEnabledConvertor.cs====================返回true/false来设置滚动条是否可用
@@ -18,13 +18,11 @@
 		MyException========================================自定义异常
 			CannotConverterException.cs
 		PersinalClass======================================需要用到的自定义类型
-			AudioPositionWatcher.cs========================作为中间类链接Mediaelement和被绑定的element
-															主要用来控制音乐的时间轴				
-			BaseLoadAsve.cs================================一个实现了ObservableCollection的具有xml和类之间储存和解析的方法	
-			PlayList.cs	===================================表示播放列表的集合,实现了ObservableColleaction
-			PlayListItem.cs================================类型表示播放列表的其中一个item记录的数据是什么
-			SongFolderRecoders.cs==========================类表示了需要记录的信息和实现了类型和xml的相互转换
-
+			AudioPositionWatcher.cs========================作为连接Mediaelement和被绑定的element主要用来控制音乐的时间轴	
+			BaseLoadAsve.cs================================一个实现了ObservableCollection的具有xml和类之间储存和解析的方法
+			PlayList.cs===================================表示播放列表的集合,实现了ObservableColleaction
+		PlayListItem.cs================================类型表示播放列表的其中一个item记录的数据是什么
+		SongFolderRecoders.cs==========================类表示了需要记录的信息和实现了类型和xml的相互转
 		App.xaml
 		App.xaml.cs
 		MainWIndow.PlayControl.cs==========================Partial类含有控制音乐播放的相关方法
@@ -47,6 +45,6 @@
 		StarStopButton.xaml================================表示开始暂停的相关按钮
 		StarStopButton.xaml.cs
 
-		图标.ico</P>
+		图标.ico<ul></p>
 <p>界面截图</P>
 <img src="https://github.com/Ulter-Muton/Pictures/blob/master/Annotation%202019-08-11%20102651.png"/>
