@@ -4,16 +4,16 @@
 winexe
 C#
 .cs
-G:\Project\MediaPlayer\plasma-seek\obj\Debug\
+G:\Project\00-Master\MediaPlayer\plasma-seek\obj\Debug\
 plasma_seek
 none
 false
 DEBUG;TRACE
-G:\Project\MediaPlayer\plasma-seek\App.xaml
+G:\Project\00-Master\MediaPlayer\plasma-seek\App.xaml
 7-1282905096
 
-31-1810315128
-19-812327092
+301407750616
+191916966229
 MySlider.xaml;MyTreeViewItem.xaml;ShowBlock.xaml;SongToggerButton.xaml;StarStopButton.xaml;MainWindow.xaml;SongDisPlayPanel.xaml;
 
 False

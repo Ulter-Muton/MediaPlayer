@@ -94,7 +94,7 @@
     <Compile Include="DateConvertor\StringtoSecondConvertor.cs" />
     <Compile Include="DateConvertor\TimeSpanFormat.cs" />
     <Compile Include="DateConvertor\TimeSpanToDoubleConvertor.cs" />
-    <Compile Include="MainWindow.SeatchPart.cs" />
+    <Compile Include="MainWindow.SearchPart.cs" />
     <Compile Include="MainWindow.SortList.cs" />
     <Compile Include="MyExceptions\CannotConverterException.cs" />
     <Compile Include="MyTreeViewItem.xaml.cs">
@@ -156,7 +156,6 @@
     <Compile Include="MediaInfos.cs" />
     <Compile Include="MyEnum.cs" />
     <Compile Include="PersionalClass\BaseLoadAsve.cs" />
-    <Compile Include="PersionalClass\MusicPlayer.cs" />
     <Compile Include="PersionalClass\PlayList.cs" />
     <Compile Include="PersionalClass\PlayListItem.cs" />
     <Compile Include="PersionalClass\SongFolderRecoder.cs" />
