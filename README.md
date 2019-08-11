@@ -4,5 +4,5 @@
 <h3>https://github.com/Zeugma440/atldotnet.git</h3>
 
 涉及到显示的控件大都重新写模板,让界面更美观
-界面截图
-<img src="https://github.com/Ulter-Muton/Pictures/blob/master/Mediaplayer-screenshot.png"/>
+<p>界面截图</P>
+<img src="https://github.com/Ulter-Muton/Pictures/blob/master/Annotation%202019-08-11%20102651.png"/>
