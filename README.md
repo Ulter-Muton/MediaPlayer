@@ -3,8 +3,8 @@
 <h2>引用的工具集</h2>
 <h3>https://github.com/Zeugma440/atldotnet.git</h3>
 
-<img src="https://github.com/Ulter-Muton/Pictures/blob/master/%E5%9B%BE%E6%A0%87.ico" alt="https://github.com/Ulter-Muton/MediaPlayer/blob/master/plasma-seek/bin/Debug/Player.zip"/>
-<h3>https://github.com/Ulter-Muton/MediaPlayer/blob/master/plasma-seek/bin/Debug/Player.zip</h>
+<img src="https://github.com/Ulter-Muton/Pictures/blob/master/%E5%9B%BE%E6%A0%87.ico" alt="图标" width="60" height="60" />
+<a href="https://github.com/Ulter-Muton/MediaPlayer/blob/master/plasma-seek/bin/Debug/Player.zip">软件在这里</a>
 涉及到显示的控件大都重新写模板,让界面更美观
 <h2>项目明细</h2>
 <p style="text-indent:-2em;padding:2em">项目结构
