@@ -5,7 +5,7 @@
 
 涉及到显示的控件大都重新写模板,让界面更美观
 <h2>项目明细</h2>
-<p>项目结构
+<p style="text-indent:-2em;padding:2em">项目结构
 	<ul>plasma-seek============================================项目名称
 		<ul>DateConvertor======================================数据转换相关类,用于数据绑定过程的数据之间的转换
 			<li>BitmapImageToILixtConvertor.cs=================图像的byte[]信息转换成位图</li>
@@ -16,12 +16,17 @@
 			<li>ToggleButtonCheckedVisibilityConvertor.cs======判断数据返回true/false,控制控件是否可见</li>
 		</ul>
 		Images=============================================图像文件夹
+		<ul>
 		MyException========================================自定义异常
-			CannotConverterException.cs
+			<Li>CannotConverterException.cs</li>
+		</ul>
+		<ul>
 		PersinalClass======================================需要用到的自定义类型
-			AudioPositionWatcher.cs========================作为连接Mediaelement和被绑定的element主要用来控制音乐的时间轴	
-			BaseLoadAsve.cs================================一个实现了ObservableCollection的具有xml和类之间储存和解析的方法
-			PlayList.cs===================================表示播放列表的集合,实现了ObservableColleaction
+			<li>AudioPositionWatcher.cs========================作为连接Mediaelement和被绑定的element主要用来控制音乐的时间轴	</li>
+			<li>BaseLoadAsve.cs================================一个实现了ObservableCollection的具有xml和类之间储存和解析的方法</li>
+			<li>PlayList.cs===================================表示播放列表的集合,实现了ObservableColleaction</li>
+		</ul>
+		
 		PlayListItem.cs================================类型表示播放列表的其中一个item记录的数据是什么
 		SongFolderRecoders.cs==========================类表示了需要记录的信息和实现了类型和xml的相互转
 		App.xaml
