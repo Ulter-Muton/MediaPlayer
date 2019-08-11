@@ -7,13 +7,14 @@
 <h2>项目明细</h2>
 <p>项目结构
 	<ul>plasma-seek============================================项目名称
-		DateConvertor======================================数据转换相关类,用于数据绑定过程的数据之间的转换
-			BitmapImageToILixtConvertor.cs=================图像的byte[]信息转换成位图
-			SliderIsEnabledConvertor.cs====================返回true/false来设置滚动条是否可用
-			StringtoSecondConvertor.cs=====================将00:00格式的字符串转换为秒
-			TimeSpanFormat.cs==============================将时间转换成00:00格式的字符串
-			TimeSpanToDoubleConvertor.cs===================将时间转换成double类
-			ToggleButtonCheckedVisibilityConvertor.cs======判断数据返回true/false,控制控件是否可见
+		<ul>DateConvertor======================================数据转换相关类,用于数据绑定过程的数据之间的转换
+			<li>BitmapImageToILixtConvertor.cs=================图像的byte[]信息转换成位图</li>
+			<li>SliderIsEnabledConvertor.cs====================返回true/false来设置滚动条是否可用</li>
+			<li>StringtoSecondConvertor.cs=====================将00:00格式的字符串转换为秒</li>
+			<li>TimeSpanFormat.cs==============================将时间转换成00:00格式的字符串</li>
+			<li>TimeSpanToDoubleConvertor.cs===================将时间转换成double类</li>
+			<li>ToggleButtonCheckedVisibilityConvertor.cs======判断数据返回true/false,控制控件是否可见</li>
+		</ul>
 		Images=============================================图像文件夹
 		MyException========================================自定义异常
 			CannotConverterException.cs
