@@ -2,7 +2,8 @@
 一个用wpf写的基础音乐播放器
 <h2>引用的工具集</h2>
 <h3>https://github.com/Zeugma440/atldotnet.git</h3>
-<h2软件</h>
+<br>
+<h2软件</h2>
 <h3>https://github.com/Ulter-Muton/MediaPlayer/blob/master/plasma-seek/bin/Debug/Player.zip</h>
 涉及到显示的控件大都重新写模板,让界面更美观
 <h2>项目明细</h2>
